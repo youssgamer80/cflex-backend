@@ -39,10 +39,14 @@ public class UsagerController {
         }
 
         @GetMapping(value="/{id}")
-        public Usager getUsager(@PathVariable Integer id) {
-
-        return usagerService.getUsager(id);
-    }
+        public ResponseEntity<Object> Get(@PathVariable int id) {
+            try {
+                Usager result = usagerService.getUsager();
+                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
     @PostMapping(value = "/addUsager")
     public ResponseEntity<Object> Post(@RequestBody Usager usager) {

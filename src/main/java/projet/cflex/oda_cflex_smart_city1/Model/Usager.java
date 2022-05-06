@@ -25,7 +25,7 @@ public class Usager {
     private String telephone;
 
     @Column(name = "statut")
-    private Boolean statut;
+    private static Boolean statut;
 
     public Integer getId() {
         return id;
@@ -59,12 +59,12 @@ public class Usager {
         this.telephone = telephone;
     }
 
-    public Boolean getStatut() {
+    public static Boolean getStatut() {
         return statut;
     }
 
     public void setStatut(Boolean statut) {
-        this.statut = statut;
+        Usager.statut = statut;
     }
 
 }

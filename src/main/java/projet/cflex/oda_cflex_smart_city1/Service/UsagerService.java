@@ -34,7 +34,7 @@ public class UsagerService {
         return usagerRepository.save(usager);
     }
 
-    public Usager getUsager(Integer id) {
+    public Usager getUsager() {
 
         return this.usagerRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
@@ -54,7 +54,7 @@ public class UsagerService {
 
         Usager existingUsager = this.usagerRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
-		 existingUsager.setStatut(usager.getStatut());
+		 existingUsager.setStatut(Usager.getStatut());
 		 return usagerRepository.save(existingUsager);
     }
 
