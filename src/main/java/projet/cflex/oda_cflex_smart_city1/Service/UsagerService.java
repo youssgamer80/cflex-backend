@@ -2,13 +2,10 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Usager;
 import projet.cflex.oda_cflex_smart_city1.Repository.UsagerRepository;
