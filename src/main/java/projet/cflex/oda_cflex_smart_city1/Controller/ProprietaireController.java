@@ -65,7 +65,7 @@ public class ProprietaireController {
     @ResponseBody
     public String modifproprietaire(@PathVariable("id") Integer id) {
         try{
-            Proprietaire proprietaire = editproprietaire.findOne(id)
+            editproprietaire.findOne(id)
                     .orElseThrow(() -> new IllegalArgumentException("Id invalide:" + id));
 
             return("La modification des informations du proprietaire "+id+"a été effectuée");
