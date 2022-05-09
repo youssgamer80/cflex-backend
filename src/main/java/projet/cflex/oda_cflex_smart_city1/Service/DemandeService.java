@@ -63,6 +63,13 @@ public class DemandeService {
 		 existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
 		 return demandeRepository.save(existingDemande);
     }
+	public Demande annuleDemande(Integer id, Demande demande) {
+
+        Demande existingDemande = this.demandeRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
+		 existingDemande.setEtat(demande.getEtat());
+		 return demandeRepository.save(existingDemande);
+    }
 
     public Demande deleteDemande(Integer id) {
 

@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
+import projet.cflex.oda_cflex_smart_city1.Repository.DemandeRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
@@ -82,6 +84,22 @@ public class DemandeController {
         }
     
     }
+    @PutMapping(value = "/annuleDemande/{id}")
+      /** Permet d'annuler une demande
+   * @return l'annulation d'une demande
+    */
+    @ResponseBody
+    public ResponseEntity<Object> AnnulePut(@RequestBody Demande demande, @PathVariable Integer id) {
+        
+        try{
+            Demande result = demandeService.annuleDemande(id, demande);
+            return ResponseHandler.generateResponse("Demande annulé!", HttpStatus.OK, result);
+        }catch(Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+    
+    }
+
 
     @DeleteMapping(value = "/deleteDemande/{id}")
         /** Faire la suppression d'une demande
@@ -97,6 +115,4 @@ public class DemandeController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
-
-
 }
