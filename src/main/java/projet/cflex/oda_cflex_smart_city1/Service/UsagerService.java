@@ -15,13 +15,13 @@ public class UsagerService {
 
     @Autowired
     public UsagerRepository usagerRepository;
-    private Integer id;
+    private Boolean statut=true;
 
     public List<Usager> getAllUsagers() {
         
         List<Usager> usagers = new ArrayList<>();
 
-        usagerRepository.findAll().forEach(usagers::add);
+        usagerRepository.findByStatutJPQL(statut).forEach(usagers::add);
 
         return usagers;
     }
@@ -31,7 +31,7 @@ public class UsagerService {
         return usagerRepository.save(usager);
     }
 
-    public Usager getUsager() {
+    public Usager getUsager(int id) {
 
         return this.usagerRepository.findById(id)
         .orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
@@ -41,17 +41,30 @@ public class UsagerService {
 
         Usager existingUsager = this.usagerRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
-		 existingUsager.setNom(usager.getNom());
-		 existingUsager.setPrenom(usager.getPrenom());
-		 existingUsager.setTelephone(usager.getTelephone());
-		 return usagerRepository.save(existingUsager);
+        if(usager.getNom()!=null){
+             existingUsager.setNom(usager.getNom());
+        }
+
+		if(usager.getPrenom()!=null){
+             existingUsager.setPrenom(usager.getPrenom());
+       }
+
+       if(usager.getTelephone()!=null){
+        existingUsager.setTelephone(usager.getTelephone());
+       }
+
+       if(usager.getStatut()!=null){
+        existingUsager.setStatut(usager.getStatut());
+   }
+
+		return usagerRepository.save(existingUsager);
     }
 
-    public Usager deleteUsager(Integer id) {
+    public Usager deleteUsager(Integer id, Usager usager) {
 
         Usager existingUsager = this.usagerRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
-		 existingUsager.setStatut(Usager.getStatut());
+		 existingUsager.setStatut(usager.getStatut());
 		 return usagerRepository.save(existingUsager);
     }
 

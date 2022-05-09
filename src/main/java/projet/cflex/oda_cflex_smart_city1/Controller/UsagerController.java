@@ -37,7 +37,7 @@ public class UsagerController {
         @GetMapping(value="/{id}")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Usager result = usagerService.getUsager();
+                Usager result = usagerService.getUsager(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -67,11 +67,10 @@ public class UsagerController {
     }
 
     @DeleteMapping(value = "/deleteUsager/{id}")
-    public ResponseEntity<Object> Delete(@PathVariable Integer id, Usager usager) {
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
        
         try{
-
-            Usager result = usagerService.deleteUsager(id);
+            Usager result = usagerService.deleteUsager(id,usager);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
