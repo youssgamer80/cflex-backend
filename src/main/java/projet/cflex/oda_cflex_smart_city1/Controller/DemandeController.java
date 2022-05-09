@@ -14,20 +14,28 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import projet.cflex.oda_cflex_smart_city1.Model.Usager;
-import projet.cflex.oda_cflex_smart_city1.Service.UsagerService;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import projet.cflex.oda_cflex_smart_city1.Model.Demande;
+import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@RequestMapping("/api/usagers")
-public class UsagerController {
+@RequestMapping("/api/demandes")
+/**
+ *le controller de l'entité demande
+  */
+  @Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
+public class DemandeController {
 
     @Autowired
-    private UsagerService usagerService;
+    private DemandeService demandeService;
     @GetMapping
+   /** Optenir la liste des demandes
+   * @return la liste des demandes
+    */
         public ResponseEntity<Object> Get() {
             try {
-                List<Usager> result = usagerService.getAllUsagers();
+                List<Demande> result = demandeService.getAllDemandes();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -35,30 +43,39 @@ public class UsagerController {
         }
 
         @GetMapping(value="/{id}")
+          /** Optenir les informations d'une demande
+   * @return les informations d'une demande
+    */
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Usager result = usagerService.getUsager(id);
+                Demande result = demandeService.getDemande();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
             }
         }
 
-    @PostMapping(value = "/addUsager")
-    public ResponseEntity<Object> Post(@RequestBody Usager usager) {
+    @PostMapping(value = "/addDemande")
+      /** Faire l'enregistrement d'une demande
+   * @return l'ajout d'une demande
+    */
+    public ResponseEntity<Object> Post(@RequestBody Demande demande) {
         try {
-            Usager result = usagerService.addUsager(usager);
+            Demande result = demandeService.addDemande(demande);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
 
-    @PutMapping(value = "/updateUsager/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Usager usager, @PathVariable Integer id) {
+    @PutMapping(value = "/updateDemande/{id}")
+      /** Faire la mise à jour d'une demande
+   * @return la modification d'une demande
+    */
+    public ResponseEntity<Object> Put(@RequestBody Demande demande, @PathVariable Integer id) {
         
         try{
-            Usager result = usagerService.updateUsager(id, usager);
+            Demande result = demandeService.updateDemande(id, demande);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
@@ -66,11 +83,15 @@ public class UsagerController {
     
     }
 
-    @DeleteMapping(value = "/deleteUsager/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
+    @DeleteMapping(value = "/deleteDemande/{id}")
+        /** Faire la suppression d'une demande
+   * @return la suppression d'une demande
+    */    
+    public ResponseEntity<Object> Delete(@PathVariable Integer id, Demande demande) {
        
         try{
-            Usager result = usagerService.deleteUsager(id, usager);
+
+            Demande result = demandeService.deleteDemande(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);

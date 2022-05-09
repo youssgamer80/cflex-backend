@@ -12,7 +12,7 @@ public class Demande {
     private Integer id;
 
     @Column(name = "libelle")
-    private String libelle;
+    private static String libelle;
 
     @Column(name = "etat")
     private Boolean etat;
@@ -79,12 +79,12 @@ public class Demande {
         this.id = id;
     }
 
-    public String getLibelle() {
+    public static String getLibelle() {
         return libelle;
     }
 
     public void setLibelle(String libelle) {
-        this.libelle = libelle;
+        Demande.libelle = libelle;
     }
 
     public Boolean getEtat() {
