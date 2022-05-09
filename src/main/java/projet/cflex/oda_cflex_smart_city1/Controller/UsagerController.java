@@ -1,7 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Usager;
@@ -41,7 +39,7 @@ public class UsagerController {
         @GetMapping(value="/{id}")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Usager result = usagerService.getUsager();
+                Usager result = usagerService.getUsager(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -71,12 +69,11 @@ public class UsagerController {
     }
 
     @DeleteMapping(value = "/deleteUsager/{id}")
-    public ResponseEntity<Object> Delete(@PathVariable Integer id, Usager usager) {
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
        
         this.usager = usager;
         try{
-
-            Usager result = usagerService.deleteUsager(id);
+            Usager result = usagerService.deleteUsager(id, usager);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
