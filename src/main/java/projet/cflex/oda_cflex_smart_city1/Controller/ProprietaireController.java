@@ -37,7 +37,7 @@ public class ProprietaireController {
         }
     }
 
-    @PostMapping(value = "/addproprio")
+    @PostMapping("/addproprio")
     public String addProprio(@ModelAttribute("proprio")@Validated Proprietaire proprietaire, BindingResult bindingResult){
         proprietaireService.save(proprietaire);
         return ("Le proprietaire a été ajouté avec succès");
@@ -50,14 +50,14 @@ public class ProprietaireController {
         return ("Le propriétaire  "+id+" a été supprimé avec succès");
     }
 
-    @PostMapping("/modifproprio/{id}")
+    @PutMapping("/modifproprio/{id}")
     @ResponseBody
     public String modifproprietaire(@PathVariable("id") Integer id) {
         try{
             proprietaireService.findOne(id)
                     .orElseThrow(() -> new IllegalArgumentException("Id invalide:" + id));
 
-            return("La modification des informations du proprietaire "+id+"a été effectuée");
+            return("La modification des informations du proprietaire "+id+" a été effectuée");
         }
         catch (Exception e){
             return ("L'id n'existe pas");
