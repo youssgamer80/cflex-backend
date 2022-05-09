@@ -1,6 +1,8 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
+import org.springframework.transaction.annotation.Transactional;
 import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.ProprietaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
@@ -11,10 +13,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@Transactional
 public class ProprietaireController {
     @Autowired
     ProprietaireService proprietaireService;
-
+    @Autowired
+    ProprietaireRepository proprietaireRepository;
     @GetMapping("/listeproprietaire")
     @ResponseBody
     public List<Proprietaire> ListeProprio(ModelMap modelMap){
@@ -37,8 +41,10 @@ public class ProprietaireController {
         }
     }
 
+    @ResponseBody
     @PostMapping(value = "/addproprio")
-    public String addProprio(@ModelAttribute("proprio")@Validated Proprietaire proprietaire, BindingResult bindingResult){
+    public String addProprio(@ModelAttribute("proprio")@Validated Proprietaire proprietaire, BindingResult bindingResult, ModelMap modelMap){
+        modelMap.addAttribute("proprio",proprietaire);
         proprietaireService.save(proprietaire);
         return ("Le proprietaire a été ajouté avec succès");
     }
