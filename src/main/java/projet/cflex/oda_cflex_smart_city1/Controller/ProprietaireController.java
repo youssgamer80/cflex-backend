@@ -50,7 +50,7 @@ public class ProprietaireController {
         return ("Le propriétaire  "+id+" a été supprimé avec succès");
     }
 
-    @PostMapping("/modifproprio/{id}")
+    @PutMapping("/modifproprio/{id}")
     @ResponseBody
     public String modifproprietaire(@PathVariable("id") Integer id) {
         try{
