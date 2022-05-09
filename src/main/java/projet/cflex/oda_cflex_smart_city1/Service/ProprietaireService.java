@@ -21,11 +21,7 @@ public class ProprietaireService {
     public Optional<Proprietaire> findOne(Integer id){
         return  proprietaireRepository.findById(id);
     }
-    public Proprietaire majproprio(Integer id, Proprietaire proprietaire){
-        Proprietaire existproprio = this.proprietaireRepository.findById(id).
-                orElseThrow(()->new ResourceNotFoundException("Le proprietaire N°"+id+"n/'existe pas"));
-        return this.proprietaireRepository.save(existproprio);
-    }
+
     public void delete(Integer id){
         proprietaireRepository.deleteById(id);
     }
