@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
@@ -23,6 +24,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 /**
  *le controller de l'entité demande
   */
+  @Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
 public class DemandeController {
 
     @Autowired
