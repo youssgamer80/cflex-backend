@@ -15,7 +15,6 @@ public class UsagerService {
 
     @Autowired
     public UsagerRepository usagerRepository;
-    private Integer id;
     private Boolean statut=true;
 
     public List<Usager> getAllUsagers() {

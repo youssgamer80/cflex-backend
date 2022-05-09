@@ -70,7 +70,7 @@ public class UsagerController {
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
        
         try{
-            Usager result = usagerService.deleteUsager(id, usager);
+            Usager result = usagerService.deleteUsager(id,usager);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
