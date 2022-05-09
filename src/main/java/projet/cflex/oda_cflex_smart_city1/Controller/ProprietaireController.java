@@ -1,7 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
-import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.ProprietaireService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
