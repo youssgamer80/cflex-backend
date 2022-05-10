@@ -12,31 +12,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import projet.cflex.oda_cflex_smart_city1.Model.Demande;
-import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Service.TypeTransportService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-@RestController // This means that this class is a Controller
-@RequestMapping("/api/demandes")
-/**
- *le controller de l'entité demande
-  */
-  @Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
-public class DemandeController {
+@RestController    
+@RequestMapping("/api/typetransport")
+public class TypeTransportController {
 
     @Autowired
-    private DemandeService demandeService;
+    private TypeTransportService typeTransportService;
     @GetMapping
-   /** Optenir la liste des demandes
-   * @return la liste des demandes
-    */
         public ResponseEntity<Object> Get() {
             try {
-                List<Demande> result = demandeService.getAllDemandes();
+                List<TypeTransport> result = typeTransportService.getAllTypeTransports();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -44,74 +35,47 @@ public class DemandeController {
         }
 
         @GetMapping(value="/{id}")
-          /** Optenir les informations d'une demande
-   * @return les informations d'une demande
-    */
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Demande result = demandeService.getDemande();
+                TypeTransport result = typeTransportService.getTypeTransport(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
             }
         }
 
-    @PostMapping(value = "/addDemande")
-      /** Faire l'enregistrement d'une demande
-   * @return l'ajout d'une demande
-    */
-    public ResponseEntity<Object> Post(@RequestBody Demande demande) {
+    @PostMapping(value = "/addtypetransport")
+    public ResponseEntity<Object> Post(@RequestBody TypeTransport typeTransport) {
         try {
-            Demande result = demandeService.addDemande(demande);
+            TypeTransport result = typeTransportService.addTypeTransport(typeTransport);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
 
-    @PutMapping(value = "/updateDemande/{id}")
-      /** Faire la mise à jour d'une demande
-   * @return la modification d'une demande
-    */
-    public ResponseEntity<Object> Put(@RequestBody Demande demande, @PathVariable Integer id) {
+    @PutMapping(value = "/updatetypetransport/{id}")
+    public ResponseEntity<Object> Put(@RequestBody TypeTransport typeTransport, @PathVariable Integer id) {
         
         try{
-            Demande result = demandeService.updateDemande(id, demande);
+            TypeTransport result = typeTransportService.updateTypeTransport(id, typeTransport);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
     
     }
-    @PutMapping(value = "/annuleDemande/{id}")
-      /** Permet d'annuler une demande
-   * @return l'annulation d'une demande
-    */
-    @ResponseBody
-    public ResponseEntity<Object> AnnulePut(@RequestBody Demande demande, @PathVariable Integer id) {
-        
-        try{
-            Demande result = demandeService.annuleDemande(id, demande);
-            return ResponseHandler.generateResponse("Demande annulé!", HttpStatus.OK, result);
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
-        }
-    
-    }
 
-
-    @DeleteMapping(value = "/deleteDemande/{id}")
-        /** Faire la suppression d'une demande
-   * @return la suppression d'une demande
-    */    
-    public ResponseEntity<Object> Delete(@PathVariable Integer id, Demande demande) {
+    @DeleteMapping(value = "/deletetypetransport/{id}")
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody TypeTransport typeTransport) {
        
         try{
-
-            Demande result = demandeService.deleteDemande(id);
+            TypeTransport result = typeTransportService.deleteTypeTransport(id,typeTransport);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
+
+
 }
