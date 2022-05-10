@@ -21,6 +21,10 @@ public class Zone {
     @JoinColumn(name = "zoneparent")
     private Zone zoneparent;
 
+    @Column(name = "statut")
+    private Boolean statut;
+
+
     public Integer getId() {
         return id;
     }
