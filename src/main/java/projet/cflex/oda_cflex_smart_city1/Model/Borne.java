@@ -16,6 +16,9 @@ public class Borne {
     @JoinColumn(name = "id_point_arret_fk")
     private PointArret idPointArretFk;
 
+    @Column(name = "statut")
+    private Boolean statut;
+
     public Integer getId() {
         return id;
     }
@@ -40,4 +43,12 @@ public class Borne {
         this.idPointArretFk = idPointArretFk;
     }
 
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut){
+
+        this.statut= statut;
+    }
 }
