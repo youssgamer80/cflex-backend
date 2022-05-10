@@ -53,4 +53,11 @@ public class Zone {
         this.zoneparent = zoneparent;
     }
 
+    public Object getStatut() {
+        return null;
+    }
+
+    public void setStatut(Object statut) {
+    }
+
 }
