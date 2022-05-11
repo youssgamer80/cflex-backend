@@ -26,4 +26,16 @@ public class BorneService {
 
         return bornes;
     }
+
+
+    public Borne addBorne(Borne borne) {
+
+        return borneRepository.save(borne);
+    }
+
+    // public Borne getBorne(int id) {
+
+    //     return this.borneRepository.findById(id)
+    //     .orElseThrow(() -> new ResourceNotFoundException("Type Transport not found with id :" + id));
+    // }
 }

@@ -6,14 +6,15 @@ import javax.persistence.*;
 @Table(name = "borne")
 public class Borne {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
     @Column(name = "libelle")
-    private Integer libelle;
+    private String libelle;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_point_arret_fk")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_point_arret_fk", nullable = false)
     private PointArret idPointArretFk;
 
     @Column(name = "statut")
@@ -27,11 +28,11 @@ public class Borne {
         this.id = id;
     }
 
-    public Integer getLibelle() {
+    public String getLibelle() {
         return libelle;
     }
 
-    public void setLibelle(Integer libelle) {
+    public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
 
