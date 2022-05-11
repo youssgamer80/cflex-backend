@@ -13,7 +13,7 @@ public class PointArret {
     @Column(name = "longitude")
     private String longitude;
 
-    @Column(name = "position", nullable = false)
+    @Column(name = "position", nullable = true)
     private String position;
 
     @Column(name = "latitude")

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Borne;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import projet.cflex.oda_cflex_smart_city1.Repository.BorneRepository;
 
 @Service
@@ -27,15 +28,16 @@ public class BorneService {
         return bornes;
     }
 
+    public Borne getBorne(int id) {
 
-    public Borne addBorne(Borne borne) {
-
-        return borneRepository.save(borne);
+        return this.borneRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
     }
 
-    // public Borne getBorne(int id) {
+    // public Borne addBorne(Borne borne) {
 
-    //     return this.borneRepository.findById(id)
-    //     .orElseThrow(() -> new ResourceNotFoundException("Type Transport not found with id :" + id));
+    //     return borneRepository.save(borne);
     // }
+
+   
 }
