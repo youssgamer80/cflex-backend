@@ -26,17 +26,20 @@ public class ZoneService {
         return ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
     }
 
-    //public Zone AddZone(Zone zone){
-        //return ZoneRepo.save(zone);
-    //}
-
-    public void save (Zone zone){ZoneRepo.save(zone);}
+    //public void save (Zone zone){ZoneRepo.save(zone);}
+    public Zone NewZone(Zone zone){
+        return ZoneRepo.save(zone);
+    }
 
 
     public Zone DeleteZone(Integer id, Zone zone){
         Zone realZone = this.ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
         realZone.setStatut(zone.getStatut());
         return ZoneRepo.save(realZone);
+    }
+
+    public Zone updateZone(Integer id, Zone zone){
+        return ZoneRepo.save(zone);
     }
 
 

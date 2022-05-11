@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.ZoneService;
@@ -26,7 +28,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 @RequestMapping("/api/zone")
 public class ZoneController {
 
-    private ZoneService ZoneServ;
+    private final ZoneService ZoneServ;
     @Autowired
     ZoneRepository zoneRepository;
 
@@ -51,20 +53,31 @@ public class ZoneController {
     }
 
     @PostMapping("/add")
-    public String addZone(@ModelAttribute("zone")@Validated Zone zone, BindingResult bindingResult){
-        ZoneServ.save(zone);
-        return ("La zone a été ajouté avec succès");
+    //public String addZone(@ModelAttribute("zone")@Validated Zone zone, BindingResult bindingResult){
+        //ZoneServ.save(zone);
+        //return ("La zone a été ajouté avec succès");
+    //}
+
+    public ResponseEntity<Object> Post (@RequestBody Zone newzone){
+        try {
+            Zone resultat = ZoneServ.NewZone(newzone);
+            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, resultat);
+        } 
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
     }
 
 
     @PutMapping("/update/{id}")
-    public String updateZone(@PathVariable("id") Integer id, @Validated Zone zone) {
+    public ResponseEntity<Object> updateZone(@PathVariable("id") Integer id, @Validated Zone zone) {
         try{
-            zoneRepository.save(zone);
-            return ("test");}
+            Zone resultat= ZoneServ.updateZone(id, zone);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, resultat);
+        }
         catch (Exception e) {
             
-            return ("id nexiste pas");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
     }
 
