@@ -1,4 +1,5 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
@@ -8,6 +9,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.util.List;
 
@@ -48,10 +50,15 @@ public class VehiculeController {
 
 
     @DeleteMapping("/suppvehicule/{id}")
-    public String suppvehicule( @PathVariable Integer id){
-        vehiculeService.delete(id);
-        return ("Le véhicule  "+id+" a été supprimé avec succès");
-    }
+    public Object suppvehicule( @PathVariable Integer id){
+        try {
+            vehiculeService.delete(id);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK);
+        }
+        catch (Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+
+    }}
 
     @PutMapping("/majvehicule/{id}")
     public String majVehicule(@PathVariable("id") Integer id, @Validated Vehicule vehicule,

@@ -108,7 +108,7 @@ public class DemandeController {
        
         try{
 
-            Demande result = demandeService.deleteDemande(id);
+            Demande result = demandeService.deleteDemande(id,demande);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);

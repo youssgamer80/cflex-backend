@@ -33,11 +33,11 @@ public class Vehicule {
     @Column(name = "nb_place")
     private Integer nbPlace;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_zone_fk", nullable = false)
     private Zone idZoneFk;
 
-    @Column(name = "carte_grise", nullable = false)
+    @Column(name = "carte_grise")
     private String carteGrise;
 
     public Integer getId() {
