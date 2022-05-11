@@ -13,10 +13,9 @@ public class TypeTransport {
     @Column(name = "libelle_type_transport")
     private String libelleTypeTransport;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
-    
     public Integer getId() {
         return id;
     }
@@ -32,7 +31,6 @@ public class TypeTransport {
     public void setLibelleTypeTransport(String libelleTypeTransport) {
         this.libelleTypeTransport = libelleTypeTransport;
     }
-    
 
     public Boolean getStatut() {
         return statut;
@@ -41,4 +39,5 @@ public class TypeTransport {
     public void setStatut(Boolean statut) {
         this.statut = statut;
     }
+
 }

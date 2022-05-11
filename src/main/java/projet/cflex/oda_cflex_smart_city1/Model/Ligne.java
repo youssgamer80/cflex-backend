@@ -27,6 +27,9 @@ public class Ligne {
     @JoinColumn(name = "id_zone_fk", nullable = false)
     private Zone idZoneFk;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -73,6 +76,14 @@ public class Ligne {
 
     public void setIdZoneFk(Zone idZoneFk) {
         this.idZoneFk = idZoneFk;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

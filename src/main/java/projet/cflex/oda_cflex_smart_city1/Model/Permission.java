@@ -13,6 +13,9 @@ public class Permission {
     @Column(name = "permission", nullable = false)
     private String permission;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -27,6 +30,14 @@ public class Permission {
 
     public void setPermission(String permission) {
         this.permission = permission;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

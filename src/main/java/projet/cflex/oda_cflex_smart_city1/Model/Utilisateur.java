@@ -20,6 +20,9 @@ public class Utilisateur {
     @JoinColumn(name = "id_role_fk", nullable = false)
     private Role idRoleFk;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -50,6 +53,14 @@ public class Utilisateur {
 
     public void setIdRoleFk(Role idRoleFk) {
         this.idRoleFk = idRoleFk;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

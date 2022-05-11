@@ -26,8 +26,8 @@ public class Emprunter {
     private Instant dateDepart;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_client_fk", nullable = false)
-    private Usager idClientFk;
+    @JoinColumn(name = "id_usager_fk", nullable = false)
+    private Usager idUsagerFk;
 
     @Column(name = "date", nullable = false)
     private Instant date;
@@ -75,12 +75,12 @@ public class Emprunter {
         this.dateDepart = dateDepart;
     }
 
-    public Usager getIdClientFk() {
-        return idClientFk;
+    public Usager getIdUsagerFk() {
+        return idUsagerFk;
     }
 
-    public void setIdClientFk(Usager idClientFk) {
-        this.idClientFk = idClientFk;
+    public void setIdUsagerFk(Usager idUsagerFk) {
+        this.idUsagerFk = idUsagerFk;
     }
 
     public Instant getDate() {

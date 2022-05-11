@@ -19,8 +19,8 @@ public class PointArret {
     @Column(name = "latitude")
     private String latitude;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
     public Integer getId() {
         return id;

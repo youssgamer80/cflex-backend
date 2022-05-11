@@ -21,6 +21,9 @@ public class Zone {
     @JoinColumn(name = "zoneparent")
     private Zone zoneparent;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -51,6 +54,14 @@ public class Zone {
 
     public void setZoneparent(Zone zoneparent) {
         this.zoneparent = zoneparent;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

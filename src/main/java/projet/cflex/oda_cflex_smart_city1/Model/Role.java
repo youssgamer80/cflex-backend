@@ -1,11 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "role")
@@ -17,6 +12,9 @@ public class Role {
 
     @Column(name = "role", nullable = false)
     private String role;
+
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
     public Integer getId() {
         return id;
@@ -32,6 +30,14 @@ public class Role {
 
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

@@ -28,8 +28,11 @@ public class Chauffeur {
     @Column(name = "telephone", length = 10)
     private String telephone;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
+    @Column(name = "genre", nullable = false, length = 2)
+    private String genre;
 
     public Integer getId() {
         return id;
@@ -93,6 +96,14 @@ public class Chauffeur {
 
     public void setStatut(Boolean statut) {
         this.statut = statut;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
     }
 
 }

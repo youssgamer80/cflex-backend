@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 04 mai 2022 à 17:56
+-- Généré le : mer. 11 mai 2022 à 13:02
 -- Version du serveur : 8.0.27
 -- Version de PHP : 7.4.26
 
@@ -62,9 +62,10 @@ CREATE TABLE IF NOT EXISTS `avoir` (
 
 DROP TABLE IF EXISTS `borne`;
 CREATE TABLE IF NOT EXISTS `borne` (
-  `id` int NOT NULL,
-  `libelle` int DEFAULT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
+  `libelle` varchar(255) NOT NULL,
   `id_point_arret_fk` int UNSIGNED DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `borne_id_uindex` (`id`),
   KEY `borne-point_arret_fk` (`id_point_arret_fk`)
@@ -85,23 +86,8 @@ CREATE TABLE IF NOT EXISTS `chauffeur` (
   `permis` varchar(255) DEFAULT NULL,
   `taux_commission` double DEFAULT NULL,
   `telephone` varchar(10) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-
--- --------------------------------------------------------
-
---
--- Structure de la table `client`
---
-
-DROP TABLE IF EXISTS `client`;
-CREATE TABLE IF NOT EXISTS `client` (
-  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nom` varchar(255) DEFAULT NULL,
-  `prenom` varchar(255) DEFAULT NULL,
-  `telephone` varchar(255) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
+  `genre` varchar(2) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -152,25 +138,15 @@ CREATE TABLE IF NOT EXISTS `demande` (
   `etat` tinyint(1) DEFAULT NULL,
   `id_proprietaire_fk` int UNSIGNED NOT NULL,
   `date` datetime NOT NULL,
-  `nom` varchar(255) NOT NULL,
-  `prenom` varchar(255) NOT NULL,
-  `lieu_residence` varchar(255) NOT NULL,
-  `telephone` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `marque` varchar(255) NOT NULL,
-  `cni` varchar(255) NOT NULL,
-  `permis` varchar(255) NOT NULL,
-  `carte_grise` varchar(255) NOT NULL,
-  `assurance` varchar(255) DEFAULT NULL,
-  `immatriculation` varchar(8) NOT NULL,
-  `modele` varchar(255) NOT NULL,
   `id_type_transport_fk` int UNSIGNED NOT NULL,
-  `nbre_place` int NOT NULL,
   `zone_fk` int UNSIGNED NOT NULL,
+  `id_vehicule_fk` int UNSIGNED NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `proprietaire-demande` (`id_proprietaire_fk`),
   KEY `demande-zone_ibfk` (`zone_fk`),
-  KEY `demande-type_transport_ibfk` (`id_type_transport_fk`)
+  KEY `demande-type_transport_ibfk` (`id_type_transport_fk`),
+  KEY `demande-vehicule_ibfk` (`id_vehicule_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -182,11 +158,11 @@ CREATE TABLE IF NOT EXISTS `demande` (
 DROP TABLE IF EXISTS `demander_itineraire`;
 CREATE TABLE IF NOT EXISTS `demander_itineraire` (
   `id_itineraire_fk` int UNSIGNED NOT NULL,
-  `id_client_fk` int UNSIGNED NOT NULL,
+  `id_usager_fk` int UNSIGNED NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
-  KEY `demander-itineraire-ibfk` (`id_client_fk`),
+  KEY `demander-itineraire-ibfk` (`id_usager_fk`),
   KEY `demander-client-ibfk` (`id_itineraire_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -202,14 +178,14 @@ CREATE TABLE IF NOT EXISTS `emprunter` (
   `id_vehicule_fk` int UNSIGNED NOT NULL,
   `date_arrivee` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `date_depart` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `id_client_fk` int UNSIGNED NOT NULL,
+  `id_usager_fk` int UNSIGNED NOT NULL,
   `date` datetime NOT NULL,
   `statut` tinyint(1) NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `id_itineraire` (`id_troncon_fk`),
   KEY `id_vehicule` (`id_vehicule_fk`),
-  KEY `emprunter_ibfk3` (`id_client_fk`)
+  KEY `emprunter_ibfk3` (`id_usager_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -225,7 +201,7 @@ CREATE TABLE IF NOT EXISTS `itineraire` (
   `tarif` double DEFAULT NULL,
   `distance` int DEFAULT NULL,
   `id_trajet_fk` int UNSIGNED DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_trajet` (`id_trajet_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -244,6 +220,7 @@ CREATE TABLE IF NOT EXISTS `ligne` (
   `arrivee` varchar(255) NOT NULL,
   `id_type_transport_fk` int UNSIGNED NOT NULL,
   `id_zone_fk` int UNSIGNED NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `vehicule-ligne-ibfk` (`id_type_transport_fk`),
   KEY `ligne-zone-ibfk` (`id_zone_fk`)
@@ -273,6 +250,7 @@ DROP TABLE IF EXISTS `permission`;
 CREATE TABLE IF NOT EXISTS `permission` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `permission` varchar(255) NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -288,7 +266,7 @@ CREATE TABLE IF NOT EXISTS `point_arret` (
   `longitude` varchar(255) DEFAULT NULL,
   `position` varchar(255) NOT NULL,
   `latitude` varchar(255) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -323,10 +301,13 @@ CREATE TABLE IF NOT EXISTS `proprietaire` (
   `prenom` varchar(255) DEFAULT NULL,
   `telephone` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
-  `cni` varchar(255) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
-  `carte_grise` varchar(255) NOT NULL,
-  `permis` varchar(255) NOT NULL,
+  `piece_identite` varchar(255) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
+  `permis` varchar(255) DEFAULT NULL,
+  `genre` varchar(2) NOT NULL,
+  `date_naissance` date NOT NULL,
+  `lieu_naissance` varchar(255) NOT NULL,
+  `lieu_residence` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -340,6 +321,7 @@ DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `role` varchar(255) NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=500000001 DEFAULT CHARSET=utf8mb3;
 
@@ -347,9 +329,9 @@ CREATE TABLE IF NOT EXISTS `role` (
 -- Déchargement des données de la table `role`
 --
 
-INSERT INTO `role` (`id`, `role`) VALUES
-(100, 'azerty'),
-(500000000, '');
+INSERT INTO `role` (`id`, `role`, `statut`) VALUES
+(100, 'azerty', 0),
+(500000000, '', 0);
 
 -- --------------------------------------------------------
 
@@ -378,13 +360,14 @@ CREATE TABLE IF NOT EXISTS `stationner` (
   `id_vehicule_fk` int UNSIGNED DEFAULT NULL,
   `id_point_arret_fk` int UNSIGNED DEFAULT NULL,
   `date` datetime NOT NULL,
-  `id_client_fk` int UNSIGNED NOT NULL,
+  `id_usager_fk` int UNSIGNED NOT NULL,
   `statut` tinyint(1) NOT NULL,
+  `type_utilisateur` varchar(11) NOT NULL,
   `id` int NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`id`),
   KEY `id_vehicule` (`id_vehicule_fk`),
   KEY `id_borne` (`id_point_arret_fk`),
-  KEY `garer_ibfk3` (`id_client_fk`)
+  KEY `garer_ibfk3` (`id_usager_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
@@ -398,6 +381,7 @@ CREATE TABLE IF NOT EXISTS `trackergps` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `libelle` varchar(255) NOT NULL,
   `id_vehicule_fk` int UNSIGNED NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `gps-vehicule` (`id_vehicule_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -413,7 +397,7 @@ CREATE TABLE IF NOT EXISTS `trajet` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `depart` varchar(255) DEFAULT NULL,
   `destination` varchar(255) DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -452,6 +436,7 @@ DROP TABLE IF EXISTS `type_transport`;
 CREATE TABLE IF NOT EXISTS `type_transport` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `libelle_type_transport` varchar(255) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -465,6 +450,7 @@ DROP TABLE IF EXISTS `type_zone`;
 CREATE TABLE IF NOT EXISTS `type_zone` (
   `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
   `libelle` varchar(255) NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
 
@@ -472,11 +458,27 @@ CREATE TABLE IF NOT EXISTS `type_zone` (
 -- Déchargement des données de la table `type_zone`
 --
 
-INSERT INTO `type_zone` (`id`, `libelle`) VALUES
-(1, 'ville'),
-(2, 'region'),
-(3, 'commune'),
-(4, 'quartier');
+INSERT INTO `type_zone` (`id`, `libelle`, `statut`) VALUES
+(1, 'ville', 0),
+(2, 'region', 0),
+(3, 'commune', 0),
+(4, 'quartier', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `usager`
+--
+
+DROP TABLE IF EXISTS `usager`;
+CREATE TABLE IF NOT EXISTS `usager` (
+  `id` int UNSIGNED NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) DEFAULT NULL,
+  `prenom` varchar(255) DEFAULT NULL,
+  `telephone` varchar(255) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 -- --------------------------------------------------------
 
@@ -490,6 +492,7 @@ CREATE TABLE IF NOT EXISTS `utilisateur` (
   `nom_utilisateur` varchar(255) NOT NULL,
   `mot_de_passe` varchar(255) NOT NULL,
   `id_role_fk` int UNSIGNED NOT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `user-role` (`id_role_fk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
@@ -507,10 +510,11 @@ CREATE TABLE IF NOT EXISTS `vehicule` (
   `marque` varchar(255) DEFAULT NULL,
   `modele` varchar(255) DEFAULT NULL,
   `id_proprietaire_fk` int UNSIGNED DEFAULT NULL,
-  `statut` tinyint(1) DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   `id_type_transport_fk` int UNSIGNED DEFAULT NULL,
   `nb_place` int DEFAULT NULL,
   `id_zone_fk` int UNSIGNED NOT NULL,
+  `carte_grise` varchar(255) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_proprietaire` (`id_proprietaire_fk`),
   KEY `id_type_vehicule` (`id_type_transport_fk`),
@@ -529,6 +533,7 @@ CREATE TABLE IF NOT EXISTS `zone` (
   `libelle` varchar(255) NOT NULL,
   `id_type_zone_fk` int UNSIGNED NOT NULL,
   `zoneparent` int UNSIGNED DEFAULT NULL,
+  `statut` tinyint(1) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `typesecteur-zone-ibfk1` (`id_type_zone_fk`),
   KEY `typesecteur-zone-ibfk2` (`zoneparent`)
@@ -538,11 +543,11 @@ CREATE TABLE IF NOT EXISTS `zone` (
 -- Déchargement des données de la table `zone`
 --
 
-INSERT INTO `zone` (`id`, `libelle`, `id_type_zone_fk`, `zoneparent`) VALUES
-(1, 'Abidjan', 1, NULL),
-(2, 'San-pedro', 1, NULL),
-(3, 'abobo', 3, 1),
-(4, 'koumassi', 3, 1);
+INSERT INTO `zone` (`id`, `libelle`, `id_type_zone_fk`, `zoneparent`, `statut`) VALUES
+(1, 'Abidjan', 1, NULL, 0),
+(2, 'San-pedro', 1, NULL, 0),
+(3, 'abobo', 3, 1, 0),
+(4, 'koumassi', 3, 1, 0);
 
 --
 -- Contraintes pour les tables déchargées
@@ -589,6 +594,7 @@ ALTER TABLE `constituer`
 --
 ALTER TABLE `demande`
   ADD CONSTRAINT `demande-type_transport_ibfk` FOREIGN KEY (`id_type_transport_fk`) REFERENCES `type_transport` (`id`),
+  ADD CONSTRAINT `demande-vehicule_ibfk` FOREIGN KEY (`id_vehicule_fk`) REFERENCES `vehicule` (`id`),
   ADD CONSTRAINT `demande-zone_ibfk` FOREIGN KEY (`zone_fk`) REFERENCES `zone` (`id`),
   ADD CONSTRAINT `proprietaire-demande` FOREIGN KEY (`id_proprietaire_fk`) REFERENCES `proprietaire` (`id`);
 
@@ -596,14 +602,14 @@ ALTER TABLE `demande`
 -- Contraintes pour la table `demander_itineraire`
 --
 ALTER TABLE `demander_itineraire`
-  ADD CONSTRAINT `demander-client-ibfk` FOREIGN KEY (`id_itineraire_fk`) REFERENCES `itineraire` (`id`),
-  ADD CONSTRAINT `demander-itineraire-ibfk` FOREIGN KEY (`id_client_fk`) REFERENCES `client` (`id`);
+  ADD CONSTRAINT `demander-itineraire-ibfk` FOREIGN KEY (`id_usager_fk`) REFERENCES `usager` (`id`),
+  ADD CONSTRAINT `demander-usager-ibfk` FOREIGN KEY (`id_itineraire_fk`) REFERENCES `itineraire` (`id`);
 
 --
 -- Contraintes pour la table `emprunter`
 --
 ALTER TABLE `emprunter`
-  ADD CONSTRAINT `emprunter_ibfk3` FOREIGN KEY (`id_client_fk`) REFERENCES `client` (`id`),
+  ADD CONSTRAINT `emprunter_ibfk3` FOREIGN KEY (`id_usager_fk`) REFERENCES `usager` (`id`),
   ADD CONSTRAINT `emprunter_ibfk_1` FOREIGN KEY (`id_troncon_fk`) REFERENCES `troncon` (`id`),
   ADD CONSTRAINT `emprunter_ibfk_2` FOREIGN KEY (`id_vehicule_fk`) REFERENCES `vehicule` (`id`);
 
@@ -638,7 +644,7 @@ ALTER TABLE `role-permission`
 -- Contraintes pour la table `stationner`
 --
 ALTER TABLE `stationner`
-  ADD CONSTRAINT `garer_ibfk3` FOREIGN KEY (`id_client_fk`) REFERENCES `client` (`id`),
+  ADD CONSTRAINT `garer_ibfk3` FOREIGN KEY (`id_usager_fk`) REFERENCES `usager` (`id`),
   ADD CONSTRAINT `stationner_ibfk_1` FOREIGN KEY (`id_vehicule_fk`) REFERENCES `vehicule` (`id`),
   ADD CONSTRAINT `stationner_ibfk_2` FOREIGN KEY (`id_point_arret_fk`) REFERENCES `point_arret` (`id`);
 
