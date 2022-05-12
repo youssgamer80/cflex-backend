@@ -31,13 +31,38 @@ public class BorneService {
     public Borne getBorne(int id) {
 
         return this.borneRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Usager not found with id :" + id));
+        .orElseThrow(() -> new ResourceNotFoundException("Borne not found with id :" + id));
     }
 
-    // public Borne addBorne(Borne borne) {
+    public Borne deleteBorne(Integer id, Borne usager) {
 
-    //     return borneRepository.save(borne);
-    // }
+        Borne existingBorne = this.borneRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Borne not found with id :" + id));
+		 existingBorne.setStatut(usager.getStatut());
+		 return borneRepository.save(existingBorne);
+    }
 
-   
+    public Borne updateBorne(Borne borne,Integer id) {
+
+        Borne existingBorne = this.borneRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Borne not found with id :" + id));
+        if(borne.getLibelle()!=null){
+            existingBorne.setLibelle(borne.getLibelle());
+        }
+
+		if(borne.getIdPointArretFk()!=null){
+            existingBorne.setIdPointArretFk(borne.getIdPointArretFk());
+       }
+
+       if(borne.getStatut()!=null){
+        existingBorne.setStatut(borne.getStatut());
+       }
+
+		return borneRepository.save(existingBorne);
+    }
+
+    public  Borne addBorne(Borne borne) {
+
+        return borneRepository.save(borne);
+    }
 }
