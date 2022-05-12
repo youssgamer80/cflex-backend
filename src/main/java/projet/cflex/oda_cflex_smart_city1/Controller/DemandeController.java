@@ -53,7 +53,7 @@ public class DemandeController {
         orElseThrow(() -> new DemandeNotFoundException("Demande introuvable avec l'identifiant: " + id));
         demande.setLibelle(Newdemande.getLibelle());
         demande.setEtat(Newdemande.getEtat());
-        demande.setProprietaire(Newdemande.getProprietaire());
+        demande.setIdProprietaireFk(Newdemande.getIdProprietaireFk());
         demande.setDate(Newdemande.getDate());
         demande.setStatut(Newdemande.getStatut());
         return demandeService.save(demande);
