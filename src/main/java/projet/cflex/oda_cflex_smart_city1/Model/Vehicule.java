@@ -33,12 +33,16 @@ public class Vehicule {
     @Column(name = "nb_place")
     private Integer nbPlace;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_zone_fk", nullable = false)
     private Zone idZoneFk;
 
-    @Column(name = "carte_grise")
+    @Column(name = "carte_grise", nullable = false)
     private String carteGrise;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_demande_fk", nullable = false)
+    private Demande idDemandeFk;
 
     public Integer getId() {
         return id;
@@ -118,6 +122,14 @@ public class Vehicule {
 
     public void setCarteGrise(String carteGrise) {
         this.carteGrise = carteGrise;
+    }
+
+    public Demande getIdDemandeFk() {
+        return idDemandeFk;
+    }
+
+    public void setIdDemandeFk(Demande idDemandeFk) {
+        this.idDemandeFk = idDemandeFk;
     }
 
 }

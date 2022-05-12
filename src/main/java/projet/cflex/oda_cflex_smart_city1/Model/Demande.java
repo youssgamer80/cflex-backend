@@ -1,5 +1,9 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+
 import javax.persistence.*;
 import java.time.Instant;
 
@@ -29,12 +33,8 @@ public class Demande {
     private TypeTransport idTypeTransportFk;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "zone_fk", nullable = false)
-    private Zone zoneFk;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_vehicule_fk", nullable = false)
-    private Vehicule idVehiculeFk;
+    @JoinColumn(name = "id_zone_fk", nullable = false)
+    private Zone idZoneFk;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
@@ -87,20 +87,12 @@ public class Demande {
         this.idTypeTransportFk = idTypeTransportFk;
     }
 
-    public Zone getZoneFk() {
-        return zoneFk;
+    public Zone getIdZoneFk() {
+        return idZoneFk;
     }
 
-    public void setZoneFk(Zone zoneFk) {
-        this.zoneFk = zoneFk;
-    }
-
-    public Vehicule getIdVehiculeFk() {
-        return idVehiculeFk;
-    }
-
-    public void setIdVehiculeFk(Vehicule idVehiculeFk) {
-        this.idVehiculeFk = idVehiculeFk;
+    public void setIdZoneFk(Zone idZoneFk) {
+        this.idZoneFk = idZoneFk;
     }
 
     public Boolean getStatut() {
