@@ -1,5 +1,8 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+
 import javax.persistence.*;
 
 @Entity

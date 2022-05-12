@@ -1,5 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
+
 import javax.persistence.*;
 
 @Entity

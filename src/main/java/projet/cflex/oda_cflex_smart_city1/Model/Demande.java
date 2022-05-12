@@ -1,23 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIdentityReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-import lombok.Data;
-
 import java.time.Instant;
 
-/**
- * @Data is a convenient shortcut annotation that bundles the features of 
- * @ToString, @EqualsAndHashCode, @Getter / @Setter and @RequiredArgsConstructor together.
- */
 @Entity
 @Table(name = "demande")
-@Data
 public class Demande {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,38 +16,91 @@ public class Demande {
     private Integer id;
 
     @Column(name = "libelle")
-    @NotEmpty(message = "libelle is required")
     private String libelle;
 
     @Column(name = "etat")
     private Boolean etat;
-    
-    @NotEmpty(message = "proprietaire is required")
-    @JsonProperty("id_proprietaire_fk")
-    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
-    @JsonIdentityReference(alwaysAsId = true)
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_proprietaire_fk", nullable = false)
     private Proprietaire idProprietaireFk;
 
-    @NotEmpty(message = "date is required")
     @Column(name = "date", nullable = false)
     private Instant date;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "id_type_transport_fk", nullable = false)
-    // private TypeTransport idTypeTransportFk;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_type_transport_fk", nullable = false)
+    private TypeTransport idTypeTransportFk;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "zone_fk", nullable = false)
-    // private Zone zoneFk;
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_zone_fk", nullable = false)
+    private Zone idZoneFk;
 
     @Column(name = "statut", nullable = false)
-    private Boolean statut = true;
+    private Boolean statut = false;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "id_vehicule_fk", nullable = false)
-    // private Vehicule idVehiculeFk;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getLibelle() {
+        return libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Boolean getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Boolean etat) {
+        this.etat = etat;
+    }
+
+    public Proprietaire getIdProprietaireFk() {
+        return idProprietaireFk;
+    }
+
+    public void setIdProprietaireFk(Proprietaire idProprietaireFk) {
+        this.idProprietaireFk = idProprietaireFk;
+    }
+
+    public Instant getDate() {
+        return date;
+    }
+
+    public void setDate(Instant date) {
+        this.date = date;
+    }
+
+    public TypeTransport getIdTypeTransportFk() {
+        return idTypeTransportFk;
+    }
+
+    public void setIdTypeTransportFk(TypeTransport idTypeTransportFk) {
+        this.idTypeTransportFk = idTypeTransportFk;
+    }
+
+    public Zone getIdZoneFk() {
+        return idZoneFk;
+    }
+
+    public void setIdZoneFk(Zone idZoneFk) {
+        this.idZoneFk = idZoneFk;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
 
 }

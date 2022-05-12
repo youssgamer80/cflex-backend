@@ -1,5 +1,9 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import projet.cflex.oda_cflex_smart_city1.Model.Troncon;
+import projet.cflex.oda_cflex_smart_city1.Model.Usager;
+import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
+
 import javax.persistence.*;
 import java.time.Instant;
 
