@@ -3,6 +3,10 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.Data;
 
 import java.time.Instant;
@@ -28,6 +32,9 @@ public class Demande {
     private Boolean etat;
     
     @NotEmpty(message = "proprietaire is required")
+    @JsonProperty("id_proprietaire_fk")
+    @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+    @JsonIdentityReference(alwaysAsId = true)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_proprietaire_fk", nullable = false)
     private Proprietaire idProprietaireFk;
