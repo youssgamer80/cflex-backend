@@ -5,7 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,9 +35,16 @@ public class PointArretController {
 
 
     @GetMapping("/Liste")
-    public ResponseEntity<List<PointArret>> ListePointArret(){
-        List<PointArret> pointarrets = pointarretservice.ListePointArret();
-        return new ResponseEntity<>(pointarrets, HttpStatus.OK);       
+    public ResponseEntity<Object> ListePointArret(){
+        try {
+            List<PointArret> resultat = pointarretservice.Liste();
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, resultat);      
+        } 
+        catch (Exception e) 
+        {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+        
     }
 
     @GetMapping("/{id}")
@@ -55,6 +61,11 @@ public class PointArretController {
 
     }
 
+    
+
+
+
+
     @PostMapping("/add")
 
     public ResponseEntity<Object> Post(@RequestBody PointArret pointdarret) {
@@ -65,21 +76,10 @@ public class PointArretController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
-   // public String addZone(@ModelAttribute("zone")@Validated PointArret newpointarret, BindingResult bindingResult){
-       // pointarretservice.save(newpointarret);
-        //return ("La zone a été ajouté avec succès");
-    //}
 
-
-    @DeleteMapping("/delete/{id}")
-    public String supprimpointarret( @PathVariable Integer id){
-        pointarretservice.deletePointArret(id);
-        return ("Le véhicule  "+id+" a été supprimé avec succès");
-    }
 
     @PutMapping("/update/{id}")
     public ResponseEntity<Object> updatePointArret(@PathVariable("id") Integer id, @Validated PointArret pointdarret){
-    //public String updatePointArret(@PathVariable("id") Integer id, @Validated PointArret pointdarret) {
         try{
             PointArret resultat= pointarretservice.updatePointArret(id,pointdarret);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, resultat);
@@ -88,6 +88,19 @@ public class PointArretController {
             
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Object> Put( @Validated @PathVariable Integer id, PointArret pointdarret){
+        try {
+            PointArret resultat = pointarretservice.deletePointArret(id, pointdarret);
+            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, resultat);
+        } 
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
+              
     }
 
 

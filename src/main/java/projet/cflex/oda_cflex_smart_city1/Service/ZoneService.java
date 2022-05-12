@@ -39,6 +39,20 @@ public class ZoneService {
     }
 
     public Zone updateZone(Integer id, Zone zone){
+
+        Zone existZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
+
+        if (zone.getLibelle() == null) {
+            zone.setLibelle(existZone.getLibelle());
+        }
+         if (zone.getIdTypeZoneFk()==null) {
+             zone.setIdTypeZoneFk(existZone.getIdTypeZoneFk());
+         }
+
+         if (zone.getZoneparent()==null) {
+             zone.setZoneparent(existZone.getZoneparent());
+         }
+
         return ZoneRepo.save(zone);
     }
 
