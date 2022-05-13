@@ -21,16 +21,16 @@ public class TypeTransportService {
 
     public List<TypeTransport> getAllTypeTransports() {
         
-        List<TypeTransport> usagers = new ArrayList<>();
+        List<TypeTransport> typeTransports = new ArrayList<>();
 
-        typeTransportRepository.findByStatutJPQL(statut).forEach(usagers::add);
+        typeTransportRepository.findByStatutJPQL(statut).forEach(typeTransports::add);
 
-        return usagers;
+        return typeTransports;
     }
     
-    public TypeTransport addTypeTransport(TypeTransport usager) {
+    public TypeTransport addTypeTransport(TypeTransport typeTransports) {
 
-        return typeTransportRepository.save(usager);
+        return typeTransportRepository.save(typeTransports);
     }
 
     public TypeTransport getTypeTransport(int id) {
