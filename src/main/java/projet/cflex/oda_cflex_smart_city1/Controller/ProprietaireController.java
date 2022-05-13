@@ -1,5 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
@@ -12,7 +13,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
 @RestController
 @Transactional
 public class ProprietaireController {
@@ -22,7 +22,7 @@ public class ProprietaireController {
     ProprietaireRepository proprietaireRepository;
     @GetMapping("/listeproprietaire")
     @ResponseBody
-    public List<Proprietaire> ListeProprio(ModelMap modelMap){
+    public Object ListeProprio(ModelMap modelMap){
         List <Proprietaire> listeproprio = proprietaireService.findAll();
         return listeproprio;
     }
@@ -34,22 +34,19 @@ public class ProprietaireController {
         try {
             Proprietaire infoproprietaire = proprietaireService.findOne(id)
                     .orElseThrow(() -> new IllegalArgumentException("Id invalide" + id));
-
             return (infoproprietaire);
         }
         catch (Exception e){
             return ("Le propriétaire aved l'Id:"+id+" n'existe pas");
         }
     }
-
     @ResponseBody
     @PostMapping(value = "/addproprio")
-    public String addProprio(@ModelAttribute("proprio")@Validated Proprietaire proprietaire, BindingResult bindingResult, ModelMap modelMap){
+    public String addProprio(@ModelAttribute("proprio")@Validated @RequestBody Proprietaire proprietaire, BindingResult bindingResult, ModelMap modelMap){
         modelMap.addAttribute("proprio",proprietaire);
         proprietaireService.save(proprietaire);
         return ("Le proprietaire a été ajouté avec succès");
     }
-
 
     @DeleteMapping("/suppproprietaire/{id}")
     public String suppproprietaire( @PathVariable Integer id){

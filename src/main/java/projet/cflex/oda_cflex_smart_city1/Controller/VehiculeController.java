@@ -75,7 +75,7 @@ public class VehiculeController {
         }
     }
 
-    @GetMapping("/listevehiculeproprio/{id}")
+    @GetMapping("/listevehiculeproprio")
     @ResponseBody
     public List<Vehicule> ListeVehiculeProprio(ModelMap modelMap){
         List <Vehicule> listevehiculeproprio = vehiculeService.findAll();
