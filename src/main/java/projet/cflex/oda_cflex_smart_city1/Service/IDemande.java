@@ -8,7 +8,7 @@ public interface IDemande {
  
         List<Demande> getAllDemandes();
         Optional<Demande> findById(int id);
-        Optional<Demande> findByDate(Instant date);
+
         Demande save(Demande std);
         void deleteById(int id);
 }
