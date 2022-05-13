@@ -5,11 +5,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-
+import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.DiscoveryStrategy.Reiterating;
 import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
 import projet.cflex.oda_cflex_smart_city1.Repository.PointArretRepository;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @Service
 public class PointArretService {
@@ -55,8 +57,28 @@ public class PointArretService {
 
     //}
     
-    public PointArret NewPointArret( PointArret pointarret){
-        return pointarretRepo.save(pointarret);
+    public Object NewPointArret( PointArret pointarret){
+
+
+        /*if (pointarret.getLongitude() == null) {
+            return ("Veillez entrer la longitude");
+        }
+
+        if (pointarret.getPosition() == null) {
+            return ("Veillez entrer la position");
+        }
+
+        if (pointarret.getLatitude() == null) {
+            return ("Veillez entrer la latitude");
+        }*/
+
+        if(pointarret.getLongitude() != null  && pointarret.getPosition() != null && pointarret.getLatitude() != null){
+            return pointarretRepo.save(pointarret);
+        } 
+        else {
+            return ("veuillez renseigner tous les champs");
+        }   
+        
     }
 
     public PointArret updatePointArret(Integer id, PointArret pointdarret){

@@ -1,8 +1,10 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
@@ -49,13 +51,14 @@ public class ZoneService {
         return ZoneRepo.save(zone);
     }
 
-
-    public Zone DeleteZone(Integer id, Zone zone){
-        Zone realZone = this.ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-        realZone.setStatut(zone.getStatut());
+    public Zone deleteZone(Integer id, Zone zone) {
+        Zone realZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
+        if (zone.getStatut()== false){
+            realZone.setStatut(zone.getStatut());
+        }
+        
         return ZoneRepo.save(realZone);
     }
-
     
 }
 

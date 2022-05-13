@@ -61,16 +61,12 @@ public class PointArretController {
 
     }
 
-    
-
-
-
 
     @PostMapping("/add")
 
     public ResponseEntity<Object> Post(@RequestBody PointArret pointdarret) {
         try {
-            PointArret result = pointarretservice.NewPointArret(pointdarret);
+            PointArret result = (PointArret) pointarretservice.NewPointArret(pointdarret);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
