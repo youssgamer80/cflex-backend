@@ -46,7 +46,7 @@ public class DemandeService {
 		 existingDemande.setIdProprietaireFk(demande.getIdProprietaireFk());
 		 existingDemande.setDate(demande.getDate());
          existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
-		 existingDemande.setZoneFk(demande.getZoneFk());
+		 existingDemande.setIdZoneFk(demande.getIdZoneFk());
 		 existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
 		 return demandeRepository.save(existingDemande);
     }

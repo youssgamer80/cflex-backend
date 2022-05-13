@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PointArretRepository extends JpaRepository<PointArret, Integer> {
 
-    public Iterable<PointArret> findByStatut(Boolean statut);
+   // public Iterable<PointArret> findByStatut(Boolean statut);
 	
-	@Query("FROM PointArret WHERE statut = ?1")
-    public Iterable<PointArret> findByStatutJPQL(Boolean statut);
+	//@Query("FROM PointArret WHERE statut = ?1")
+   // public Iterable<PointArret> findByStatutJPQL(Boolean statut);
 
 }
