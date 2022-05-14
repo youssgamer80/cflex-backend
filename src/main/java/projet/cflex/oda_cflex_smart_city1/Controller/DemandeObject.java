@@ -8,7 +8,7 @@ public class DemandeObject {
     private String codeDemande;
     private Boolean etat;
     private Instant date;
-    private Boolean status;
+    private Boolean status = Boolean.FALSE;
     private int proprietaireId;
 
     private int typeTransportId;

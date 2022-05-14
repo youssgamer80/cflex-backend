@@ -32,9 +32,9 @@ public class DemandeService implements IDemande {
 
 
     @Override
-    public Demande save(Demande std) {
+    public Demande save(Demande demande) {
         // TODO Auto-generated method stub
-        return demanderepo.save(std);
+        return demanderepo.save(demande);
     }
 
     @Override
