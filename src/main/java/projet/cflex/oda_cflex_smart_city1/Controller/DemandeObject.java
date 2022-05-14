@@ -5,7 +5,7 @@ import java.time.Instant;
 
 public class DemandeObject {
     private int id;
-    private String codeDemande;
+    private String codeDemande = CodeDemandeGenerator.generateRandomCodeDemande(10,48,122);
     private Boolean etat;
     private Instant date;
     private Boolean status = Boolean.FALSE;

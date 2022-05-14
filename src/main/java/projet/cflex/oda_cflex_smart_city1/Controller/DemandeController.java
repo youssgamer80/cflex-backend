@@ -19,19 +19,21 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestBody;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
-import projet.cflex.oda_cflex_smart_city1.Service.ProprietaireService;
 import projet.cflex.oda_cflex_smart_city1.exception.DemandeNotFoundException;
 
 @RestController
 @RequestMapping("/api")
-/** Api demande
+
+@Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
+/**
+ * Api demande
  * @author Yao Eloge
  */
-@Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
 public class DemandeController {
     DemandeService demandeService;
 
     /**
+     * DemandeController
      * @param demandeService
      */
     @Autowired
@@ -68,6 +70,11 @@ public class DemandeController {
         return "Demande cree avec succes";
     }
 
+    /**
+     *  Procedure pour gerer l'enregistrement d'une demande
+     * @param input
+     * @param demande
+     */
     private void saveDemande(@RequestBody @Valid @NotNull DemandeObject input, Demande demande) {
         demande.setCodeDemande(input.getCodeDemande());
         demande.setEtat(input.getEtat());

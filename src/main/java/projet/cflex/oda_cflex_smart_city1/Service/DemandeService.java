@@ -11,6 +11,10 @@ import org.springframework.stereotype.Service;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Repository.DemandeRepository;
 
+/**
+ * Classe demandeService pour servir de pont entre le model et le logique métier
+ * @author Yao Eloge
+ */
 @Service
 public class DemandeService implements IDemande {
     DemandeRepository demanderepo;
