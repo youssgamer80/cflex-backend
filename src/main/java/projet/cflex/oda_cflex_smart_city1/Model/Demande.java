@@ -8,7 +8,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.Instant;
 
-
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "demande", indexes = {
         @Index(name = "idx_demande_id_zone_fk", columnList = "id_zone_fk"),
@@ -54,70 +58,6 @@ public class Demande implements Serializable {
     @ManyToOne(targetEntity = Zone.class, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_zone_fk", insertable = false, updatable = false)
     private Zone ZoneFk;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getCodeDemande() {
-        return codeDemande;
-    }
-
-    public void setCodeDemande(String codeDemande) {
-        this.codeDemande = codeDemande;
-    }
-
-    public Boolean getEtat() {
-        return etat;
-    }
-
-    public void setEtat(Boolean etat) {
-        this.etat = etat;
-    }
-
-    public int getIdProprietaireFk() {
-        return idProprietaireFk;
-    }
-
-    public void setIdProprietaireFk(int idProprietaireFk) {
-        this.idProprietaireFk = idProprietaireFk;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public int getIdTypeTransportFk() {
-        return idTypeTransportFk;
-    }
-
-    public void setIdTypeTransportFk(int idTypeTransportFk) {
-        this.idTypeTransportFk = idTypeTransportFk;
-    }
-
-    public int getIdZoneFk() {
-        return idZoneFk;
-    }
-
-    public void setIdZoneFk(int idZoneFk) {
-        this.idZoneFk = idZoneFk;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
 
     @Column(name = "id_zone_fk")
     private int idZoneFk;
