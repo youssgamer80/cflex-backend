@@ -1,7 +1,7 @@
 # API C'Flex
 Déplacement avec Flexibilité
 
-![alt text](src/main/resources/logo.png "Title Text") <br>
+![C'Flex Logo](src/main/resources/logo.png "C'Flex Logo") <br>
 Projet de dévéloppement des API pour les fonctionalitées du projet C'Flex
 
 ## API de gestion des demandes d'enrégistrement
@@ -380,7 +380,7 @@ public class DemandeNotFoundException extends RuntimeException {
 ### Valeurs Retounées
 
 ```json
-{
+
 [
   {
     "id": 5,
