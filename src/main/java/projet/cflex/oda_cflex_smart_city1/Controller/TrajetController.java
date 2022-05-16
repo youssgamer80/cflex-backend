@@ -15,21 +15,22 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import projet.cflex.oda_cflex_smart_city1.Model.Usager;
-import projet.cflex.oda_cflex_smart_city1.Service.UsagerService;
+import projet.cflex.oda_cflex_smart_city1.Model.Trajet;
+import projet.cflex.oda_cflex_smart_city1.Service.TrajetService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@RequestMapping("/api/usagers")
-@Tag(name = "API Usager", description = "Api des services usager")
-public class UsagerController {
+@RequestMapping("/api/trajets")
+
+@Tag(name = "API Trajet", description = "Api des services Trajet")
+public class TrajetController {
 
     @Autowired
-    private UsagerService usagerService;
+    private TrajetService trajetService;
     @GetMapping
         public ResponseEntity<Object> Get() {
             try {
-                List<Usager> result = usagerService.getAllUsagers();
+                List<Trajet> result = trajetService.getAllTrajets();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -39,7 +40,7 @@ public class UsagerController {
         @GetMapping(value="/{id}")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Usager result = usagerService.getUsager(id);
+                Trajet result = trajetService.getTrajet(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -47,22 +48,22 @@ public class UsagerController {
         }
 
 
-    @PostMapping(value = "/addUsager")
-    public ResponseEntity<Object> Post(@RequestBody Usager usager) {
+    @PostMapping(value = "/addTrajet")
+    public ResponseEntity<Object> Post(@RequestBody Trajet trajet) {
         try {
-            Usager result = usagerService.addUsager(usager);
+            Trajet result = trajetService.addTrajet(trajet);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
- 
-    
-    @PutMapping(value = "/updateUsager/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Usager usager, @PathVariable Integer id) {
+
+
+    @PutMapping(value = "/updateTrajet/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Trajet trajet, @PathVariable Integer id) {
         
         try{
-            Usager result = usagerService.updateUsager(id, usager);
+            Trajet result = trajetService.updateTrajet(id, trajet);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
@@ -70,16 +71,26 @@ public class UsagerController {
     
     }
 
-    @DeleteMapping(value = "/deleteUsager/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
+    @DeleteMapping(value = "/deleteTrajet/{id}")
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Trajet trajet) {
        
         try{
-            Usager result = usagerService.deleteUsager(id,usager);
+            Trajet result = trajetService.deleteTrajet(id,trajet);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
 
+    @GetMapping(value="/searchTrajet/{depart}/{destination}")
+        public ResponseEntity<Object> Get(@PathVariable String depart, @PathVariable String destination, Trajet trajet) {
+            try {
+                List<Trajet> result = trajetService.searchTrajet(depart, destination, trajet);
+                return ResponseHandler.generateResponse("Trajet found!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
 }
+

@@ -18,6 +18,9 @@ public class Role {
     @Column(name = "role", nullable = false)
     private String role;
 
+    @Column(name="statut", nullable = true)
+    private Boolean statut;
+
     public Integer getId() {
         return id;
     }
@@ -34,4 +37,12 @@ public class Role {
         this.role = role;
     }
 
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut){
+
+        this.statut = statut;
+    }
 }

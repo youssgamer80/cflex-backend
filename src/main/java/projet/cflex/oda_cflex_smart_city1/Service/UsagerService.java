@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Usager;
@@ -16,6 +17,8 @@ public class UsagerService {
     @Autowired
     public UsagerRepository usagerRepository;
     private Boolean statut=true;
+    public Usager usager;
+
 
     public List<Usager> getAllUsagers() {
         
@@ -67,5 +70,6 @@ public class UsagerService {
 		 existingUsager.setStatut(usager.getStatut());
 		 return usagerRepository.save(existingUsager);
     }
+    
 
 }

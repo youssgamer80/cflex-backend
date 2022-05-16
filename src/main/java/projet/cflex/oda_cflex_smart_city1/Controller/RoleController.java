@@ -14,22 +14,20 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import io.swagger.v3.oas.annotations.tags.Tag;
-import projet.cflex.oda_cflex_smart_city1.Model.Usager;
-import projet.cflex.oda_cflex_smart_city1.Service.UsagerService;
+import projet.cflex.oda_cflex_smart_city1.Model.Role;
+import projet.cflex.oda_cflex_smart_city1.Service.RoleService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@RequestMapping("/api/usagers")
-@Tag(name = "API Usager", description = "Api des services usager")
-public class UsagerController {
+@RequestMapping("/api/roles")
+public class RoleController {
 
     @Autowired
-    private UsagerService usagerService;
+    private RoleService roleService;
     @GetMapping
         public ResponseEntity<Object> Get() {
             try {
-                List<Usager> result = usagerService.getAllUsagers();
+                List<Role> result = roleService.getAllRoles();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -39,7 +37,7 @@ public class UsagerController {
         @GetMapping(value="/{id}")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Usager result = usagerService.getUsager(id);
+                Role result = roleService.getRole(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -47,22 +45,22 @@ public class UsagerController {
         }
 
 
-    @PostMapping(value = "/addUsager")
-    public ResponseEntity<Object> Post(@RequestBody Usager usager) {
+    @PostMapping(value = "/addRole")
+    public ResponseEntity<Object> Post(@RequestBody Role role) {
         try {
-            Usager result = usagerService.addUsager(usager);
+            Role result = roleService.addRole(role);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
- 
-    
-    @PutMapping(value = "/updateUsager/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Usager usager, @PathVariable Integer id) {
+
+
+    @PutMapping(value = "/updateRole/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Role role, @PathVariable Integer id) {
         
         try{
-            Usager result = usagerService.updateUsager(id, usager);
+            Role result = roleService.updateRole(id, role);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
@@ -70,16 +68,15 @@ public class UsagerController {
     
     }
 
-    @DeleteMapping(value = "/deleteUsager/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
+    @DeleteMapping(value = "/deleteRole/{id}")
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Role role) {
        
         try{
-            Usager result = usagerService.deleteUsager(id,usager);
+            Role result = roleService.deleteRole(id,role);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
-
 
 }

@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
-import projet.cflex.oda_cflex_smart_city1.Repository.DemandeRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 

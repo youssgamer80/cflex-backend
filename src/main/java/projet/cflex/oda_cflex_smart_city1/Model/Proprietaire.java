@@ -28,10 +28,10 @@ public class Proprietaire {
     @Column(name = "statut")
     private Boolean statut;
 
-    @Column(name = "carte_grise",nullable = false)
+    @Column(name = "carte_grise")
     private String carteGrise;
 
-    @Column(name = "permis", nullable = false)
+    @Column(name = "permis")
     private String permis;
 
     public Integer getId() {
