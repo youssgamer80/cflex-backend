@@ -24,8 +24,8 @@ public class Itineraire {
     @JoinColumn(name = "id_trajet_fk")
     private Trajet idTrajetFk;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
     public Integer getId() {
         return id;

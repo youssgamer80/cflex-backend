@@ -17,6 +17,9 @@ public class Trackergp {
     @JoinColumn(name = "id_vehicule_fk", nullable = false)
     private Vehicule idVehiculeFk;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -39,6 +42,14 @@ public class Trackergp {
 
     public void setIdVehiculeFk(Vehicule idVehiculeFk) {
         this.idVehiculeFk = idVehiculeFk;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

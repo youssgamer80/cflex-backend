@@ -41,25 +41,12 @@ public class DemandeService {
 
         Demande existingDemande = this.demandeRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
-		 existingDemande.setLibelle(Demande.getLibelle());
+		 existingDemande.setLibelle(demande.getLibelle());
 		 existingDemande.setEtat(demande.getEtat());
 		 existingDemande.setIdProprietaireFk(demande.getIdProprietaireFk());
 		 existingDemande.setDate(demande.getDate());
-		 existingDemande.setNom(demande.getNom());
-		 existingDemande.setPrenom(demande.getPrenom());
-		 existingDemande.setLieuResidence(demande.getLieuResidence());
-		 existingDemande.setTelephone(demande.getTelephone());
-		 existingDemande.setEmail(demande.getEmail());
-		 existingDemande.setMarque(demande.getMarque());
-		 existingDemande.setCni(demande.getCni());
-		 existingDemande.setPermis(demande.getPermis());
-		 existingDemande.setCarteGrise(demande.getCarteGrise());
-		 existingDemande.setAssurance(demande.getAssurance());
-		 existingDemande.setImmatriculation(demande.getImmatriculation());
-		 existingDemande.setModele(demande.getModele());
-		 existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
-		 existingDemande.setNbrePlace(demande.getNbrePlace());
-		 existingDemande.setZoneFk(demande.getZoneFk());
+         existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
+		 existingDemande.setIdZoneFk(demande.getIdZoneFk());
 		 existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
 		 return demandeRepository.save(existingDemande);
     }
@@ -71,12 +58,12 @@ public class DemandeService {
 		 return demandeRepository.save(existingDemande);
     }
 
-    public Demande deleteDemande(Integer id) {
+    public Demande deleteDemande(Integer id, Demande demande) {
 
         Demande existingDemande = this.demandeRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
-		 existingDemande.setLibelle(Demande.getLibelle());
+		 existingDemande.setLibelle(demande.getLibelle());
 		 return demandeRepository.save(existingDemande);
-    }
 
-}
+
+}}

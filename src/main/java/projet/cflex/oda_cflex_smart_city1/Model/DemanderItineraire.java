@@ -16,8 +16,8 @@ public class DemanderItineraire {
     private Itineraire idItineraireFk;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_client_fk", nullable = false)
-    private Usager idClientFk;
+    @JoinColumn(name = "id_usager_fk", nullable = false)
+    private Usager idUsagerFk;
 
     @Column(name = "date", nullable = false)
     private Instant date;
@@ -38,12 +38,12 @@ public class DemanderItineraire {
         this.idItineraireFk = idItineraireFk;
     }
 
-    public Usager getIdClientFk() {
-        return idClientFk;
+    public Usager getIdUsagerFk() {
+        return idUsagerFk;
     }
 
-    public void setIdClientFk(Usager idClientFk) {
-        this.idClientFk = idClientFk;
+    public void setIdUsagerFk(Usager idUsagerFk) {
+        this.idUsagerFk = idUsagerFk;
     }
 
     public Instant getDate() {

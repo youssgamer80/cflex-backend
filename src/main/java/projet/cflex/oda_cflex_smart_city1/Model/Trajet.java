@@ -16,8 +16,8 @@ public class Trajet {
     @Column(name = "destination")
     private String destination;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
     public Integer getId() {
         return id;

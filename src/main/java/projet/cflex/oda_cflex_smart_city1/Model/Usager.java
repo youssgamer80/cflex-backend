@@ -5,11 +5,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "usager")
 public class Usager {
-
-    public Usager() {
-
-    }
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -21,11 +16,11 @@ public class Usager {
     @Column(name = "prenom")
     private String prenom;
 
-    @Column(name = "telephone", unique = true)
+    @Column(name = "telephone")
     private String telephone;
 
-    @Column(name = "statut")
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
     public Integer getId() {
         return id;

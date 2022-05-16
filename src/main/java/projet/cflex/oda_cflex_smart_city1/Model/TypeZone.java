@@ -13,6 +13,9 @@ public class TypeZone {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
+
     public Integer getId() {
         return id;
     }
@@ -27,6 +30,14 @@ public class TypeZone {
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
     }
 
 }

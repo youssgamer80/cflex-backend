@@ -13,7 +13,9 @@ public class ProprietaireService {
 
     @Autowired
     ProprietaireRepository proprietaireRepository;
+    
     public void save (Proprietaire proprietaire){proprietaireRepository.save(proprietaire);}
+
     public List<Proprietaire> findAll(){
         return  proprietaireRepository.findAll();
     }
