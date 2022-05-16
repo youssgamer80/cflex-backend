@@ -1,6 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 
+import javax.persistence.Column;
 import java.time.Instant;
 
 public class DemandeObject {
@@ -8,6 +9,14 @@ public class DemandeObject {
     private String codeDemande = CodeDemandeGenerator.generateRandomCodeDemande(10,48,122);
     private Boolean etat;
     private Instant date;
+
+    private String Immatriculation;
+
+    private String marque;
+
+    private String model;
+
+    private Integer nombreDePlace;
     private Boolean status = Boolean.FALSE;
     private int proprietaireId;
 
@@ -15,6 +24,37 @@ public class DemandeObject {
 
     private int zoneId;
 
+    public String getImmatriculation() {
+        return Immatriculation;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        Immatriculation = immatriculation;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Integer getNombreDePlace() {
+        return nombreDePlace;
+    }
+
+    public void setNombreDePlace(Integer nombreDePlace) {
+        this.nombreDePlace = nombreDePlace;
+    }
 
     public int getId() {
         return id;

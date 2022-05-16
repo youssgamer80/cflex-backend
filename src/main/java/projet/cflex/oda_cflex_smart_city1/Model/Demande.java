@@ -47,6 +47,18 @@ public class Demande implements Serializable {
     @Column(name = "date", nullable = false)
     private Instant date;
 
+    @Column(name = "immatriculation", nullable = false)
+    private String Immatriculation;
+
+    @Column(name = "marque", nullable = false)
+    private String marque;
+
+    @Column(name = "model", nullable = false)
+    private String model;
+
+    @Column(name = "nb_place", nullable = false)
+    private Integer nombreDePlace;
+
     @ManyToOne(targetEntity = TypeTransport.class, fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "id_type_transport_fk", insertable = false, updatable = false)
     private TypeTransport TypeTransportFk;
