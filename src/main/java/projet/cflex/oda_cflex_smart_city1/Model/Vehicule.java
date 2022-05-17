@@ -1,9 +1,17 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name = "vehicule")
+@SQLDelete(sql = "UPDATE vehicule SET statut = true WHERE id=?")
+@FilterDef(name = "deletedVehiculeFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedVehiculeFilter", condition = "statut = :isDeleted")
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
