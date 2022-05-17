@@ -13,8 +13,8 @@ public class Role {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @Column(name = "statut", nullable = false)
-    private Boolean statut = false;
+    @Column(name="statut", nullable = true)
+    private Boolean statut;
 
     public Integer getId() {
         return id;
@@ -36,8 +36,8 @@ public class Role {
         return statut;
     }
 
-    public void setStatut(Boolean statut) {
+    public void setStatut(Boolean statut){
+
         this.statut = statut;
     }
-
 }

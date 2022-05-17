@@ -29,6 +29,9 @@ public class Proprietaire {
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
 
+    @Column(name = "carte_grise")
+    private String carteGrise;
+
     @Column(name = "permis")
     private String permis;
 
