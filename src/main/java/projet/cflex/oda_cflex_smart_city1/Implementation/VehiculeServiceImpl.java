@@ -34,13 +34,13 @@ public class VehiculeServiceImpl implements VehiculeService {
     public Vehicule create(Vehicule vehicule) {
         log.info("Enregistrement d'un nouveau propriétaire: {}","Marque:"+" "+vehicule.getMarque()+"/"+
                 "Prénoms:"+" "+vehicule.getModele());
-        vehicule.setCarteGrise(setVehiculeCarteGrise());
+        //vehicule.setCarteGrise(setVehiculeCarteGrise());
         return vehiculeRepository.save(vehicule);
     }
 
     @Override
     public Collection<Vehicule> list(boolean isDeleted) {
-        log.info("Tous les vehicule");
+        log.info("Tous les vehicules");
         Session session = entityManager.unwrap(Session.class);
         Filter filter = session.enableFilter("deletedVehiculeFilter");
         filter.setParameter("isDeleted", isDeleted);
@@ -73,9 +73,9 @@ public class VehiculeServiceImpl implements VehiculeService {
 
 
 
-    private String setVehiculeCarteGrise() {
+  /*  private String setVehiculeCarteGrise() {
         String[] pieceidentiteproprio = {"pieceidentite1.png"};
         return ServletUriComponentsBuilder.fromCurrentContextPath().
                 path(("/proprietaire/pieceidentite"+ pieceidentiteproprio[new Random().nextInt(4)])).toUriString();
-    }
+    }*/
 }

@@ -1,5 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -24,7 +26,7 @@ import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
 import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
-
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RestController
 @RequestMapping("vehicule")
 @RequiredArgsConstructor
@@ -92,8 +94,8 @@ public class VehiculeController {
         );
     }
 
-    @GetMapping(path = "/image/{carteGrise}", produces = IMAGE_PNG_VALUE)
-    public byte[] getProprietairePermis(@PathVariable("carteGrise") String carteGrise) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+carteGrise));
-    }
+  /*  @GetMapping(path = "/image/{cartegrise}", produces = IMAGE_PNG_VALUE)
+    public byte[] getProprietairePermis(@PathVariable("cartegrise") String cartegrise) throws IOException {
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+cartegrise));
+    }*/
 }
