@@ -1,0 +1,90 @@
+package projet.cflex.oda_cflex_smart_city1.Implementation;
+
+import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
+import projet.cflex.oda_cflex_smart_city1.Service.ProprioService;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Filter;
+import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import javax.persistence.EntityManager;
+import java.util.Collection;
+import java.util.Random;
+
+import static java.lang.Boolean.TRUE;
+
+@RequiredArgsConstructor
+@Service
+@Transactional
+@Slf4j
+
+public class ProprietaireServiceImpl implements ProprioService {
+
+    @Autowired
+    private final ProprietaireRepository proprietaireRepository;
+    @Autowired
+    EntityManager entityManager;
+    @Override
+    public Proprietaire create(Proprietaire proprietaire) {
+        log.info("Enregistrement d'un nouveau propriétaire: {}","Nom:"+" "+proprietaire.getNom()+"/"+
+                        "Prénoms:"+" "+proprietaire.getPrenom());
+        proprietaire.setPermis(setProprietairePermis());
+        proprietaire.setPieceIdentite(setProprietairePieceIdentite());
+        return proprietaireRepository.save(proprietaire);
+    }
+
+    @Override
+    public Collection<Proprietaire> list(boolean isDeleted) {
+        log.info("Tous les proprios");
+        //return proprietaireRepository.findAll(Example.of(0,id)).toList;
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedProprietaireFilter");
+        filter.setParameter("isDeleted", isDeleted);
+        Collection<Proprietaire> proprietaires =  proprietaireRepository.findAll();
+        session.disableFilter("deletedProprietaireFilter");
+        return proprietaires;
+    }
+
+    @Override
+    public Proprietaire get(Integer id) {
+        log.info("Recherche par proprietaire:{}",id);
+        return proprietaireRepository.findById(id).get();
+    }
+
+    @Override
+    public Proprietaire update(Integer id, Proprietaire proprietaire) {
+        log.info("Modification d'un propriétaire: {}",id);
+        Proprietaire exproprio = this.proprietaireRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ce proprietaire n'existe pas :" + id));
+        System.out.println("test" +id);
+    System.out.println(proprietaireRepository.save(exproprio));
+        return proprietaireRepository.save(exproprio);
+
+    }
+
+    @Override
+    public Boolean delete(Integer id) {
+        log.info("Suppression d'un propriétaire par ID: {}",id);
+        proprietaireRepository.deleteById(id);
+        return TRUE;
+    }
+
+
+
+    private String setProprietairePieceIdentite() {
+        String[] pieceidentiteproprio = {"pieceidentite1.png"};
+        return ServletUriComponentsBuilder.fromCurrentContextPath().
+                path(("/proprietaire/pieceidentite"+ pieceidentiteproprio[new Random().nextInt(4)])).toUriString();
+    }
+    private String setProprietairePermis() {
+        String[] permisproprio = {"permis1.png"};
+        return ServletUriComponentsBuilder.fromCurrentContextPath().
+                path(("/proprietaire/permis"+ permisproprio[new Random().nextInt(4)])).toUriString();
+    }
+}

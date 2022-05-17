@@ -23,7 +23,7 @@ public class Posseder {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_trackergps_fk", nullable = false)
-    private Trackergp idTrackergpsFk;
+    private Trackergps idTrackergpsFk;
 
     public Integer getId() {
         return id;
@@ -57,11 +57,11 @@ public class Posseder {
         this.idVehiculeFk = idVehiculeFk;
     }
 
-    public Trackergp getIdTrackergpsFk() {
+    public Trackergps getIdTrackergpsFk() {
         return idTrackergpsFk;
     }
 
-    public void setIdTrackergpsFk(Trackergp idTrackergpsFk) {
+    public void setIdTrackergpsFk(Trackergps idTrackergpsFk) {
         this.idTrackergpsFk = idTrackergpsFk;
     }
 

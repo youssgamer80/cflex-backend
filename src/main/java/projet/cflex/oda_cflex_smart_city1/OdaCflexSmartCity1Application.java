@@ -29,7 +29,6 @@ public class OdaCflexSmartCity1Application implements CommandLineRunner{
     public static void main(String[] args) {
 
         SpringApplication.run(OdaCflexSmartCity1Application.class, args);
-      SpringApplication.run(OdaCflexSmartCity1Application.class, args);
 
     }
 
