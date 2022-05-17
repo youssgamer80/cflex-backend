@@ -12,4 +12,6 @@ public interface TypeTransportRepository extends CrudRepository<TypeTransport, I
 	@Query("FROM TypeTransport WHERE statut = ?1")
     public Iterable<TypeTransport> findByStatutJPQL(Boolean statut);	
 
+    public TypeTransport findBylibelleTypeTransport(String libelleTypeTransport);	
+
 }

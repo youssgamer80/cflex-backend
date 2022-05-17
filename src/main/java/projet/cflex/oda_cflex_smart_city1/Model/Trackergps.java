@@ -2,9 +2,11 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+// @JsonIgnoreProperties({"idVehiculeFk"})
 @Entity
 @Table(name = "trackergps")
-public class Trackergp {
+public class Trackergps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -13,6 +15,7 @@ public class Trackergp {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
+    
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_vehicule_fk", nullable = false)
     private Vehicule idVehiculeFk;
