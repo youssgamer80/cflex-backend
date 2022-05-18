@@ -245,7 +245,7 @@ CREATE TABLE `posseder` (
 -- Structure de la table `proprietaire`
 --
 
-CREATE TABLE `proprietaire` (
+ALTER TABLE `proprietaire` (
   `id` int(10) UNSIGNED NOT NULL,
   `nom` varchar(255) DEFAULT NULL,
   `prenom` varchar(255) DEFAULT NULL,
@@ -253,7 +253,6 @@ CREATE TABLE `proprietaire` (
   `email` varchar(255) DEFAULT NULL,
   `cni` varchar(255) DEFAULT NULL,
   `statut` tinyint(1) DEFAULT NULL,
-  `carte_grise` varchar(255) DEFAULT NULL,
   `permis` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

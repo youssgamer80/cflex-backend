@@ -415,7 +415,7 @@ CREATE TABLE `utilisateur` (
 -- Structure de la table `vehicule`
 --
 
-CREATE TABLE `vehicule` (
+ALTER TABLE `vehicule` (
   `id` int(10) UNSIGNED NOT NULL,
   `immatriculation` varchar(255) DEFAULT NULL,
   `marque` varchar(255) DEFAULT NULL,
@@ -425,7 +425,7 @@ CREATE TABLE `vehicule` (
   `id_type_transport_fk` int(10) UNSIGNED DEFAULT NULL,
   `nb_place` int(11) DEFAULT NULL,
   `id_zone_fk` int(10) UNSIGNED NOT NULL,
-  `carte_grise` varchar(255) NOT NULL,
+  `cartegrise` varchar(255) NOT NULL,
   `id_demande_fk` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

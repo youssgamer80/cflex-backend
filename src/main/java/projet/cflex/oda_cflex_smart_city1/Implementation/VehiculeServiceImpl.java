@@ -71,9 +71,9 @@ public class VehiculeServiceImpl implements VehiculeService {
             existingvehicule.setModele(vehicule.getModele());
         }
 
-       /* if(vehicule.getCarteGrise()!=null){
+        if(vehicule.getCarteGrise()!=null){
             existingvehicule.setCarteGrise(vehicule.getCarteGrise());
-        }*/
+        }
 
         return vehiculeRepository.save(existingvehicule);
     }
