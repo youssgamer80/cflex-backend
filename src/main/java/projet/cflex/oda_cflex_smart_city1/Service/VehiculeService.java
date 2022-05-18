@@ -9,8 +9,7 @@ public interface VehiculeService {
     Vehicule create(Vehicule vehicule);
     Collection<Vehicule> list(boolean isDeleted);
     Vehicule get(Integer id);
-
-    Vehicule update(Integer id, Vehicule vehicule);
-
     Boolean delete(Integer id);
+    Vehicule majVehicule(Integer id, Vehicule vehicule) ;
+
 }

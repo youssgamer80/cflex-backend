@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.VehiculeService;
@@ -32,9 +30,10 @@ public class VehiculeServiceImpl implements VehiculeService {
     EntityManager entityManager;
     @Override
     public Vehicule create(Vehicule vehicule) {
-        log.info("Enregistrement d'un nouveau propriétaire: {}","Marque:"+" "+vehicule.getMarque()+"/"+
-                "Prénoms:"+" "+vehicule.getModele());
+        log.info("Enregistrement d'un nouveau vehicule: {}","Marque:"+" "+vehicule.getMarque()+"/n"+
+                "Modele:"+" "+vehicule.getModele());
         //vehicule.setCarteGrise(setVehiculeCarteGrise());
+        System.out.println("hum"+vehicule.getImmatriculation());
         return vehiculeRepository.save(vehicule);
     }
 
@@ -55,13 +54,28 @@ public class VehiculeServiceImpl implements VehiculeService {
         return vehiculeRepository.findById(id).get();
     }
 
-    @Override
-    public Vehicule update(Integer id, Vehicule vehicule) {
-        log.info("Modification d'un vehicule: {}",id);
-        Vehicule exvehicule = this.vehiculeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ce véhicule n'existe pas :" + id));
-        return vehiculeRepository.save(exvehicule);
+    public Vehicule majVehicule(Integer id, Vehicule vehicule) {
 
+        Vehicule existingvehicule = this.vehiculeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ce vehicule n'existe pas :" + id));
+
+        if(vehicule.getImmatriculation()!=null){
+            existingvehicule.setImmatriculation(vehicule.getImmatriculation());
+        }
+
+        if(vehicule.getMarque()!=null){
+            existingvehicule.setMarque(vehicule.getMarque());
+        }
+
+        if(vehicule.getModele()!=null){
+            existingvehicule.setModele(vehicule.getModele());
+        }
+
+       /* if(vehicule.getCarteGrise()!=null){
+            existingvehicule.setCarteGrise(vehicule.getCarteGrise());
+        }*/
+
+        return vehiculeRepository.save(existingvehicule);
     }
 
     @Override

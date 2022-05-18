@@ -1,15 +1,18 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import projet.cflex.oda_cflex_smart_city1.Implementation.ProprietaireServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Model.Usager;
 import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -77,16 +80,7 @@ public class ProprietaireController {
             );}
     }
 
-    @PutMapping("/update/{id}")
-    public ResponseEntity<?> updateProprietaire(@Validated @RequestBody Proprietaire proprietaire, @PathVariable("id") Integer id){
-        return ResponseEntity.ok(Response.builder().timeStamp(now()).
-                data(Map.of("proprietaire", proprietaireService.update(id,proprietaire)))
-                .message("Proprietaire modifié avec succès")
-                .status(ACCEPTED)
-                .statusCode(ACCEPTED.value())
-                .build()
-        );
-    }
+
 
     @GetMapping(path = "/image/{permis}", produces = IMAGE_PNG_VALUE)
     public byte[] getProprietairePermis(@PathVariable("permis") String permis) throws IOException {
@@ -95,6 +89,19 @@ public class ProprietaireController {
 
     @GetMapping(path = "/image/{pieceidentite}", produces = IMAGE_PNG_VALUE)
     public byte[] getProprietairePieceIdentite(@PathVariable("pieceidentite") String pieceidentite) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"Downloads/images"+pieceidentite));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+pieceidentite));
     }
+
+    @PutMapping(value = "/updateProprio/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Proprietaire proprietaire, @PathVariable Integer id) {
+
+        try{
+            Proprietaire result = proprietaireService.majProprietaire(id, proprietaire);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        }catch(Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+
+    }
+
 }
