@@ -23,6 +23,7 @@ public class Itineraire {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_trajet_fk")
     private Trajet idTrajetFk;
+    
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
