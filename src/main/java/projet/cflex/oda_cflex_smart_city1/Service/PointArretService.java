@@ -29,7 +29,7 @@ public class PointArretService {
 
     }
     
-    public Object NewPointArret( PointArret pointarret){
+    /*public Object NewPointArret( PointArret pointarret){
 
 
         if(pointarret.getNom() != null && pointarret.getLongitude() != null  && pointarret.getLatitude() != null){
@@ -65,7 +65,7 @@ public class PointArretService {
 
         return pointarretRepo.save(realPA);
 
-    } 
+    } */
 
 
 
