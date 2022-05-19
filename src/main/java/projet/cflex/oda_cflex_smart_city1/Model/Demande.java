@@ -5,6 +5,9 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 import java.time.Instant;
 
@@ -68,6 +71,7 @@ public class Demande implements Serializable {
 
 
     @ManyToOne(targetEntity = Zone.class, fetch = FetchType.EAGER, optional = false)
+    @JsonIgnore
     @JoinColumn(name = "id_zone_fk", insertable = false, updatable = false)
     private Zone ZoneFk;
 
