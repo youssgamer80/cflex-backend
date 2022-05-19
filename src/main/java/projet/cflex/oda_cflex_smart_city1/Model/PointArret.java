@@ -10,6 +10,13 @@ public class PointArret {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    @Column(name = "nom")
+    private String nom;
+
+    public Boolean isStatut() {
+        return this.statut;
+    }
+
     @Column(name = "longitude")
     private String longitude;
 
@@ -28,6 +35,14 @@ public class PointArret {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNom() {
+        return this.nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getLongitude() {

@@ -43,7 +43,7 @@ public class VehiculeController {
     }
 
     @PostMapping(value = "/addvehicule")
-    public String addVehicule(@ModelAttribute("vehicule")@Validated Vehicule vehicule, BindingResult bindingResult){
+    public String addVehicule(@ModelAttribute("vehicule")@Validated @RequestBody Vehicule vehicule, BindingResult bindingResult){
         vehiculeService.save(vehicule);
         return ("Le vehicule a été ajouté avec succès");
     }
