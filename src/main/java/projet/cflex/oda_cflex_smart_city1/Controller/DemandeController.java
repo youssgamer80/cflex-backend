@@ -80,6 +80,10 @@ public class DemandeController {
         demande.setEtat(input.getEtat());
         demande.setIdProprietaireFk(input.getProprietaireId());
         demande.setDate(input.getDate());
+        demande.setImmatriculation(input.getImmatriculation());
+        demande.setMarque(input.getMarque());
+        demande.setModel(input.getModel());
+        demande.setNombreDePlace(input.getNombreDePlace());
         demande.setStatut(input.getStatus());
         demande.setIdTypeTransportFk(input.getTypeTransportId());
         demande.setIdZoneFk(input.getZoneId());
