@@ -45,8 +45,8 @@ public class Vehicule {
     @JoinColumn(name = "id_zone_fk", nullable = false)
     private Zone idZoneFk;
 
-    @Column(name = "cartegrise", nullable = false)
-    private String cartegrise;
+    @Column(name = "carte_grise", nullable = false)
+    private String carteGrise;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_demande_fk", nullable = false)
@@ -125,11 +125,11 @@ public class Vehicule {
     }
 
     public String getCarteGrise() {
-        return cartegrise;
+        return carteGrise;
     }
 
-    public void setCarteGrise(String cartegrise) {
-        this.cartegrise = cartegrise;
+    public void setCarteGrise(String carteGrise) {
+        this.carteGrise = carteGrise;
     }
 
     public Demande getIdDemandeFk() {
