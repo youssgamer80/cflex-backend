@@ -61,6 +61,12 @@ public class VehiculeController {
         );
     }
 
+<<<<<<< HEAD
+    @PostMapping(value = "/addvehicule")
+    public String addVehicule(@ModelAttribute("vehicule")@Validated @RequestBody Vehicule vehicule, BindingResult bindingResult){
+        vehiculeService.save(vehicule);
+        return ("Le vehicule a été ajouté avec succès");
+=======
     @GetMapping("/get/{id}")
     public ResponseEntity<Response> getProprietaire(@PathVariable("id") Integer id){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
@@ -70,6 +76,7 @@ public class VehiculeController {
                 .statusCode(OK.value())
                 .build()
         );
+>>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
     }
 
     @DeleteMapping("/delete/{id}")
