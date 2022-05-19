@@ -3,12 +3,6 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import lombok.*;
 
 import javax.persistence.*;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "point_arret")
 public class PointArret {
@@ -17,13 +11,8 @@ public class PointArret {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-<<<<<<< HEAD
     @Column(name = "nom")
     private String nom;
-
-    public Boolean isStatut() {
-        return this.statut;
-    }
 
     @Column(name = "longitude")
     private String longitude;
@@ -72,18 +61,5 @@ public class PointArret {
     public String getLatitude() {
         return latitude;
     }
-=======
-    @Column(name = "nom", nullable = false)
-    private String nom;
->>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
-
-    @Column(name = "longitude", nullable = false)
-    private Double longitude;
-
-    @Column(name = "latitude", nullable = false)
-    private Double latitude;
-
-    @Column(name = "statut")
-    private Boolean statut;
 
 }

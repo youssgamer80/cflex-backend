@@ -1,19 +1,11 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
-<<<<<<< HEAD
 import lombok.*;
 import java.io.Serializable;
-=======
 
 import lombok.*;
 
->>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
 @Table(name = "zone")
 
@@ -52,8 +44,6 @@ public class Zone implements Serializable {
     @Column(name = "statut", nullable = false)
     private Boolean statut = Boolean.TRUE;
 
-
-<<<<<<< HEAD
     public Integer getId() {
         return this.id;
     }
@@ -113,10 +103,5 @@ public class Zone implements Serializable {
     public void setStatut(Boolean statut) {
         this.statut = statut;
     }
-    
 
-
-
-=======
->>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
 }
