@@ -3,10 +3,6 @@ package projet.cflex.oda_cflex_smart_city1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-<<<<<<< HEAD
-
-=======
->>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
 //import org.springframework.data.custom.repository.support.CustomRepositoryFactoryBean;
 //import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 

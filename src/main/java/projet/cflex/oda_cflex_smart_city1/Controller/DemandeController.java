@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.RequestBody;
+import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
 import projet.cflex.oda_cflex_smart_city1.exception.DemandeNotFoundException;
 
