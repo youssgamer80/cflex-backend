@@ -3,14 +3,12 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
-import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
-import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
@@ -18,7 +16,7 @@ import java.util.Map;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.HttpStatus.ACCEPTED;
+
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RestController
 @RequestMapping("vehicule")
@@ -39,6 +37,18 @@ public class VehiculeController {
                 .build()
         );
     }
+
+  /*  @GetMapping("/listvehiculeproprio/{ange}")
+    public ResponseEntity<Response> getVehiculeProprio(@PathVariable("ange") Vehicule vehicule){
+        Integer ange = vehicule.getIdProprietaireFk().getId();
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("vehicule", vehiculeService.listvehiculeproprio(true,vehicule)))
+                .message("Vehicule recupéré")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
+    }*/
 
     @PostMapping("/save")
     public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){

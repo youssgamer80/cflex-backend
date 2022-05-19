@@ -14,7 +14,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.VehiculeService;
 
 import javax.persistence.EntityManager;
 import java.util.Collection;
-import java.util.Random;
+import java.util.Optional;
 
 import static java.lang.Boolean.TRUE;
 
@@ -47,6 +47,20 @@ public class VehiculeServiceImpl implements VehiculeService {
         session.disableFilter("deletedVehiculeFilter");
         return vehicules;
     }
+
+
+  /*  @Override
+    public Optional<Vehicule> listvehiculeproprio(boolean isDeleted, Vehicule vehicule) {
+        //log.info("Tous les vehicules d'un proprio",vehicule.getIdProprietaireFk());
+        //String liste = String.valueOf(vehicule.getIdProprietaireFk().getId());
+        Session session = entityManager.unwrap(Session.class);
+        Filter filter = session.enableFilter("deletedVehiculeFilter");
+        filter.setParameter("isDeleted", isDeleted);
+        Optional<Vehicule> vehiculesproprio =  vehiculeRepository.findById(vehicule.getIdProprietaireFk().getId());
+        session.disableFilter("deletedVehiculeFilter");
+        return vehiculesproprio;
+    }
+*/
 
     @Override
     public Vehicule get(Integer id) {
