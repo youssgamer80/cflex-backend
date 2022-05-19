@@ -1,26 +1,16 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
-import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.Collection;
 import java.util.Optional;
 
-@Service
+public interface VehiculeService {
+    Vehicule create(Vehicule vehicule);
+    Collection<Vehicule> list(boolean isDeleted);
+    Vehicule get(Integer id);
+    Boolean delete(Integer id);
+    Vehicule majVehicule(Integer id, Vehicule vehicule) ;
+   //  Optional<Vehicule> listvehiculeproprio(boolean isDeleted, Vehicule vehicule);
 
-public class VehiculeService {
-    @Autowired
-    VehiculeRepository vehiculeRepository;
-    public void save (Vehicule vehicule){vehiculeRepository.save(vehicule);}
-    public List<Vehicule> findAll(){
-        return  vehiculeRepository.findAll();
-    }
-    public Optional<Vehicule> findOne(Integer id){
-        return  vehiculeRepository.findById(id);
-    }
-    public void delete(Integer id){
-        vehiculeRepository.deleteById(id);
-    }
 }

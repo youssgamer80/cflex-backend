@@ -1,7 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "`role-permission`")
 public class RolePermission {
@@ -18,28 +25,7 @@ public class RolePermission {
     @JoinColumn(name = "id_permission_fk", nullable = false)
     private Permission idPermissionFk;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Role getIdRoleFk() {
-        return idRoleFk;
-    }
-
-    public void setIdRoleFk(Role idRoleFk) {
-        this.idRoleFk = idRoleFk;
-    }
-
-    public Permission getIdPermissionFk() {
-        return idPermissionFk;
-    }
-
-    public void setIdPermissionFk(Permission idPermissionFk) {
-        this.idPermissionFk = idPermissionFk;
-    }
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
 }

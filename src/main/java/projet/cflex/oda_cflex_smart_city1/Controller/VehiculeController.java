@@ -1,84 +1,111 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.ui.Model;
+import org.springframework.http.ResponseEntity;
+import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
-import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
-import projet.cflex.oda_cflex_smart_city1.Service.VehiculeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.ModelMap;
-import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
+import projet.cflex.oda_cflex_smart_city1.Response.Response;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-import java.util.List;
+import java.util.Map;
 
+import static java.time.LocalDateTime.now;
+import static org.springframework.http.HttpStatus.*;
+
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RestController
+@RequestMapping("vehicule")
+@RequiredArgsConstructor
 public class VehiculeController {
     @Autowired
-    VehiculeRepository vehiculeRepository;
+    private final VehiculeServiceImpl vehiculeService;
     @Autowired
-    VehiculeService vehiculeService;
+    VehiculeRepository vehiculeRepository;
 
-    @GetMapping("/listevehicule")
-    @ResponseBody
-    public List<Vehicule> ListeVehicule(ModelMap modelMap){
-        List <Vehicule> listevehicule = vehiculeService.findAll();
-        return listevehicule;
+    @GetMapping("/list")
+    public ResponseEntity<Response> getVehicule(){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("vehicule", vehiculeService.list(true)))
+                .message("Vehicule recupéré")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
     }
 
-    //Endpoint retournant la liste des infos pour un véhicule donné
-    @GetMapping("/listeinfovehicule/{id}")
-    @ResponseBody
-    public Object listinfoproprio(@Validated @PathVariable("id") Integer id) {
-        try {
-            Vehicule infovehicule = vehiculeService.findOne(id)
-                    .orElseThrow(() -> new IllegalArgumentException("Id invalide" + id));
+  /*  @GetMapping("/listvehiculeproprio/{ange}")
+    public ResponseEntity<Response> getVehiculeProprio(@PathVariable("ange") Vehicule vehicule){
+        Integer ange = vehicule.getIdProprietaireFk().getId();
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("vehicule", vehiculeService.listvehiculeproprio(true,vehicule)))
+                .message("Vehicule recupéré")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
+    }*/
 
-            return (infovehicule);
-        }
-        catch (Exception e){
-            return ("Le véhicule avec l'Id:"+id+" n'existe pas");
-        }
+    @PostMapping("/save")
+    public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("vehicule", vehiculeService.create(vehicule)))
+                .message("Véhicule enregistré avec succès")
+                .status(CREATED)
+                .statusCode(CREATED.value())
+                .build()
+        );
     }
 
+<<<<<<< HEAD
     @PostMapping(value = "/addvehicule")
     public String addVehicule(@ModelAttribute("vehicule")@Validated @RequestBody Vehicule vehicule, BindingResult bindingResult){
         vehiculeService.save(vehicule);
         return ("Le vehicule a été ajouté avec succès");
+=======
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Response> getProprietaire(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("vehicule", vehiculeService.get(id)))
+                .message("Véhicule retrouvé")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
+>>>>>>> f0f14fa6c08a0c3c387326026ec3b5a0b9a5caef
     }
 
-
-    @DeleteMapping("/suppvehicule/{id}")
-    public Object suppvehicule( @PathVariable Integer id){
-        try {
-            vehiculeService.delete(id);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK);
-        }
-        catch (Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-
-    }}
-
-    @PutMapping("/majvehicule/{id}")
-    public String majVehicule(@PathVariable("id") Integer id, @Validated Vehicule vehicule,
-                              BindingResult result, Model model) {
-        try {
-            vehiculeService.findOne(id).orElseThrow(() ->new IllegalArgumentException());
-            vehiculeRepository.save(vehicule);
-            return ("La modification des informations du vehicule " + id + "a été effectuée");
-
-        }
-        catch (Exception e){
-
-            return ("L'id n'existe pas");
-        }
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Response> deleteVehicule(@PathVariable("id") Integer id){
+        boolean exists = vehiculeRepository.existsById(id);
+        if(!exists){throw new IllegalStateException("Le vehicule avec le numero "+id+" n'existe pas");}
+        else {
+            return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                    data(Map.of("delete", vehiculeService.delete(id)))
+                    .message("Le vehicule avec le numero "+id+" a été supprimé avec succès")
+                    .status(OK)
+                    .statusCode(OK.value())
+                    .build()
+            );}
     }
 
-    @GetMapping("/listevehiculeproprio")
-    @ResponseBody
-    public List<Vehicule> ListeVehiculeProprio(ModelMap modelMap){
-        List <Vehicule> listevehiculeproprio = vehiculeService.findAll();
-        return listevehiculeproprio;
+    @PutMapping(value = "/updateVehicule/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Vehicule vehicule, @PathVariable Integer id) {
+
+        try{
+            Vehicule result = vehiculeService.majVehicule(id, vehicule);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        }catch(Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+
     }
+  /*  @GetMapping(path = "/image/{cartegrise}", produces = IMAGE_PNG_VALUE)
+    public byte[] getProprietairePermis(@PathVariable("cartegrise") String cartegrise) throws IOException {
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+cartegrise));
+    }*/
 }

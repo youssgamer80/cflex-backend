@@ -1,7 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "avoir")
 public class Avoir {
@@ -20,37 +27,5 @@ public class Avoir {
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Itineraire getIdItineraireFk() {
-        return idItineraireFk;
-    }
-
-    public void setIdItineraireFk(Itineraire idItineraireFk) {
-        this.idItineraireFk = idItineraireFk;
-    }
-
-    public ModeDeplacement getIdModeDeplacementFk() {
-        return idModeDeplacementFk;
-    }
-
-    public void setIdModeDeplacementFk(ModeDeplacement idModeDeplacementFk) {
-        this.idModeDeplacementFk = idModeDeplacementFk;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
 
 }

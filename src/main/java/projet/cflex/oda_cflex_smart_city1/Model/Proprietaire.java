@@ -1,10 +1,24 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "proprietaire")
+@SQLDelete(sql = "UPDATE proprietaire SET statut = true WHERE id=?")
+@FilterDef(name = "deletedProprietaireFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedProprietaireFilter", condition = "statut = :isDeleted")
 public class Proprietaire {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,124 +37,25 @@ public class Proprietaire {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "piece_identite")
-    private String pieceIdentite;
-
-    @Column(name = "statut", nullable = false)
-    private Boolean statut = false;
-
-    @Column(name = "carte_grise")
-    private String carteGrise;
+    @Column(name = "statut")
+    private Boolean statut;
 
     @Column(name = "permis")
     private String permis;
 
-    @Column(name = "genre", nullable = false, length = 2)
-    private String genre;
-
-    @Column(name = "date_naissance", nullable = false)
+    @Column(name = "date_naissance")
     private LocalDate dateNaissance;
 
-    @Column(name = "lieu_naissance", nullable = false)
+    @Column(name = "genre", nullable = false, length = 1)
+    private String genre;
+
+    @Column(name = "lieu_naissance")
     private String lieuNaissance;
 
     @Column(name = "lieu_residence", nullable = false)
     private String lieuResidence;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public String getTelephone() {
-        return telephone;
-    }
-
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPieceIdentite() {
-        return pieceIdentite;
-    }
-
-    public void setPieceIdentite(String pieceIdentite) {
-        this.pieceIdentite = pieceIdentite;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
-
-    public String getPermis() {
-        return permis;
-    }
-
-    public void setPermis(String permis) {
-        this.permis = permis;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public LocalDate getDateNaissance() {
-        return dateNaissance;
-    }
-
-    public void setDateNaissance(LocalDate dateNaissance) {
-        this.dateNaissance = dateNaissance;
-    }
-
-    public String getLieuNaissance() {
-        return lieuNaissance;
-    }
-
-    public void setLieuNaissance(String lieuNaissance) {
-        this.lieuNaissance = lieuNaissance;
-    }
-
-    public String getLieuResidence() {
-        return lieuResidence;
-    }
-
-    public void setLieuResidence(String lieuResidence) {
-        this.lieuResidence = lieuResidence;
-    }
+    @Column(name = "piece_identite", nullable = false)
+    private String pieceIdentite;
 
 }

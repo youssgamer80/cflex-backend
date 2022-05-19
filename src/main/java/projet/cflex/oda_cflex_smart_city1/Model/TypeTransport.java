@@ -1,7 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "type_transport")
 public class TypeTransport {
@@ -15,29 +22,5 @@ public class TypeTransport {
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getLibelleTypeTransport() {
-        return libelleTypeTransport;
-    }
-
-    public void setLibelleTypeTransport(String libelleTypeTransport) {
-        this.libelleTypeTransport = libelleTypeTransport;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
 
 }

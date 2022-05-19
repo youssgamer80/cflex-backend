@@ -10,22 +10,19 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "utilisateur")
-public class Utilisateur {
+@Table(name = "trackergps")
+public class Trackergps {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "nom_utilisateur", nullable = false)
-    private String nomUtilisateur;
-
-    @Column(name = "mot_de_passe", nullable = false)
-    private String motDePasse;
+    @Column(name = "libelle", nullable = false)
+    private String libelle;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_role_fk", nullable = false)
-    private Role idRoleFk;
+    @JoinColumn(name = "id_vehicule_fk", nullable = false)
+    private Vehicule idVehiculeFk;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
