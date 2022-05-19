@@ -1,8 +1,15 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "troncon")
 public class Troncon {
@@ -23,7 +30,7 @@ public class Troncon {
     private PointArret idPointArretBFk;
 
     @Column(name = "distance", nullable = false)
-    private Integer distance;
+    private Double distance;
 
     @Column(name = "duree", nullable = false)
     private Integer duree;
@@ -40,85 +47,5 @@ public class Troncon {
 
     @Column(name = "rang")
     private Integer rang;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public PointArret getIdPointArretAFk() {
-        return idPointArretAFk;
-    }
-
-    public void setIdPointArretAFk(PointArret idPointArretAFk) {
-        this.idPointArretAFk = idPointArretAFk;
-    }
-
-    public PointArret getIdPointArretBFk() {
-        return idPointArretBFk;
-    }
-
-    public void setIdPointArretBFk(PointArret idPointArretBFk) {
-        this.idPointArretBFk = idPointArretBFk;
-    }
-
-    public Integer getDistance() {
-        return distance;
-    }
-
-    public void setDistance(Integer distance) {
-        this.distance = distance;
-    }
-
-    public Integer getDuree() {
-        return duree;
-    }
-
-    public void setDuree(Integer duree) {
-        this.duree = duree;
-    }
-
-    public BigDecimal getTarif() {
-        return tarif;
-    }
-
-    public void setTarif(BigDecimal tarif) {
-        this.tarif = tarif;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
-
-    public Ligne getIdLigneFk() {
-        return idLigneFk;
-    }
-
-    public void setIdLigneFk(Ligne idLigneFk) {
-        this.idLigneFk = idLigneFk;
-    }
-
-    public Integer getRang() {
-        return rang;
-    }
-
-    public void setRang(Integer rang) {
-        this.rang = rang;
-    }
 
 }

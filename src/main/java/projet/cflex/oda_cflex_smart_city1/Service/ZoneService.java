@@ -24,39 +24,47 @@ public class ZoneService {
     }
 
 
-    public Zone ZoneById(Integer id){
-        return ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-    }
+    /*public Zone ZoneById(Integer id){
+        return ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone " + id + " n'existe pas"));
+    }*/
 
-    //public void save (Zone zone){ZoneRepo.save(zone);}
-    public Zone NewZone(Zone zone){
+    public Optional<Zone> ZoneById(Integer id){
+        return ZoneRepo.findById(id);
+
+    }
+    
+    public Zone Addzone(Zone zone){
         return ZoneRepo.save(zone);
     }
+
 
     public Zone updateZone(Integer id, Zone zone){
 
-        Zone existZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
+        Zone existZone = this.ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
 
-        if (zone.getLibelle() == null) {
-            zone.setLibelle(existZone.getLibelle());
+        if (zone.getLibelle() != null) {
+            existZone.setLibelle(zone.getLibelle());
         }
-         if (zone.getIdTypeZoneFk()==null) {
-             zone.setIdTypeZoneFk(existZone.getIdTypeZoneFk());
+         if (zone.getIdTypeZoneFk()!=null) {
+            existZone.setIdTypeZoneFk(zone.getIdTypeZoneFk());
          }
 
-         if (zone.getZoneparent()==null) {
-             zone.setZoneparent(existZone.getZoneparent());
+         if (zone.getZoneparent()!=null) {
+            existZone.setZoneparent(zone.getZoneparent());
          }
 
-        return ZoneRepo.save(zone);
+         if(zone.getStatut()!= null){
+            existZone.setStatut(zone.getStatut());;
+
+        }
+
+        return ZoneRepo.save(existZone);
     }
 
-    public Zone deleteZone(Integer id, Zone zone) {
-        Zone realZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-        if (zone.getStatut()== false){
-            realZone.setStatut(zone.getStatut());
-        }
-        
+
+    public Zone deleteZone(Integer id){
+        Zone realZone = this.ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
+        realZone.setStatut(false);
         return ZoneRepo.save(realZone);
     }
     

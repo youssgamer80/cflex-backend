@@ -1,7 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "role")
 public class Role {
@@ -13,31 +20,7 @@ public class Role {
     @Column(name = "role", nullable = false)
     private String role;
 
-    @Column(name="statut", nullable = true)
-    private Boolean statut;
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut){
-
-        this.statut = statut;
-    }
 }

@@ -34,8 +34,8 @@ public class ProprietaireServiceImpl implements ProprioService {
     public Proprietaire create(Proprietaire proprietaire) {
         log.info("Enregistrement d'un nouveau propriétaire: {}","Nom:"+" "+proprietaire.getNom()+"/"+
                         "Prénoms:"+" "+proprietaire.getPrenom());
-        proprietaire.setPermis(setProprietairePermis());
-        proprietaire.setPieceIdentite(setProprietairePieceIdentite());
+       /* proprietaire.setPermis(setProprietairePermis());
+        proprietaire.setPieceIdentite(setProprietairePieceIdentite());*/
         return proprietaireRepository.save(proprietaire);
     }
 
@@ -58,26 +58,13 @@ public class ProprietaireServiceImpl implements ProprioService {
     }
 
     @Override
-    public Proprietaire update(Integer id, Proprietaire proprietaire) {
-        log.info("Modification d'un propriétaire: {}",id);
-        Proprietaire exproprio = this.proprietaireRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ce proprietaire n'existe pas :" + id));
-        System.out.println("test" +id);
-    System.out.println(proprietaireRepository.save(exproprio));
-        return proprietaireRepository.save(exproprio);
-
-    }
-
-    @Override
     public Boolean delete(Integer id) {
         log.info("Suppression d'un propriétaire par ID: {}",id);
         proprietaireRepository.deleteById(id);
         return TRUE;
     }
-
-
-
     private String setProprietairePieceIdentite() {
+
         String[] pieceidentiteproprio = {"pieceidentite1.png"};
         return ServletUriComponentsBuilder.fromCurrentContextPath().
                 path(("/proprietaire/pieceidentite"+ pieceidentiteproprio[new Random().nextInt(4)])).toUriString();
@@ -86,5 +73,57 @@ public class ProprietaireServiceImpl implements ProprioService {
         String[] permisproprio = {"permis1.png"};
         return ServletUriComponentsBuilder.fromCurrentContextPath().
                 path(("/proprietaire/permis"+ permisproprio[new Random().nextInt(4)])).toUriString();
+    }
+
+    public Proprietaire majProprietaire(Integer id, Proprietaire proprietaire) {
+
+        Proprietaire existingproprio = this.proprietaireRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ce proprietaire n'existe pas :" + id));
+
+        if(proprietaire.getNom()!=null){
+            existingproprio.setNom(proprietaire.getNom());
+        }
+
+        if(proprietaire.getPrenom()!=null){
+            existingproprio.setPrenom(proprietaire.getPrenom());
+        }
+
+        if(proprietaire.getTelephone()!=null){
+            existingproprio.setTelephone(proprietaire.getTelephone());
+        }
+
+        if(proprietaire.getEmail()!=null){
+            existingproprio.setEmail(proprietaire.getEmail());
+        }
+
+        if(proprietaire.getPieceIdentite()!=null){
+            existingproprio.setPieceIdentite(proprietaire.getPieceIdentite());
+        }
+
+        if(proprietaire.getStatut()!=null){
+            existingproprio.setStatut(proprietaire.getStatut());
+        }
+
+        if(proprietaire.getPermis()!=null){
+            existingproprio.setPermis(proprietaire.getPermis());
+        }
+
+        if(proprietaire.getGenre()!=null){
+            existingproprio.setGenre(proprietaire.getGenre());
+        }
+
+        if(proprietaire.getDateNaissance()!=null){
+            existingproprio.setDateNaissance(proprietaire.getDateNaissance());
+        }
+
+        if(proprietaire.getLieuNaissance()!=null){
+            existingproprio.setLieuNaissance(proprietaire.getLieuNaissance());
+        }
+
+        if(proprietaire.getLieuResidence()!=null){
+            existingproprio.setLieuResidence(proprietaire.getLieuResidence());
+        }
+
+        return proprietaireRepository.save(existingproprio);
     }
 }

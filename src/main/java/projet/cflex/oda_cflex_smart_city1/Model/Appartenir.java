@@ -1,7 +1,14 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "appartenir")
 public class Appartenir {
@@ -18,28 +25,7 @@ public class Appartenir {
     @JoinColumn(name = "id_troncon_fk", nullable = false)
     private Troncon idTronconFk;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Ligne getIdLigneFk() {
-        return idLigneFk;
-    }
-
-    public void setIdLigneFk(Ligne idLigneFk) {
-        this.idLigneFk = idLigneFk;
-    }
-
-    public Troncon getIdTronconFk() {
-        return idTronconFk;
-    }
-
-    public void setIdTronconFk(Troncon idTronconFk) {
-        this.idTronconFk = idTronconFk;
-    }
+    @Column(name = "statut", nullable = false)
+    private Boolean statut = false;
 
 }

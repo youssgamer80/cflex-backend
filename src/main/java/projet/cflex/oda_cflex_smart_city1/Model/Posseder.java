@@ -1,8 +1,15 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+
 import javax.persistence.*;
 import java.time.Instant;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "posseder")
 public class Posseder {
@@ -24,45 +31,5 @@ public class Posseder {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_trackergps_fk", nullable = false)
     private Trackergps idTrackergpsFk;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Instant getPeriode() {
-        return periode;
-    }
-
-    public void setPeriode(Instant periode) {
-        this.periode = periode;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
-
-    public Vehicule getIdVehiculeFk() {
-        return idVehiculeFk;
-    }
-
-    public void setIdVehiculeFk(Vehicule idVehiculeFk) {
-        this.idVehiculeFk = idVehiculeFk;
-    }
-
-    public Trackergps getIdTrackergpsFk() {
-        return idTrackergpsFk;
-    }
-
-    public void setIdTrackergpsFk(Trackergps idTrackergpsFk) {
-        this.idTrackergpsFk = idTrackergpsFk;
-    }
 
 }

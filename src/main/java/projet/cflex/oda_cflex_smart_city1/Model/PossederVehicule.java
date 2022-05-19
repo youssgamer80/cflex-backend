@@ -1,6 +1,8 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import lombok.*;
+import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 
 import javax.persistence.*;
 
@@ -10,22 +12,20 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-@Table(name = "utilisateur")
-public class Utilisateur {
+@Table(name = "`posseder-vehicule`")
+public class PossederVehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "nom_utilisateur", nullable = false)
-    private String nomUtilisateur;
-
-    @Column(name = "mot_de_passe", nullable = false)
-    private String motDePasse;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_proprietaire_fk", nullable = false)
+    private Proprietaire idProprietaireFk;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_role_fk", nullable = false)
-    private Role idRoleFk;
+    @JoinColumn(name = "id_vehicule_fk", nullable = false)
+    private Vehicule idVehiculeFk;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;

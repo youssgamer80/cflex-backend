@@ -9,9 +9,7 @@ public interface ProprioService {
     Proprietaire create(Proprietaire proprietaire);
     Collection <Proprietaire> list(boolean isDeleted);
     Proprietaire get(Integer id);
-
-    Proprietaire update(Integer id, Proprietaire proprietaire);
-
     Boolean delete(Integer id);
+    Proprietaire majProprietaire(Integer id, Proprietaire proprietaire) ;
 
 }
