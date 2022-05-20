@@ -1,24 +1,29 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.*;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
-import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
-import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
-import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+import java.sql.Timestamp;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-import java.io.Serializable;
-import java.time.Instant;
-
-
-@Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "demande", indexes = {
         @Index(name = "idx_demande_id_zone_fk", columnList = "id_zone_fk"),
@@ -26,9 +31,8 @@ import java.time.Instant;
         @Index(name = "idx_demande_id_proprietaire_fk", columnList = "id_proprietaire_fk"),
 
 })
-@SQLDelete(sql = "UPDATE demande SET statut = true WHERE id=?")
-@Where(clause = "statut=false")
-public class Demande implements Serializable {
+
+public class Demande{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -40,18 +44,14 @@ public class Demande implements Serializable {
     @Column(name = "etat")
     private Boolean etat;
 
-    @ManyToOne(targetEntity = Proprietaire.class, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_proprietaire_fk", insertable = false, updatable = false)
-    //@JsonIdentityInfo(generator = ObjectIdGenerators.IntSequenceGenerator.class, property = "id")
-    private Proprietaire proprietaire;
-
-
-    @Column(name = "id_proprietaire_fk")
-    private int idProprietaireFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proprietaire_fk")
+    private Proprietaire idProprietaireFk;;
 
 
     @Column(name = "date", nullable = false)
-    private Instant date;
+    private Timestamp date;
+
     @Column(name = "immatriculation", nullable = false)
     private String Immatriculation;
 
@@ -62,22 +62,113 @@ public class Demande implements Serializable {
     private String model;
 
     @Column(name = "nb_place", nullable = false)
-    private Integer nombreDePlace;
-    @ManyToOne(targetEntity = TypeTransport.class, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_type_transport_fk", insertable = false, updatable = false)
-    private TypeTransport TypeTransportFk;
+    private Integer nbPlace;
 
-    @Column(name = "id_type_transport_fk")
-    private int idTypeTransportFk;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_type_transport_fk")
+    private TypeTransport idTypeTransportFk;
 
-    @JsonIgnore
-    @ManyToOne(targetEntity = Zone.class, fetch = FetchType.EAGER, optional = false)
-    @JsonIgnore
-    @JoinColumn(name = "id_zone_fk", insertable = false, updatable = false)
-    private Zone ZoneFk;
-    @Column(name = "id_zone_fk")
-    private int idZoneFk;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zone_fk")
+    private Zone idZoneFk;
+
     @Column(name = "statut", nullable = false)
     private Boolean statut = Boolean.FALSE;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getCodeDemande() {
+        return codeDemande;
+    }
+
+    public void setCodeDemande(String codeDemande) {
+        this.codeDemande = codeDemande;
+    }
+
+    public Boolean getEtat() {
+        return etat;
+    }
+
+    public void setEtat(Boolean etat) {
+        this.etat = etat;
+    }
+
+    public Proprietaire getIdProprietaireFk() {
+        return idProprietaireFk;
+    }
+
+    public void setIdProprietaireFk(Proprietaire idProprietaireFk) {
+        this.idProprietaireFk = idProprietaireFk;
+    }
+
+    public Timestamp getDate() {
+        return date;
+    }
+
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
+
+    public String getImmatriculation() {
+        return Immatriculation;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        this.Immatriculation = immatriculation;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public String getModel() {
+        return model;
+    }
+
+    public void setModel(String model) {
+        this.model = model;
+    }
+
+    public Integer getNbPlace() {
+        return nbPlace;
+    }
+
+    public void setNbPlace(Integer nbPlace) {
+        this.nbPlace = nbPlace;
+    }
+
+    public TypeTransport getIdTypeTransportFk() {
+        return idTypeTransportFk;
+    }
+
+    public void setIdTypeTransportFk(TypeTransport idTypeTransportFk) {
+        this.idTypeTransportFk = idTypeTransportFk;
+    }
+
+    public Zone getIdZoneFk() {
+        return idZoneFk;
+    }
+
+    public void setIdZoneFk(Zone idZoneFk) {
+        this.idZoneFk = idZoneFk;
+    }
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
 }

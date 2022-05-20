@@ -2,120 +2,84 @@ package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
-
-import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.springframework.web.bind.annotation.RequestBody;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Service.DemandeService;
-import projet.cflex.oda_cflex_smart_city1.exception.DemandeNotFoundException;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-@RestController
-@RequestMapping("/api")
-
-@Tag(name = "L'API de Demande", description = "L'Api de la gestion des demande")
-/**
- * Api demande
- * @author Yao Eloge
- */
+@RestController // This means that this class is a Controller
+@RequestMapping("/api/demandes")
+@Tag(name = "API Demande", description = "Api des services de demnde")
 public class DemandeController {
-    DemandeService demandeService;
 
-    /**
-     * DemandeController
-     * @param demandeService
-     */
     @Autowired
-    public DemandeController(DemandeService demandeService) {
-        this.demandeService = demandeService;
-    }
-    /** Optenir la liste des demandes
-     * @return la liste des demandes
-     */
-    @GetMapping(value = "/demandes")
-    public List<Demande> getAllDemandes() {
-        return demandeService.getAllDemandes();
-    }
+    private DemandeService demandeService;
+    @GetMapping
+        public ResponseEntity<Object> Get() {
+            try {
+                List<Demande> result = demandeService.getAllDemandes();
+                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
-    /** Obtenir une une demande avec l'id passe en param
-     * @param id
-     * @return la liste des demandes
-     */
-    @GetMapping(value = "/demandes/{id}")
-    public Demande getDemandeById(@PathVariable("id") @Min(1) int id) {
-        Demande demande = demandeService.findById(id).
-                orElseThrow(() -> new DemandeNotFoundException("Demande introuvable avec l'identifiant: " + id));
-        return demande;
-    }
-
-    /** Ajouter une nouvelle demande
-     * @param input
-     * @return message
-     */
-    @PostMapping(value = "/demandes")
-    public String createDemande(@Valid @RequestBody @NotNull DemandeObject input) {
-        Demande demande = new Demande();
-        saveDemande(input, demande);
-        return "Demande cree avec succes";
-    }
-
-    /**
-     *  Procedure pour gerer l'enregistrement d'une demande
-     * @param input
-     * @param demande
-     */
-    private void saveDemande(@RequestBody @Valid @NotNull DemandeObject input, Demande demande) {
-        demande.setCodeDemande(input.getCodeDemande());
-        demande.setEtat(input.getEtat());
-        demande.setIdProprietaireFk(input.getProprietaireId());
-        demande.setDate(input.getDate());
-        demande.setImmatriculation(input.getImmatriculation());
-        demande.setMarque(input.getMarque());
-        demande.setModel(input.getModel());
-        demande.setNombreDePlace(input.getNombreDePlace());
-        demande.setStatut(input.getStatus());
-        demande.setIdTypeTransportFk(input.getTypeTransportId());
-        demande.setIdZoneFk(input.getZoneId());
-        demandeService.save(demande);
-    }
+        @GetMapping(value="/{id}")
+        public ResponseEntity<Object> Get(@PathVariable int id) {
+            try {
+                Demande result = demandeService.getDemande(id);
+                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
 
-    /**
-     * Editer une demande
-     *
-     * @param input
-     * @return message
-     */
-    @PutMapping(value = "/demandes/{id}")
-    public String updateDemande(@PathVariable("id") @Min(1) int id, @Valid @RequestBody DemandeObject input) {
-        Demande demande = demandeService.findById(id).
-                orElseThrow(() -> new DemandeNotFoundException("Demande introuvable avec l'identifiant: " + id));
-        saveDemande(input, demande);
-        return "Demande editer avec succes";
+    @PostMapping(value = "/addDemande")
+    public ResponseEntity<Object> Post(@RequestBody Demande demande) {
+        try {
+            Demande result = demandeService.addDemande(demande);
+            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+ 
+    
+    @PutMapping(value = "/updateDemande/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Demande demande, @PathVariable Integer id) {
+        
+        try{
+            Demande result = demandeService.updateDemande(id, demande);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        }catch(Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+    
     }
 
-    /**
-     * Supprimer une demande
-     *
-     * @param id
-     * @return message
-     */
-    @DeleteMapping(value = "/demandes/{id}")
-    public String deleteDemande(@PathVariable("id") @Min(1) int id) {
-        Demande demande = demandeService.findById(id).
-                orElseThrow(() -> new DemandeNotFoundException("Demande introuvable avec l'identifiant: " + id));
-        demandeService.deleteById(id);
-        return "Demande avec l'ID :"+id+" supprimée succès";
+    @DeleteMapping(value = "/deleteDemande/{id}")
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Demande demande) {
+       
+        try{
+            Demande result = demandeService.deleteDemande(id,demande);
+            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
+        } catch(Exception e){
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
     }
+
+
 }

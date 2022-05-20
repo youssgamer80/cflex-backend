@@ -29,7 +29,7 @@ public class SmsOtpController {
 
     @PostMapping(value = "/sendotp") // Map ONLY POST Requests
             
-        public ResponseEntity<Object> sendotp(String telephone, @RequestBody MyPhone myPhone) {
+        public ResponseEntity<Object> sendotp(@RequestBody MyPhone myPhone) {
             
             String Telephone = myPhone.getTelephone();
 
