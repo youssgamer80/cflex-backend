@@ -99,7 +99,7 @@ public class ModeDeplacementController {
     @PostMapping("/addModeDeplacement")
     public ResponseEntity<Object> Post (@RequestBody ModeDeplacement mode){
         try {
-            ModeDeplacement resultat = MDService.NewZone(mode);
+            ModeDeplacement resultat = MDService.NewMode(mode);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, resultat);
         } 
         catch (Exception e) {
