@@ -46,9 +46,9 @@ public class Vehicule {
     @Column(name = "nb_place")
     private Integer nbPlace;
 
-    /*@ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_zone_fk", nullable = false)
-    private Zone idZoneFk;*/
+    private Zone idZoneFk;
 
     @Column(name = "carte_grise", nullable = false)
     private String carteGrise;

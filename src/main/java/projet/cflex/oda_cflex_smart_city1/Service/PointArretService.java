@@ -1,9 +1,13 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
+
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
+
 import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
 import projet.cflex.oda_cflex_smart_city1.Repository.PointArretRepository;
 
@@ -11,69 +15,61 @@ import projet.cflex.oda_cflex_smart_city1.Repository.PointArretRepository;
 public class PointArretService {
 
     @Autowired
-    private final PointArretRepository pointarretRepo;
-    //private Boolean statut= true;
-
-    @Autowired
-    public PointArretService(PointArretRepository pointarretRepo) {
-        this.pointarretRepo = pointarretRepo;
-    }
-
-    public List<PointArret> Liste(){
-        return pointarretRepo.findAll();
-    }
+    public PointArretRepository pointarretRepository;
+    private Boolean statut=true;
+    public PointArret pointarret;
 
 
-    public Optional<PointArret> PointById(Integer id){
-        return pointarretRepo.findById(id);
+    public List<PointArret> getAllPointArret() {
+        
+        List<PointArret> pointarrets = new ArrayList<>();
 
+        pointarretRepository.findByStatutJPQL(statut).forEach(pointarrets::add);
+
+        return pointarrets;
     }
     
-    /*public Object NewPointArret( PointArret pointarret){
+    public PointArret addPointArret(PointArret pointarret) {
 
-
-        if(pointarret.getNom() != null && pointarret.getLongitude() != null  && pointarret.getLatitude() != null){
-            pointarret.setStatut(true);
-            return pointarretRepo.save(pointarret);
-        } 
-        else {
-            return ("veuillez renseigner tous les champs");
-        }   
-        
+        return pointarretRepository.save(pointarret);
     }
 
-    public PointArret updatePointArret(Integer id, PointArret pointdarret){
-        
-        PointArret realPA = this.pointarretRepo.findById(id).orElseThrow(() -> new RuntimeException("Point darret" + id + "nexiste pas"));
+    public PointArret getPointArret(int id) {
 
-        if(pointdarret.getNom()!=null){
-            realPA.setNom(pointdarret.getNom());
-        }
-
-        if(pointdarret.getLongitude()!= null){
-            realPA.setLongitude(pointdarret.getLongitude());
-
-        }
-    
-        if(pointdarret.getLatitude()!=null){
-            realPA.setLatitude(pointdarret.getLatitude());
-        }
-        
-        if(pointdarret.getStatut()!=null){
-            realPA.setStatut(pointdarret.getStatut());
-        }
-
-        return pointarretRepo.save(realPA);
-
-    } */
-
-
-
-    public PointArret deletePointArret(Integer id){
-        PointArret realMD = this.pointarretRepo.findById(id).orElseThrow(() -> new RuntimeException("Point d'arrêt" + id + "nexiste pas"));
-        realMD.setStatut(false);
-        return pointarretRepo.save(realMD);
+        return this.pointarretRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Point d'arret not found with id :" + id));
     }
 
+    public PointArret updatePointArret(Integer id, PointArret pointarret) {
+
+        PointArret existingPointArret = this.pointarretRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Point Arret not found with id :" + id));
+        if(pointarret.getNom()!=null){
+             existingPointArret.setNom(pointarret.getNom());
+        }
+
+		if(pointarret.getLongitude()!=0){
+             existingPointArret.setLongitude(pointarret.getLongitude());
+       }
+
+       if(pointarret.getLatitude()!=0){
+        existingPointArret.setLatitude(existingPointArret.getLatitude());
+       }
+
+       if(pointarret.getStatut()!=null){
+        existingPointArret.setStatut(pointarret.getStatut());
+   }
+
+		return pointarretRepository.save(existingPointArret);
+    }
+
+    public PointArret deletePointArret(Integer id, PointArret pointarret) {
+
+        PointArret existingPointArret = this.pointarretRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Point d'Arret not found with id :" + id));
+		 existingPointArret.setStatut(pointarret.getStatut());
+		 return pointarretRepository.save(existingPointArret);
+    }
     
+
 }
