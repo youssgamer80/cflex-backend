@@ -1,6 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Implementation;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.ProprioService;
 import lombok.RequiredArgsConstructor;
@@ -126,4 +127,5 @@ public class ProprietaireServiceImpl implements ProprioService {
 
         return proprietaireRepository.save(existingproprio);
     }
+
 }

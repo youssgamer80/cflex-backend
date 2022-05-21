@@ -1,6 +1,10 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.Instant;
@@ -12,6 +16,9 @@ import java.time.Instant;
 @ToString
 @Entity
 @Table(name = "stationner")
+@SQLDelete(sql = "UPDATE stationner SET statut = true WHERE id=?")
+@FilterDef(name = "deletedStationnementFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedStationnementFilter", condition = "statut = :isDeleted")
 public class Stationner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +27,7 @@ public class Stationner {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicule_fk")
-    private Vehicule idVehiculeFk;
+    private Vehicule vehicule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_point_arret_fk")

@@ -8,12 +8,9 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
+
 @Entity
+
 @Table(name = "vehicule")
 @SQLDelete(sql = "UPDATE vehicule SET statut = true WHERE id=?")
 @FilterDef(name = "deletedVehiculeFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
@@ -33,8 +30,10 @@ public class Vehicule {
     @Column(name = "modele")
     private String modele;
 
-    @Column(name = "id_proprietaire_fk")
-    private Integer idProprietaireFk;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "id_proprietaire_fk")
+   private Proprietaire proprietaire;
+
 
     @Column(name = "statut")
     private Boolean statut;
@@ -45,12 +44,69 @@ public class Vehicule {
 
     @Column(name = "nb_place")
     private Integer nbPlace;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_zone_fk", nullable = false)
-    private Zone idZoneFk;
-
     @Column(name = "carte_grise", nullable = false)
     private String carteGrise;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getImmatriculation() {
+        return immatriculation;
+    }
+
+    public void setImmatriculation(String immatriculation) {
+        this.immatriculation = immatriculation;
+    }
+
+    public String getMarque() {
+        return marque;
+    }
+
+    public void setMarque(String marque) {
+        this.marque = marque;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+
+    public void setModele(String modele) {
+        this.modele = modele;
+    }
+    public Proprietaire getProprietaire() {
+        return proprietaire;
+    }
+    public void setProprietaire(Proprietaire proprietaire) {
+        this.proprietaire = proprietaire;
+    }
+    public Boolean getStatut() {
+        return statut;
+    }
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
+    public TypeTransport getIdTypeTransportFk() {
+        return idTypeTransportFk;
+    }
+    public void setIdTypeTransportFk(TypeTransport idTypeTransportFk) {
+        this.idTypeTransportFk = idTypeTransportFk;
+    }
+
+    public Integer getNbPlace() {
+        return nbPlace;
+    }
+    public void setNbPlace(Integer nbPlace) {
+        this.nbPlace = nbPlace;
+    }
+    public String getCarteGrise() {
+        return carteGrise;
+    }
+    public void setCarteGrise(String carteGrise) {
+        this.carteGrise = carteGrise;
+    }
 }

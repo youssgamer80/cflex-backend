@@ -1,9 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,12 +11,13 @@ import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
 
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @RestController
 @RequestMapping("vehicule")
 @RequiredArgsConstructor
@@ -32,25 +31,27 @@ public class VehiculeController {
     public ResponseEntity<Response> getVehicule(){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", vehiculeService.list(true)))
-                .message("Vehicule recupéré")
+                .message("Liste des véhicules")
                 .status(OK)
                 .statusCode(OK.value())
                 .build()
         );
     }
 
-  /*  @GetMapping("/listvehiculeproprio/{ange}")
-    public ResponseEntity<Response> getVehiculeProprio(@PathVariable("ange") Vehicule vehicule){
-        Integer ange = vehicule.getIdProprietaireFk().getId();
+    @GetMapping("/listvehiculesproprio/{id}")
+    public ResponseEntity<Response> getVehiculeProprio(@PathVariable("id") Integer id){
+        List<Vehicule> listeVehicule= vehiculeRepository.findAll();
+        List<Vehicule> filteredListVehicule = listeVehicule.stream()
+                .filter(s -> s.getProprietaire().getId()==id)
+                .collect(Collectors.toList());
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
-                data(Map.of("vehicule", vehiculeService.listvehiculeproprio(true,vehicule)))
-                .message("Vehicule recupéré")
+                data(Map.of("vehicule",filteredListVehicule))
+                .message("Liste des véhicules d'un propriétaire")
                 .status(OK)
                 .statusCode(OK.value())
                 .build()
         );
-    }*/
-
+    }
     @PostMapping("/save")
     public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
@@ -93,14 +94,10 @@ public class VehiculeController {
 
         try{
             Vehicule result = vehiculeService.majVehicule(id, vehicule);
-            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+            return ResponseHandler.generateResponse("Mise à jour effectuée avec succès!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
-
     }
-  /*  @GetMapping(path = "/image/{cartegrise}", produces = IMAGE_PNG_VALUE)
-    public byte[] getProprietairePermis(@PathVariable("cartegrise") String cartegrise) throws IOException {
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+cartegrise));
-    }*/
+
 }

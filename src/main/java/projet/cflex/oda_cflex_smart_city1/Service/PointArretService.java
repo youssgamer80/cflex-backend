@@ -28,11 +28,10 @@ public class PointArretService {
         return pointarretRepo.findById(id);
 
     }
-    
     public Object NewPointArret( PointArret pointarret){
 
 
-        if(pointarret.getNom() != null && pointarret.getLongitude() != null  && pointarret.getPosition() != null && pointarret.getLatitude() != null){
+        if(pointarret.getNom() != null && pointarret.getLongitude() != null  && pointarret.getLatitude() != null){
             pointarret.setStatut(true);
             return pointarretRepo.save(pointarret);
         } 
@@ -54,11 +53,6 @@ public class PointArretService {
             realPA.setLongitude(pointdarret.getLongitude());
 
         }
-    
-        if(pointdarret.getPosition()!=null){
-            realPA.setPosition(pointdarret.getPosition());
-        }
-    
         if(pointdarret.getLatitude()!=null){
             realPA.setLatitude(pointdarret.getLatitude());
         }
@@ -69,9 +63,7 @@ public class PointArretService {
 
         return pointarretRepo.save(realPA);
 
-    } 
-
-
+    }
 
     public PointArret deletePointArret(Integer id){
         PointArret realMD = this.pointarretRepo.findById(id).orElseThrow(() -> new RuntimeException("Point d'arrêt" + id + "nexiste pas"));
