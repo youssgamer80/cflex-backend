@@ -21,7 +21,7 @@ public class PointArret {
     private double latitude;
 
     public Boolean getStatut() {
-        return statut;!
+        return statut;
     }
 
     public void setStatut(Boolean statut) {
