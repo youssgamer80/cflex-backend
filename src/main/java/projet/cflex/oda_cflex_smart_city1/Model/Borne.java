@@ -1,6 +1,10 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 
@@ -11,6 +15,9 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "borne")
+@SQLDelete(sql = "UPDATE borne SET statut = true WHERE id=?")
+@FilterDef(name = "deletedBorneFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedBorneFilter", condition = "statut = :isDeleted")
 public class Borne {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

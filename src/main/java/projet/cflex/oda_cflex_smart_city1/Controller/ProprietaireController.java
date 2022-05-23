@@ -21,7 +21,6 @@ import java.util.Map;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.HttpStatus.ACCEPTED;
 import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
 @RestController
