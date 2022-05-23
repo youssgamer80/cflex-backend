@@ -17,7 +17,7 @@ public class Borne {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "libelle", nullable = false)
+    @Column(name = "libelle", nullable = true)
     private String libelle;
 
     @Column(name = "id_point_arret_fk", nullable = false)

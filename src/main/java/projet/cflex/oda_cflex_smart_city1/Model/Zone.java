@@ -11,7 +11,7 @@ import javax.persistence.*;
 
 //@SQLDelete(sql = "UPDATE Zone SET statut = false WHERE id=?")
 //@Where(clause = "statut=true")
-public class Zone implements Serializable {
+public class Zone {
 
 
     @Id

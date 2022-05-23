@@ -15,10 +15,10 @@ public class PointArret {
     private String nom;
 
     @Column(name = "longitude")
-    private String longitude;
+    private double longitude;
 
     @Column(name = "latitude")
-    private String latitude;
+    private double latitude;
 
     public Boolean getStatut() {
         return statut;
@@ -39,7 +39,7 @@ public class PointArret {
         this.id = id;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
@@ -51,16 +51,15 @@ public class PointArret {
         this.nom = nom;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
-    
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 

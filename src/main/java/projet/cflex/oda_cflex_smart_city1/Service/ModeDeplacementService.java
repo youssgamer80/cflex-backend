@@ -42,7 +42,7 @@ public class ModeDeplacementService {
         return modes;
     }
 
-    public ModeDeplacement NewZone(ModeDeplacement mode){
+    public ModeDeplacement NewMode(ModeDeplacement mode){
         mode.setStatut(true);
         return repository.save(mode);
     }

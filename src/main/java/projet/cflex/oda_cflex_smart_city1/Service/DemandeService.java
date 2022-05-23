@@ -1,48 +1,99 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
-
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Repository.DemandeRepository;
 
-/**
- * Classe demandeService pour servir de pont entre le model et le logique métier
- * @author Yao Eloge
- */
 @Service
-public class DemandeService implements IDemande {
-    DemandeRepository demanderepo;
+public class DemandeService {
+
     @Autowired
-    public DemandeService(DemandeRepository demanderepo) {
-        this.demanderepo = demanderepo;
-    }
-    @Override
+    public DemandeRepository demandeRepository;
+    private Boolean statut=true;
+    public Demande demande;
+
+
     public List<Demande> getAllDemandes() {
-        // TODO Auto-generated method stub
-        return demanderepo.findAll();
+        
+        List<Demande> demandes = new ArrayList<>();
+
+        demandeRepository.findByStatutJPQL(statut).forEach(demandes::add);
+
+        return demandes;
+    }
+    
+    public Demande addDemande(Demande demande) {
+
+        return demandeRepository.save(demande);
     }
 
-    @Override
-    public Optional<Demande> findById(int id) {
-        // TODO Auto-generated method stub
-        return demanderepo.findById(id);
+    public Demande getDemande(int id) {
+
+        return this.demandeRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
     }
 
+    public Demande updateDemande(Integer id, Demande demande) {
 
-    @Override
-    public Demande save(Demande demande) {
-        // TODO Auto-generated method stub
-        return demanderepo.save(demande);
+        Demande existingDemande = this.demandeRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
+        if(demande.getEtat()!=null){
+             existingDemande.setEtat(demande.getEtat());
+        }
+
+		if(demande.getIdProprietaireFk()!=null){
+             existingDemande.setIdProprietaireFk(demande.getIdProprietaireFk());
+       }
+
+       if(demande.getDate()!=null){
+        existingDemande.setDate(demande.getDate());
+       }
+
+       if(demande.getStatut()!=null){
+        existingDemande.setStatut(demande.getStatut());
+   }
+
+    if(demande.getImmatriculation()!=null){
+            existingDemande.setImmatriculation(demande.getImmatriculation());
     }
 
-    @Override
-    public void deleteById(int id) {
-        // TODO Auto-generated method stub
-        demanderepo.deleteById(id);
+    if(demande.getMarque()!=null){
+        existingDemande.setMarque(demande.getMarque());
     }
+
+    if(demande.getNbPlace()!=null){
+        existingDemande.setNbPlace(demande.getNbPlace());
+    }
+
+    if(demande.getIdTypeTransportFk()!=null){
+        existingDemande.setIdTypeTransportFk(demande.getIdTypeTransportFk());
+    }
+
+    if(demande.getIdZoneFk()!=null){
+        existingDemande.setIdZoneFk(demande.getIdZoneFk());
+    }
+
+    if(demande.getModel()!=null){
+        existingDemande.setModel(demande.getModel());
+    }
+
+            return demandeRepository.save(existingDemande);
+        }
+
+    public Demande deleteDemande(Integer id, Demande demande) {
+
+        Demande existingDemande = this.demandeRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
+		 existingDemande.setStatut(demande.getStatut());
+		 return demandeRepository.save(existingDemande);
+    }
+    
+
 }
