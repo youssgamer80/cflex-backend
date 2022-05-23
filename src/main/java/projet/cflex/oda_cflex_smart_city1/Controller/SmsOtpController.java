@@ -71,7 +71,7 @@ public class SmsOtpController {
                         System.out.println(res.token_type);
                         System.out.println(res.access_token);
                         System.out.println(res.expires_in);
-                        String  sms = "{\"outboundSMSMessageRequest\":{\"address\": \"tel:+225"+Telephone+"\", \"senderAddress\":\"tel:+2250000\", \"outboundSMSTextMessage\":{ \"message\": \"VEUILLEZ VOUS CONNECTER A VOTRE APPLI CFLEX AVEC CE CODE TEMPORAIRE(5 min) DE 4 CHIFFRES : "+1234+"       "+signature+"\"}}}";
+                        String  sms = "{\"outboundSMSMessageRequest\":{\"address\": \"tel:+225"+Telephone+"\", \"senderAddress\":\"tel:+2250000\", \"outboundSMSTextMessage\":{ \"message\": \"VEUILLEZ VOUS CONNECTER A VOTRE APPLI CFLEX AVEC CE CODE TEMPORAIRE(5 min) DE 4 CHIFFRES : "+otp+"       "+signature+"\"}}}";
                         okhttp3.RequestBody messageBody = okhttp3.RequestBody.create(sms, MediaType.parse("application/json"));
                         Request messagerequest = new Request.Builder().url("https://api.orange.com/smsmessaging/v1/outbound/tel%3A%2B2250000/requests")
                         .post(messageBody)
