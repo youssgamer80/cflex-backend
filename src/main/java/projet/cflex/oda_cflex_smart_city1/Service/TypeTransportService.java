@@ -39,6 +39,11 @@ public class TypeTransportService {
         .orElseThrow(() -> new ResourceNotFoundException("Type Transport not found with id :" + id));
     }
 
+
+    public TypeTransport getlibelleTypeTransport(String libelleTypeTransport) {
+        return typeTransportRepository.findBylibelleTypeTransport(libelleTypeTransport);
+    }
+
     public TypeTransport updateTypeTransport(Integer id, TypeTransport typeTransport) {
 
         TypeTransport existingTypeTransport = this.typeTransportRepository.findById(id)

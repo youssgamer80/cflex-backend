@@ -21,7 +21,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 
 @RestController   
-@CrossOrigin(origins = "http://localhost:8081", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RequestMapping("/api/typetransport")
 public class TypeTransportController {
 
@@ -37,10 +37,20 @@ public class TypeTransportController {
             }
         }
 
-        @GetMapping(value="/{id}")
-        public ResponseEntity<Object> Get(@PathVariable int id) {
+        // @GetMapping(value="/{id}")
+        // public ResponseEntity<Object> Get(@PathVariable int id) {
+        //     try {
+        //         TypeTransport result = typeTransportService.getTypeTransport(id);
+        //         return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        //     } catch (Exception e) {
+        //         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        //     }
+        // }
+
+        @GetMapping(value="/{libelleTypeTransport}")
+        public ResponseEntity<Object> Get(@PathVariable String libelleTypeTransport) {
             try {
-                TypeTransport result = typeTransportService.getTypeTransport(id);
+                TypeTransport result = typeTransportService.getlibelleTypeTransport(libelleTypeTransport);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);

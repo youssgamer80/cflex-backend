@@ -5,8 +5,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,73 +13,73 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
-import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.ZoneService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-@RestController
-@RequestMapping("/api/zone")
+@RestController // This means that this class is a Controller
+@RequestMapping("/api/zones")
+@Tag(name = "API Zone", description = "Api des services des zones")
 public class ZoneController {
 
-    private final ZoneService ZoneServ;
     @Autowired
-    ZoneRepository zoneRepository;
+    private ZoneService zoneService;
+    @GetMapping
+        public ResponseEntity<Object> Get() {
+            try {
+                List<Zone> result = zoneService.getAllZones();
+                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
-    @Autowired
-    public ZoneController(ZoneService ZoneServ) {
-        this.ZoneServ = ZoneServ;
-    }
+        @GetMapping(value="/{id}")
+        public ResponseEntity<Object> Get(@PathVariable int id) {
+            try {
+                Zone result = zoneService.getZone(id);
+                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+            } catch (Exception e) {
+                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+            }
+        }
 
-    @GetMapping("/all")
-        public ResponseEntity<List<Zone>> ListeZone(){
-        List<Zone> zones = ZoneServ.listeZone();
-        return new ResponseEntity<>(zones, HttpStatus.OK);       
-    }
 
-    
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Zone> getZone(@PathVariable("id") Integer id){
-        Zone zones = ZoneServ.ZoneById(id);
-        return new ResponseEntity<>(zones, HttpStatus.OK);
-    }
-
-    /*@PostMapping("/add")
-    public ResponseEntity<Object> Post (@RequestBody Zone newzone){
+    @PostMapping(value = "/addZone")
+    public ResponseEntity<Object> Post(@RequestBody Zone zone) {
         try {
-            Zone resultat = ZoneServ.NewZone(newzone);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, resultat);
-        } 
-        catch (Exception e) {
+            Zone result = zoneService.addZone(zone);
+            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+        } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
-    }*/
-
-
-    @PutMapping("/update/{id}")
-    public ResponseEntity<Object> updateZone(@PathVariable("id") Integer id, @Validated Zone zone) {
+    }
+ 
+    
+    @PutMapping(value = "/updateZone/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Zone zone, @PathVariable Integer id) {
+        
         try{
-            Zone resultat= ZoneServ.updateZone(id, zone);
-            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, resultat);
-        }
-        catch (Exception e) {
-            
+            Zone result = zoneService.updateZone(id, zone);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
+    
     }
 
-
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping(value = "/deleteZone/{id}")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zone zone) {
        
         try{
-            Zone result = ZoneServ.deleteZone(id, zone);
+            Zone result = zoneService.deleteZone(id,zone);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
 
-}
 
+}

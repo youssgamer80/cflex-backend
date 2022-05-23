@@ -1,12 +1,15 @@
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
-import projet.cflex.oda_cflex_smart_city1.Model.Demande;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import java.time.Instant;
-import java.util.Optional;
-import org.springframework.data.jpa.repository.JpaRepository;
+import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 @Repository
-public interface DemandeRepository extends JpaRepository<Demande, Integer> {
+public interface DemandeRepository extends CrudRepository<Demande, Integer> {
 
+    public Iterable<Demande> findByStatut(Boolean statut);
+
+    @Query("FROM Demande WHERE statut = ?1")
+    public Iterable<Demande> findByStatutJPQL(Boolean statut);
 }

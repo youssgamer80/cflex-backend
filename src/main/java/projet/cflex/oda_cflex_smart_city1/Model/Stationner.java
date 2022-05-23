@@ -1,10 +1,24 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
+
 import javax.persistence.*;
 import java.time.Instant;
 
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "stationner")
+@SQLDelete(sql = "UPDATE stationner SET statut = true WHERE id=?")
+@FilterDef(name = "deletedStationnementFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedStationnementFilter", condition = "statut = :isDeleted")
 public class Stationner {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,7 +27,7 @@ public class Stationner {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_vehicule_fk")
-    private Vehicule idVehiculeFk;
+    private Vehicule vehicule;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_point_arret_fk")
@@ -23,69 +37,10 @@ public class Stationner {
     private Instant date;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_usager_fk", nullable = false)
-    private Usager idUsagerFk;
+    @JoinColumn(name = "id_client_fk", nullable = false)
+    private Usager idClientFk;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
-
-    @Column(name = "type_utilisateur", nullable = false, length = 11)
-    private String typeUtilisateur;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Vehicule getIdVehiculeFk() {
-        return idVehiculeFk;
-    }
-
-    public void setIdVehiculeFk(Vehicule idVehiculeFk) {
-        this.idVehiculeFk = idVehiculeFk;
-    }
-
-    public PointArret getIdPointArretFk() {
-        return idPointArretFk;
-    }
-
-    public void setIdPointArretFk(PointArret idPointArretFk) {
-        this.idPointArretFk = idPointArretFk;
-    }
-
-    public Instant getDate() {
-        return date;
-    }
-
-    public void setDate(Instant date) {
-        this.date = date;
-    }
-
-    public Usager getIdUsagerFk() {
-        return idUsagerFk;
-    }
-
-    public void setIdUsagerFk(Usager idUsagerFk) {
-        this.idUsagerFk = idUsagerFk;
-    }
-
-    public Boolean getStatut() {
-        return statut;
-    }
-
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
-    }
-
-    public String getTypeUtilisateur() {
-        return typeUtilisateur;
-    }
-
-    public void setTypeUtilisateur(String typeUtilisateur) {
-        this.typeUtilisateur = typeUtilisateur;
-    }
 
 }

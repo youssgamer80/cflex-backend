@@ -1,7 +1,8 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
-import javax.persistence.*;
+import lombok.*;
 
+import javax.persistence.*;
 @Entity
 @Table(name = "point_arret")
 public class PointArret {
@@ -10,14 +11,22 @@ public class PointArret {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "longitude")
-    private String longitude;
+    @Column(name = "nom")
+    private String nom;
 
-    @Column(name = "position", nullable = false)
-    private String position;
+    @Column(name = "longitude")
+    private double longitude;
 
     @Column(name = "latitude")
-    private String latitude;
+    private double latitude;
+
+    public Boolean getStatut() {
+        return statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
@@ -30,36 +39,28 @@ public class PointArret {
         this.id = id;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public Boolean getStatut() {
-        return statut;
+    public String getNom() {
+        return this.nom;
     }
 
-    public void setStatut(Boolean statut) {
-        this.statut = statut;
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
     }
 
 }

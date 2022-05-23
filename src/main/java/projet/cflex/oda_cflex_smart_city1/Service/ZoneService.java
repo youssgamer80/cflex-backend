@@ -1,11 +1,13 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+
 import org.springframework.stereotype.Service;
+
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 
@@ -13,53 +15,62 @@ import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 public class ZoneService {
 
     @Autowired
-    private final ZoneRepository ZoneRepo;
-
-    public ZoneService(ZoneRepository ZoneRepo){
-        this.ZoneRepo = ZoneRepo;
-    }
-
-    public List<Zone> listeZone(){
-        return ZoneRepo.findAll();
-    }
+    public ZoneRepository zoneRepository;
+    private Boolean statut=true;
+    public Zone zone;
 
 
-    public Zone ZoneById(Integer id){
-        return ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-    }
-
-    //public void save (Zone zone){ZoneRepo.save(zone);}
-    public Zone NewZone(Zone zone){
-        return ZoneRepo.save(zone);
-    }
-
-    public Zone updateZone(Integer id, Zone zone){
-
-        Zone existZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-
-        if (zone.getLibelle() == null) {
-            zone.setLibelle(existZone.getLibelle());
-        }
-         if (zone.getIdTypeZoneFk()==null) {
-             zone.setIdTypeZoneFk(existZone.getIdTypeZoneFk());
-         }
-
-         if (zone.getZoneparent()==null) {
-             zone.setZoneparent(existZone.getZoneparent());
-         }
-
-        return ZoneRepo.save(zone);
-    }
-
-    public Zone deleteZone(Integer id, Zone zone) {
-        Zone realZone = ZoneRepo.findById(id).orElseThrow(() -> new RuntimeException("Zone" + id + "nexiste pas"));
-        if (zone.getStatut()== false){
-            realZone.setStatut(zone.getStatut());
-        }
+    public List<Zone> getAllZones() {
         
-        return ZoneRepo.save(realZone);
+        List<Zone> zones = new ArrayList<>();
+
+        zoneRepository.findByStatutJPQL(statut).forEach(zones::add);
+
+        return zones;
     }
     
+    public Zone addZone(Zone zone) {
+
+        return zoneRepository.save(zone);
+    }
+
+    public Zone getZone(int id) {
+
+        return this.zoneRepository.findById(id)
+        .orElseThrow(() -> new ResourceNotFoundException("Zone not found with id :" + id));
+    }
+
+    public Zone updateZone(Integer id, Zone zone) {
+
+        Zone existingZone = this.zoneRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Zone not found with id :" + id));
+
+        if(zone.getLibelle()!=null){
+             existingZone.setLibelle(zone.getLibelle());
+        }
+
+        if(zone.getIdTypeZoneFk()!=null){
+            existingZone.setIdTypeZoneFk(zone.getIdTypeZoneFk());
+       }
+
+       if(zone.getIdZoneparentFk()!=null){
+        existingZone.setIdZoneparentFK(zone.getIdZoneparentFk());
+       }
+       
+       if(zone.getStatut()!=null){
+        existingZone.setStatut(zone.getStatut());
+      }
+
+		return zoneRepository.save(existingZone);
+      }
+
+    public Zone deleteZone(Integer id, Zone zone) {
+
+        Zone existingZone = this.zoneRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Zone not found with id :" + id));
+            existingZone.setStatut(zone.getStatut());
+		 return zoneRepository.save(existingZone);
+    }
+    
+
 }
-
-

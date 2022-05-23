@@ -2,9 +2,23 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "zone")
+
 public class Zone {
+
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -13,19 +27,21 @@ public class Zone {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_type_zone_fk", nullable = false)
+
+    @ManyToOne(targetEntity = TypeZone.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_type_zone_fk")
     private TypeZone idTypeZoneFk;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "zoneparent")
-    private Zone zoneparent;
+
+    @ManyToOne(targetEntity = Zoneparent.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zoneparent_fk")
+    private Zoneparent idZoneparentFk;
 
     @Column(name = "statut", nullable = false)
-    private Boolean statut = false;
+    private Boolean statut = Boolean.TRUE;
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -33,31 +49,33 @@ public class Zone {
     }
 
     public String getLibelle() {
-        return libelle;
+        return this.libelle;
     }
 
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
 
+
     public TypeZone getIdTypeZoneFk() {
-        return idTypeZoneFk;
+        return this.idTypeZoneFk;
     }
 
     public void setIdTypeZoneFk(TypeZone idTypeZoneFk) {
         this.idTypeZoneFk = idTypeZoneFk;
     }
 
-    public Zone getZoneparent() {
-        return zoneparent;
+    public Zoneparent getIdZoneparentFk() {
+        return this.idZoneparentFk;
     }
 
-    public void setZoneparent(Zone zoneparent) {
-        this.zoneparent = zoneparent;
+    public void setIdZoneparentFK(Zoneparent idZoneparentFk) {
+        this.idZoneparentFk = idZoneparentFk;
     }
+
 
     public Boolean getStatut() {
-        return statut;
+        return this.statut;
     }
 
     public void setStatut(Boolean statut) {

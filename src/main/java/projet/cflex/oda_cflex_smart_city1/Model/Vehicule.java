@@ -1,9 +1,20 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+import lombok.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.ParamDef;
+import org.hibernate.annotations.SQLDelete;
+
 import javax.persistence.*;
 
+
 @Entity
+
 @Table(name = "vehicule")
+@SQLDelete(sql = "UPDATE vehicule SET statut = true WHERE id=?")
+@FilterDef(name = "deletedVehiculeFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
+@Filter(name = "deletedVehiculeFilter", condition = "statut = :isDeleted")
 public class Vehicule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,12 +30,13 @@ public class Vehicule {
     @Column(name = "modele")
     private String modele;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_proprietaire_fk")
-    private Proprietaire idProprietaireFk;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "id_proprietaire_fk")
+   private Proprietaire proprietaire;
 
-    @Column(name = "statut", nullable = false)
-    private Boolean statut = false;
+
+    @Column(name = "statut")
+    private Boolean statut;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_type_transport_fk")
@@ -32,17 +44,8 @@ public class Vehicule {
 
     @Column(name = "nb_place")
     private Integer nbPlace;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_zone_fk", nullable = false)
-    private Zone idZoneFk;
-
     @Column(name = "carte_grise", nullable = false)
     private String carteGrise;
-
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_demande_fk", nullable = false)
-    private Demande idDemandeFk;
 
     public Integer getId() {
         return id;
@@ -75,27 +78,21 @@ public class Vehicule {
     public void setModele(String modele) {
         this.modele = modele;
     }
-
-    public Proprietaire getIdProprietaireFk() {
-        return idProprietaireFk;
+    public Proprietaire getProprietaire() {
+        return proprietaire;
     }
-
-    public void setIdProprietaireFk(Proprietaire idProprietaireFk) {
-        this.idProprietaireFk = idProprietaireFk;
+    public void setProprietaire(Proprietaire proprietaire) {
+        this.proprietaire = proprietaire;
     }
-
     public Boolean getStatut() {
         return statut;
     }
-
     public void setStatut(Boolean statut) {
         this.statut = statut;
     }
-
     public TypeTransport getIdTypeTransportFk() {
         return idTypeTransportFk;
     }
-
     public void setIdTypeTransportFk(TypeTransport idTypeTransportFk) {
         this.idTypeTransportFk = idTypeTransportFk;
     }
@@ -103,33 +100,13 @@ public class Vehicule {
     public Integer getNbPlace() {
         return nbPlace;
     }
-
     public void setNbPlace(Integer nbPlace) {
         this.nbPlace = nbPlace;
     }
-
-    public Zone getIdZoneFk() {
-        return idZoneFk;
-    }
-
-    public void setIdZoneFk(Zone idZoneFk) {
-        this.idZoneFk = idZoneFk;
-    }
-
     public String getCarteGrise() {
         return carteGrise;
     }
-
     public void setCarteGrise(String carteGrise) {
         this.carteGrise = carteGrise;
     }
-
-    public Demande getIdDemandeFk() {
-        return idDemandeFk;
-    }
-
-    public void setIdDemandeFk(Demande idDemandeFk) {
-        this.idDemandeFk = idDemandeFk;
-    }
-
 }
