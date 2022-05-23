@@ -14,7 +14,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.VehiculeService;
 
 import javax.persistence.EntityManager;
 import java.util.Collection;
-import java.util.Optional;
+
 
 import static java.lang.Boolean.TRUE;
 
@@ -48,26 +48,11 @@ public class VehiculeServiceImpl implements VehiculeService {
         return vehicules;
     }
 
-
-  /*  @Override
-    public Optional<Vehicule> listvehiculeproprio(boolean isDeleted, Vehicule vehicule) {
-        //log.info("Tous les vehicules d'un proprio",vehicule.getIdProprietaireFk());
-        //String liste = String.valueOf(vehicule.getIdProprietaireFk().getId());
-        Session session = entityManager.unwrap(Session.class);
-        Filter filter = session.enableFilter("deletedVehiculeFilter");
-        filter.setParameter("isDeleted", isDeleted);
-        Optional<Vehicule> vehiculesproprio =  vehiculeRepository.findById(vehicule.getIdProprietaireFk().getId());
-        session.disableFilter("deletedVehiculeFilter");
-        return vehiculesproprio;
-    }
-*/
-
     @Override
     public Vehicule get(Integer id) {
         log.info("Recherche par vehicule:{}",id);
         return vehiculeRepository.findById(id).get();
     }
-
     public Vehicule majVehicule(Integer id, Vehicule vehicule) {
 
         Vehicule existingvehicule = this.vehiculeRepository.findById(id)
@@ -88,6 +73,9 @@ public class VehiculeServiceImpl implements VehiculeService {
         if(vehicule.getCarteGrise()!=null){
             existingvehicule.setCarteGrise(vehicule.getCarteGrise());
         }
+   /*     if(vehicule.getIdZoneFk()!=null){
+            existingvehicule.setIdZoneFk(vehicule.getIdZoneFk());
+        }*/
 
         return vehiculeRepository.save(existingvehicule);
     }
@@ -99,11 +87,4 @@ public class VehiculeServiceImpl implements VehiculeService {
         return TRUE;
     }
 
-
-
-  /*  private String setVehiculeCarteGrise() {
-        String[] pieceidentiteproprio = {"pieceidentite1.png"};
-        return ServletUriComponentsBuilder.fromCurrentContextPath().
-                path(("/proprietaire/pieceidentite"+ pieceidentiteproprio[new Random().nextInt(4)])).toUriString();
-    }*/
 }
