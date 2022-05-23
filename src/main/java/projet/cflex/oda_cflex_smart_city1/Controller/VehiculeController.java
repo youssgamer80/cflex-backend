@@ -19,6 +19,7 @@ import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RequestMapping("vehicule")
 @RequiredArgsConstructor
 public class VehiculeController {

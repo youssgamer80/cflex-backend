@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 // import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 import projet.cflex.oda_cflex_smart_city1.Model.Borne;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RequestMapping("api/bornes")
 public class BorneController {
 

@@ -20,7 +20,8 @@ public class Borne {
     @Column(name = "libelle", nullable = true)
     private String libelle;
 
-    @Column(name = "id_point_arret_fk", nullable = false)
+    @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_point_arret_fk")
     private Integer idPointArretFk;
 
     @Column(name = "statut", nullable = false)
