@@ -56,7 +56,7 @@ public class ItineraireService {
         existingItineraire.setDistance(itineraire.getDistance());
        }
        if(itineraire.getIdTrajetFk()!=null){
-           existingItineraire .setIdTrajetFk((itineraire.getIdTrajetFk()));
+           existingItineraire.setIdTrajetFk((itineraire.getIdTrajetFk()));
        }
        if(itineraire.getStatut()!=null){
         existingItineraire.setStatut(itineraire.getStatut());

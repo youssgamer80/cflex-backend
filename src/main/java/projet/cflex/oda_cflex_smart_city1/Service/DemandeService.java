@@ -1,13 +1,18 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import org.springframework.stereotype.Service;
 
+import antlr.StringUtils;
 import projet.cflex.oda_cflex_smart_city1.Model.Demande;
 import projet.cflex.oda_cflex_smart_city1.Repository.DemandeRepository;
 
@@ -29,7 +34,27 @@ public class DemandeService {
         return demandes;
     }
     
+    static Set<String> getRandomUniqueStrings(int count, int length, boolean letters, boolean numbers){
+        Set<String> rus = new HashSet<>();
+    
+        while (rus.size() < count){
+            rus.add(RandomStringUtils.random(length, letters, numbers));
+        }
+    
+        return rus;
+    }
+
+    Set<String> codeDemande = getRandomUniqueStrings(1, 7, true, true);
+
+    String code = codeDemande.toString();
+
+    String Mycode = code.substring(1,code.length()-1);
+
+  
+
     public Demande addDemande(Demande demande) {
+
+        demande.setCodeDemande(Mycode);
 
         return demandeRepository.save(demande);
     }

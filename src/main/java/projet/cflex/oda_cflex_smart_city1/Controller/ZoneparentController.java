@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import projet.cflex.oda_cflex_smart_city1.Model.Zone;
-import projet.cflex.oda_cflex_smart_city1.Service.ZoneService;
+import projet.cflex.oda_cflex_smart_city1.Model.Zoneparent;
+import projet.cflex.oda_cflex_smart_city1.Service.ZoneparentService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@RequestMapping("/api/zones")
-@Tag(name = "API Zone", description = "Api des services des zones")
-public class ZoneController {
+@RequestMapping("/api/zoneparents")
+@Tag(name = "API Zone parent", description = "Api des services des parent des zones")
+public class ZoneparentController {
 
     @Autowired
-    private ZoneService zoneService;
+    private ZoneparentService zoneparentService;
     @GetMapping
         public ResponseEntity<Object> Get() {
             try {
-                List<Zone> result = zoneService.getAllZones();
+                List<Zoneparent> result = zoneparentService.getAllZoneparents();
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -39,7 +39,7 @@ public class ZoneController {
         @GetMapping(value="/{id}")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
-                Zone result = zoneService.getZone(id);
+                Zoneparent result = zoneparentService.getZoneparent(id);
                 return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
             } catch (Exception e) {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -47,10 +47,10 @@ public class ZoneController {
         }
 
 
-    @PostMapping(value = "/addZone")
-    public ResponseEntity<Object> Post(@RequestBody Zone zone) {
+    @PostMapping(value = "/addZoneparent")
+    public ResponseEntity<Object> Post(@RequestBody Zoneparent zoneparent) {
         try {
-            Zone result = zoneService.addZone(zone);
+            Zoneparent result = zoneparentService.addZoneparent(zoneparent);
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
@@ -58,11 +58,11 @@ public class ZoneController {
     }
  
     
-    @PutMapping(value = "/updateZone/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Zone zone, @PathVariable Integer id) {
+    @PutMapping(value = "/updateZoneparent/{id}")
+    public ResponseEntity<Object> Put(@RequestBody Zoneparent zoneparent, @PathVariable Integer id) {
         
         try{
-            Zone result = zoneService.updateZone(id, zone);
+            Zoneparent result = zoneparentService.updateZoneparent(id, zoneparent);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
@@ -70,11 +70,11 @@ public class ZoneController {
     
     }
 
-    @DeleteMapping(value = "/deleteZone/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zone zone) {
+    @DeleteMapping(value = "/deleteZoneparent/{id}")
+    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zoneparent zoneparent) {
        
         try{
-            Zone result = zoneService.deleteZone(id,zone);
+            Zoneparent result = zoneparentService.deleteZoneparent(id,zoneparent);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);

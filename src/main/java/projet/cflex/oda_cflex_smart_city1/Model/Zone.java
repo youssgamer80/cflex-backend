@@ -1,16 +1,21 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
-import lombok.*;
-import java.io.Serializable;
-
-import lombok.*;
 
 import javax.persistence.*;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "zone")
 
-//@SQLDelete(sql = "UPDATE Zone SET statut = false WHERE id=?")
-//@Where(clause = "statut=true")
 public class Zone {
 
 
@@ -23,23 +28,14 @@ public class Zone {
     private String libelle;
 
 
-    @ManyToOne(targetEntity = TypeZone.class, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "id_type_zone_fk", insertable = false, updatable = false, nullable = false)
-    private TypeZone typezone;
-
-    @Column(name = "id_type_zone_fk", nullable = false)
-    private Integer idTypeZoneFk;
+    @ManyToOne(targetEntity = TypeZone.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_type_zone_fk")
+    private TypeZone idTypeZoneFk;
 
 
-    @ManyToOne(targetEntity = Zone.class, fetch = FetchType.EAGER, optional = false)
-    @JoinColumn(name = "zoneparent", insertable = false, updatable = false)
-    private Zone zoneparent;
-
-
-    @Column(name = "zoneparent", nullable = false)
-    private Integer id_zoneparent;
-
-
+    @ManyToOne(targetEntity = Zoneparent.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zoneparent_fk")
+    private Zoneparent idZoneparentFk;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = Boolean.TRUE;
@@ -60,41 +56,23 @@ public class Zone {
         this.libelle = libelle;
     }
 
-    public TypeZone getTypezone() {
-        return this.typezone;
-    }
 
-    public void setTypezone(TypeZone typezone) {
-        this.typezone = typezone;
-    }
-
-    public Integer getIdTypeZoneFk() {
+    public TypeZone getIdTypeZoneFk() {
         return this.idTypeZoneFk;
     }
 
-    public void setIdTypeZoneFk(Integer idTypeZoneFk) {
+    public void setIdTypeZoneFk(TypeZone idTypeZoneFk) {
         this.idTypeZoneFk = idTypeZoneFk;
     }
 
-    public Zone getZoneparent() {
-        return this.zoneparent;
+    public Zoneparent getIdZoneparentFk() {
+        return this.idZoneparentFk;
     }
 
-    public void setZoneparent(Zone zoneparent) {
-        this.zoneparent = zoneparent;
+    public void setIdZoneparentFK(Zoneparent idZoneparentFk) {
+        this.idZoneparentFk = idZoneparentFk;
     }
 
-    public Integer getId_zoneparent() {
-        return this.id_zoneparent;
-    }
-
-    public void setId_zoneparent(Integer id_zoneparent) {
-        this.id_zoneparent = id_zoneparent;
-    }
-
-    public Boolean isStatut() {
-        return this.statut;
-    }
 
     public Boolean getStatut() {
         return this.statut;

@@ -1,8 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import lombok.*;
-import projet.cflex.oda_cflex_smart_city1.Model.Trajet;
-
 import javax.persistence.*;
 import java.time.Instant;
 

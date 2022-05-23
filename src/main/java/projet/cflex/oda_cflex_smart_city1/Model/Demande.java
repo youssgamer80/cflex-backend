@@ -1,6 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import java.sql.Timestamp;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.Index;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.apache.commons.lang3.RandomStringUtils;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
