@@ -29,4 +29,9 @@ public class Usager {
     @Column(name = "statut")
     private Boolean statut;
 
+    public void setStatut(Boolean statut) {
+        
+        this.statut = statut;
+    }
+
 }
