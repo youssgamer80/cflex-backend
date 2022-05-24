@@ -20,6 +20,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.BorneService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 import projet.cflex.oda_cflex_smart_city1.Model.Borne;
 
+<<<<<<< HEAD
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RequestMapping("api/bornes")
@@ -83,5 +84,73 @@ public class BorneController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
     
+=======
+import static java.time.LocalDateTime.now;
+import static org.springframework.http.HttpStatus.*;
+
+@RestController
+@RequestMapping("api/v2/borne")
+@RequiredArgsConstructor
+public class BorneController {
+
+    @Autowired
+    private BorneServiceImpl borneServiceImpl;
+    @Autowired
+    BorneRepository borneRepository;
+
+
+
+    @GetMapping
+    public ResponseEntity<Response> getBorne(){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("borne", borneServiceImpl.list(true)))
+                .message("Borne recupéré")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
     }
+
+
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Response> getBorne(@PathVariable("id") Integer id){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("borne", borneServiceImpl.get(id)))
+                .message("Borne retrouvé")
+                .status(OK)
+                .statusCode(OK.value())
+                .build()
+        );
+    }
+
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Response> deleteBorne(@PathVariable("id") Integer id){
+        boolean exists = borneRepository.existsById(id);
+        if(!exists){throw new IllegalStateException("La borne avec le numero "+id+" n'existe pas");}
+        else {
+            return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                    data(Map.of("delete", borneServiceImpl.delete(id)))
+                    .message("La borne avec le numero "+id+" a été supprimé avec succès")
+                    .status(OK)
+                    .statusCode(OK.value())
+                    .build()
+            );}
+    }
+
+    @PostMapping("/addBorne")
+    public ResponseEntity<Response> saveBorne(@RequestBody @Validated Borne borne){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("borne", borneServiceImpl.create(borne)))
+                .message("Borne enregistrée avec succès")
+                .status(CREATED)
+                .statusCode(CREATED.value())
+                .build()
+        );
+>>>>>>> 841de88 (Update de l'API borne)
+    }
+
+
+
+   
 }
