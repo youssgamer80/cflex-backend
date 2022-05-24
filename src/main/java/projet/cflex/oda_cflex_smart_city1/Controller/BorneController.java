@@ -1,128 +1,72 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-// import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
-import projet.cflex.oda_cflex_smart_city1.Service.BorneService;
-import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
+import projet.cflex.oda_cflex_smart_city1.Implementation.BorneServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Borne;
+import projet.cflex.oda_cflex_smart_city1.Repository.BorneRepository;
+import projet.cflex.oda_cflex_smart_city1.Response.Response;
+import org.springframework.beans.factory.annotation.Autowired;
 
-<<<<<<< HEAD
-@RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
-@RequestMapping("api/bornes")
-public class BorneController {
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-    @Autowired
-    private BorneService borneService;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 
-    // @CrossOrigin(origins = "http://localhost:8080")
-    @GetMapping
-    public ResponseEntity<Object> Get() {
-        try {
-            List<Borne> result = borneService.getAllBornes();
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
-    }
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> Get(@PathVariable int id) {
-        try {
-            Borne result = borneService.getBorne(id);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
-    }
-
-
-    @PostMapping(value = "/addBorne")
-    public ResponseEntity<Object> Post(@RequestBody Borne borne) {
-        try {
-            Borne result = borneService.addBorne(borne);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
-    }
-
-    
-    @DeleteMapping(value = "/deleteBorne/{id}")
-    public ResponseEntity<Object> Put(@PathVariable Integer id, @RequestBody Borne borne) {
-
-        try {
-            Borne result = borneService.deleteBorne(id, borne);
-            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
-        }
-    }
-    
-
-    @PutMapping(value = "/updateBorne/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Borne borne, @PathVariable Integer id) {
-        
-        try{
-            Borne result = borneService.updateBorne(borne, id);
-            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
-        }
-    
-=======
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
 
-@RestController
-@RequestMapping("api/v2/borne")
+
 @RequiredArgsConstructor
+@RestController
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@RequestMapping("api/v2/bornes")
 public class BorneController {
 
     @Autowired
-    private BorneServiceImpl borneServiceImpl;
+    private final BorneServiceImpl borneServiceImpl;
+
     @Autowired
     BorneRepository borneRepository;
 
-
-
-    @GetMapping
+    @GetMapping("/list")
     public ResponseEntity<Response> getBorne(){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("borne", borneServiceImpl.list(true)))
-                .message("Borne recupéré")
+                .message("borne recupéré")
                 .status(OK)
                 .statusCode(OK.value())
                 .build()
         );
     }
 
+    @PostMapping("/addBorne")
+    public ResponseEntity<Response> saveBorne(@RequestBody @Validated Borne borne){
+        return ResponseEntity.ok(Response.builder().timeStamp(now()).
+                data(Map.of("borne", borneServiceImpl.create(borne)))
+                .message("borne enregistré avec succès")
+                .status(CREATED)
+                .statusCode(CREATED.value())
+                .build()
+        );
+    }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("{id}")
     public ResponseEntity<Response> getBorne(@PathVariable("id") Integer id){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("borne", borneServiceImpl.get(id)))
-                .message("Borne retrouvé")
+                .message("borne retrouvé")
                 .status(OK)
                 .statusCode(OK.value())
                 .build()
         );
     }
-
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<Response> deleteBorne(@PathVariable("id") Integer id){
@@ -138,19 +82,4 @@ public class BorneController {
             );}
     }
 
-    @PostMapping("/addBorne")
-    public ResponseEntity<Response> saveBorne(@RequestBody @Validated Borne borne){
-        return ResponseEntity.ok(Response.builder().timeStamp(now()).
-                data(Map.of("borne", borneServiceImpl.create(borne)))
-                .message("Borne enregistrée avec succès")
-                .status(CREATED)
-                .statusCode(CREATED.value())
-                .build()
-        );
->>>>>>> 841de88 (Update de l'API borne)
-    }
-
-
-
-   
 }

@@ -30,14 +30,11 @@ public class Borne {
     @Column(name = "libelle", nullable = true)
     private String libelle;
 
-<<<<<<< HEAD
-    @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_point_arret_fk")
-=======
-    
+    // @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
+    // @JoinColumn(name = "id_point_arret_fk")
+    // private Integer idPointArretFk;
 
-    @Column(name = "id_point_arret_fk", nullable = false)
->>>>>>> 841de88 (Update de l'API borne)
+    @Column(name = "id_point_arret_fk", nullable = true)
     private Integer idPointArretFk;
 
     
