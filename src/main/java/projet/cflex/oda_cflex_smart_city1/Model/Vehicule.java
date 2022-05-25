@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 
 @Table(name = "vehicule")
-@SQLDelete(sql = "UPDATE vehicule SET statut = true WHERE id=?")
+@SQLDelete(sql = "UPDATE vehicule SET statut = false WHERE id=?")
 @FilterDef(name = "deletedVehiculeFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedVehiculeFilter", condition = "statut = :isDeleted")
 public class Vehicule {
@@ -33,8 +33,6 @@ public class Vehicule {
    @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "id_proprietaire_fk")
    private Proprietaire proprietaire;
-
-
     @Column(name = "statut")
     private Boolean statut;
 
