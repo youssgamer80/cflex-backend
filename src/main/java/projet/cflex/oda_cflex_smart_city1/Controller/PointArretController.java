@@ -1,6 +1,8 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -80,6 +83,56 @@ public class PointArretController {
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
+    }
+
+    public static double distance(double lat1, double lat2, double lon1,
+            double lon2, double el1, double el2) {
+
+        final int R = 6371; // Radius of the earth
+
+        double latDistance = Math.toRadians(lat2 - lat1);
+        double lonDistance = Math.toRadians(lon2 - lon1);
+        double a = Math.sin(latDistance / 2) * Math.sin(latDistance / 2)
+                + Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2))
+                        * Math.sin(lonDistance / 2) * Math.sin(lonDistance / 2);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        double distance = R * c * 1000; // convert to meters
+
+        double height = el1 - el2;
+
+        distance = Math.pow(distance, 2) + Math.pow(height, 2);
+        
+
+        return Math.sqrt(distance);
+    }
+    @GetMapping("/pointArretByCordonnees")
+    public ResponseEntity<Object> GetpointArretByCord(@RequestParam Map<String, String> requestParams) {
+        String lonString = requestParams.get("lon");
+        String latString = requestParams.get("lat");
+        double lat = Double.parseDouble(latString);
+        double lon = Double.parseDouble(lonString);
+
+        double el1 = 0;
+        double el2 = 0;
+
+        List<PointArret> pointarretsrResultats = new ArrayList<>();
+
+        try {
+            List<PointArret> pointArrets = pointArretService.getAllPointArret();
+            pointArrets.forEach(
+                    pointArret -> {
+                        if (distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2) <= 1000) {
+                            System.out.println(distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2));
+                            System.out.println(pointArret.getNom());
+                            pointarretsrResultats.add(pointArret);
+
+                        }
+                    });
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK,
+                    pointarretsrResultats);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
 

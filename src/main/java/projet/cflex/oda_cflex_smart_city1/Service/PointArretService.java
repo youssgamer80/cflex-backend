@@ -40,6 +40,7 @@ public class PointArretService {
         .orElseThrow(() -> new ResourceNotFoundException("Point d'arret not found with id :" + id));
     }
 
+
     public PointArret updatePointArret(Integer id, PointArret pointarret) {
 
         PointArret existingPointArret = this.pointarretRepository.findById(id)
