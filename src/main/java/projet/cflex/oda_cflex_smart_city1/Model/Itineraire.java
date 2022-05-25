@@ -26,7 +26,7 @@ public class Itineraire {
     @Column(name = "distance")
     private Integer distance;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Trajet.class,fetch = FetchType.LAZY)
     @JoinColumn(name = "id_trajet_fk")
     private Trajet idTrajetFk;
 

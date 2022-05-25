@@ -15,7 +15,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "borne")
-@SQLDelete(sql = "UPDATE borne SET statut = true WHERE id=?")
+@SQLDelete(sql = "UPDATE borne SET statut = false WHERE id=?")
 @FilterDef(name = "deletedBorneFilter", parameters = @ParamDef(name = "isDeleted", type = "boolean"))
 @Filter(name = "deletedBorneFilter", condition = "statut = :isDeleted")
 public class Borne {
@@ -24,13 +24,50 @@ public class Borne {
     @Column(name = "id", nullable = false)
     private Integer id;
 
+    
+
+
     @Column(name = "libelle", nullable = true)
     private String libelle;
 
-    @Column(name = "id_point_arret_fk", nullable = false)
+    // @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
+    // @JoinColumn(name = "id_point_arret_fk")
+    // private Integer idPointArretFk;
+
+    @Column(name = "id_point_arret_fk", nullable = true)
     private Integer idPointArretFk;
+
+    
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
+
+   
+    public Integer getId() {
+        return this.id;
+    }
+
+    public String getLibelle() {
+        return this.libelle;
+    }
+
+    public void setLibelle(String libelle) {
+        this.libelle = libelle;
+    }
+
+    public Integer getIdPointArretFk() {
+        return this.idPointArretFk;
+    }
+
+    public void setIdPointArretFk(Integer idPointArretFk) {
+        this.idPointArretFk = idPointArretFk;
+    }
+    public Boolean getStatut() {
+        return this.statut;
+    }
+
+    public void setStatut(Boolean statut) {
+        this.statut = statut;
+    }
 
 }

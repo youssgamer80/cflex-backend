@@ -30,7 +30,7 @@ public class UsagerService {
     }
     
     public Usager addUsager(Usager usager) {
-
+        usager.setStatut(true);
         return usagerRepository.save(usager);
     }
 
