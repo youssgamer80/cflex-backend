@@ -3,6 +3,8 @@ package projet.cflex.oda_cflex_smart_city1;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+//import org.springframework.data.*;
+//import org.elasticsearch.client.*;
 
 
 import io.swagger.v3.oas.annotations.OpenAPIDefinition;

@@ -3,6 +3,7 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.lang.annotation.Documented;
 import java.time.LocalDate;
 
 @AllArgsConstructor
