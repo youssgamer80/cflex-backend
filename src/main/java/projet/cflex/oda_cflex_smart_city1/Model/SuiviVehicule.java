@@ -1,21 +1,21 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
+
 import javax.persistence.Id;
 import java.lang.annotation.Documented;
 
-
 public class SuiviVehicule {
     @Id
-    private String id;
+    private Integer id;
     private Double position;
     private Vehicule levehicule;
     private Trackergps letrackergps;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
