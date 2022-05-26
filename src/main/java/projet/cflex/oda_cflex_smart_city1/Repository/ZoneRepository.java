@@ -11,4 +11,7 @@ public interface ZoneRepository extends JpaRepository<Zone, Integer> {
 
     @Query("FROM Zone WHERE statut = ?1")
     public Iterable<Zone> findByStatutJPQL(Boolean statut);
+
+    @Query("FROM Zone WHERE id = ?1")
+    public Zone findZone(Integer id);
 }

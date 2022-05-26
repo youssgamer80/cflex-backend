@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projet.cflex.oda_cflex_smart_city1.Model.Borne;
 import projet.cflex.oda_cflex_smart_city1.Repository.BorneRepository;
-import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.BorneService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResourceNotFoundException;
 
