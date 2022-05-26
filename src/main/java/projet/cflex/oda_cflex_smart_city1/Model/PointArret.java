@@ -3,6 +3,13 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.time.Instant;
+
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@ToString
 @Entity
 @Table(name = "point_arret")
 public class PointArret {
@@ -19,6 +26,10 @@ public class PointArret {
 
     @Column(name = "latitude")
     private double latitude;
+
+    @ManyToOne(targetEntity = Zone.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zone_fk")
+    private Zone idZoneFk;
 
     public Boolean getStatut() {
         return statut;
@@ -62,5 +73,6 @@ public class PointArret {
     public double getLatitude() {
         return latitude;
     }
+
 
 }

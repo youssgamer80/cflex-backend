@@ -52,8 +52,6 @@ public class TypeTransportService {
             existingTypeTransport.setLibelleTypeTransport(typeTransport.getLibelleTypeTransport());
         }
 
-		
-
        if(typeTransport.getStatut()!=null){
         existingTypeTransport.setStatut(typeTransport.getStatut());
    }

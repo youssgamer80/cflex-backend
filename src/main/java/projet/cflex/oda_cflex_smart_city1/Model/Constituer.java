@@ -12,6 +12,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "constituer")
 public class Constituer {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)

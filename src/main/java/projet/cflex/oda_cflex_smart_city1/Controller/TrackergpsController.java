@@ -1,93 +1,98 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import projet.cflex.oda_cflex_smart_city1.Implementation.TrackergpsServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Trackergps;
-import projet.cflex.oda_cflex_smart_city1.Service.TrackergpsService;
+import projet.cflex.oda_cflex_smart_city1.Repository.TrackergpsRepository;
+import projet.cflex.oda_cflex_smart_city1.Response.Response;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Map;
 
+import static java.time.LocalDateTime.now;
+import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
+
+@RequiredArgsConstructor
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
-@Controller
-@RequestMapping("/api/v1/trackergps")
+@RequestMapping("api/v1/trackergps")
 public class TrackergpsController {
-    
+
     @Autowired
-    private TrackergpsService trackergpsService;
+    private final TrackergpsServiceImpl trackergpsServiceImpl;
 
-    @GetMapping
-    public ResponseEntity<Object> Get(){
+    @Autowired
+    TrackergpsRepository trackergpsRepository;
 
-        try {
-            List<Trackergps> result = trackergpsService.getAllTrackergps();
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
+    @GetMapping("/list")
+    public ResponseEntity<Response> getTrackergps() {
+        return ResponseEntity
+                .ok(Response.builder().timeStamp(now()).data(Map.of("borne", trackergpsServiceImpl.list(true)))
+                        .message("trackergps recupéré")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
     }
 
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Object> Get(@PathVariable int id) {
-        try {
-            Trackergps result = trackergpsService.getTrackergps(id);
-            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
+    @PostMapping("/addTrackergps")
+    public ResponseEntity<Response> saveTrackergps(@RequestBody @Validated Trackergps trackergps) {
+        // System.out.print(trackergps.getLibelle());
+        return ResponseEntity.ok(
+                Response.builder().timeStamp(now()).data(Map.of("trackergps", trackergpsServiceImpl.create(trackergps)))
+                        .message("Trackergps enregistré avec succès")
+                        .status(CREATED)
+                        .statusCode(CREATED.value())
+                        .build());
     }
 
-
-    @PostMapping(value = "/addtrackergps")
-    public ResponseEntity<Object> Post(@RequestBody Trackergps trackergps) {
-        try {
-            Trackergps result = trackergpsService.addTrackergps(trackergps);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
+    @GetMapping("{id}")
+    public ResponseEntity<Response> getTrackergps(@PathVariable("id") Integer id) {
+        return ResponseEntity
+                .ok(Response.builder().timeStamp(now()).data(Map.of("borne", trackergpsServiceImpl.get(id)))
+                        .message("trackergps retrouvé")
+                        .status(OK)
+                        .statusCode(OK.value())
+                        .build());
     }
 
     
-    @DeleteMapping(value = "/deletetrackergps/{id}")
-    public ResponseEntity<Object> Put(@PathVariable Integer id, @RequestBody Trackergps trackergps) {
 
-        try {
-            Trackergps result = trackergpsService.deleteTrackergps(id, trackergps);
-            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Response> deleteTrackergps(@PathVariable("id") Integer id) {
+        boolean exists = trackergpsRepository.existsById(id);
+        if (!exists) {
+            throw new IllegalStateException("Le trackergps avec le numero " + id + " n'existe pas");
+        } else {
+            return ResponseEntity
+                    .ok(Response.builder().timeStamp(now()).data(Map.of("delete", trackergpsServiceImpl.delete(id)))
+                            .message("Le trackergps avec le numero " + id + " a été supprimé avec succès")
+                            .status(OK)
+                            .statusCode(OK.value())
+                            .build());
         }
     }
-    
 
-    @PutMapping(value = "/updatetrackergps/{id}")
+
+    @PutMapping(value = "/updateProprio/{id}")
     public ResponseEntity<Object> Put(@RequestBody Trackergps trackergps, @PathVariable Integer id) {
-        
+
         try{
-            Trackergps result = trackergpsService.updateTrackergps(trackergps, id);
+            Trackergps result = trackergpsServiceImpl.majTrackergps(id, trackergps);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         }catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
-    
+
     }
 
 }
