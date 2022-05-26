@@ -110,21 +110,24 @@ public class PointArretController {
     public ResponseEntity<Object> GetpointArretByCord(@RequestParam Map<String, String> requestParams) {
         String lonString = requestParams.get("lon");
         String latString = requestParams.get("lat");
+        String zone = requestParams.get("zone");
         double lat = Double.parseDouble(latString);
         double lon = Double.parseDouble(lonString);
 
         double el1 = 0;
         double el2 = 0;
-
+        
         List<PointArret> pointarretsrResultats = new ArrayList<>();
 
         try {
-            List<PointArret> pointArrets = pointArretService.getAllPointArret();
+            List<PointArret> pointArrets = (List<PointArret>) pointArretService.getPointArretByLibelle(zone);
+            
             pointArrets.forEach(
                     pointArret -> {
+                        System.out.println(pointArret.getNom());
                         if (distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2) <= 1000) {
-                            System.out.println(distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2));
-                            System.out.println(pointArret.getNom());
+                           // System.out.println(distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2));
+                            
                             pointarretsrResultats.add(pointArret);
 
                         }
