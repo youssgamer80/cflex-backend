@@ -30,15 +30,20 @@ public class Vehicule {
     @Column(name = "modele")
     private String modele;
 
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "id_proprietaire_fk")
    private Proprietaire proprietaire;
+
     @Column(name = "statut")
     private Boolean statut;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "id_type_transport_fk")
     private TypeTransport idTypeTransportFk;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_zone_fk")
+    private Zone zone;
 
     @Column(name = "nb_place")
     private Integer nbPlace;
@@ -107,4 +112,7 @@ public class Vehicule {
     public void setCarteGrise(String carteGrise) {
         this.carteGrise = carteGrise;
     }
+
+    public Zone getZone() {return zone;}
+    public void setZone(Zone zone) {this.zone = zone;}
 }
