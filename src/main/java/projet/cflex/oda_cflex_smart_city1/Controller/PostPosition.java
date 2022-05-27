@@ -41,7 +41,7 @@ public class PostPosition{
 
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("application/json");
-        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, "{\n    \"collection\":\"positions\",\n    \"database\":\"bd_smart_city1\",\n    \"dataSource\":\"Cluster0\",\n    \"projection\": {\"_id\": 1}\n\n}");
+        okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, "{\n    \"collection\":\"positions\",\n    \"database\":\"bd_smart_city1\",\n    \"dataSource\":\"Cluster0\",\n    \"filter\": {\"_id\": 1}\n\n}");
         Request request = new Request.Builder()
             .url("https://data.mongodb-api.com/app/data-quxor/endpoint/data/beta/action/findOne")
             .method("POST", body)
