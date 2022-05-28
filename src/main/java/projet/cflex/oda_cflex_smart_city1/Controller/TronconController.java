@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -137,6 +138,19 @@ public class TronconController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
     
+        
+    }
+
+    @PutMapping(value = "/detachLigne/{id}")
+    public ResponseEntity<Object> Put(@PathVariable Integer id) {
+
+        try {
+            Troncon result = tronconServ.detacherLigne(id);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+
     }
 
 

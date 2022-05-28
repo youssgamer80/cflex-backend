@@ -40,7 +40,13 @@ public class PointArretService {
     public PointArret getPointArret(int id) {
 
         return this.pointarretRepository.findById(id)
-        .orElseThrow(() -> new ResourceNotFoundException("Point d'arret not found with id :" + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Point d'arret not found with id :" + id));
+    }
+    
+    public Iterable<PointArret> getPointArretByLibelle(String libelle) {
+
+
+        return this.pointarretRepository.findByLibelleNative(libelle);
     }
 
     public PointArret updatePointArret(Integer id, PointArret pointarret) {

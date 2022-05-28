@@ -98,6 +98,13 @@ public class TronconService {
 
 		return tronconRepo.save(existingTroncon);
  }
+ public Troncon detacherLigne(Integer id) {
+
+    Troncon existingTroncon = this.tronconRepo.findById(id)
+    .orElseThrow(() -> new ResourceNotFoundException("Troncon not foundwith id :" + id));
+    existingTroncon.setIdLigneFk(null);
+    return tronconRepo.save(existingTroncon);
+    }
 
 
 

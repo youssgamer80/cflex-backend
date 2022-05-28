@@ -42,8 +42,16 @@ public class Troncon {
     private Boolean statut = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ligne_fk")
+    @JoinColumn(name = "id_ligne_fk", nullable = true)
     private Ligne idLigneFk;
+
+    // public Ligne getIdLigneFk() {
+    //     return this.idLigneFk;
+    // }
+
+    // public void setIdLigneFk(Ligne idLigneFk) {
+    //     this.idLigneFk = idLigneFk;
+    // }
 
     @Column(name = "rang")
     private Integer rang;

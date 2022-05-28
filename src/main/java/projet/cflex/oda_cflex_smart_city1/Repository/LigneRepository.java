@@ -1,8 +1,23 @@
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+@Repository
+public interface LigneRepository extends CrudRepository<Ligne, Integer> {
 
-public interface LigneRepository extends JpaRepository<Ligne, Integer> {
+    public Iterable<Ligne> findByStatut(Boolean statut);
+	
+	@Query("FROM Ligne WHERE statut = ?1")
+    public Iterable<Ligne> findByStatutJPQL(Boolean statut);
+    
+    @Query("FROM Ligne WHERE id = ?1")
+    public Ligne findLigne(Integer id);
+
+
+    public Ligne findByNom(String nom);	
+
 }
