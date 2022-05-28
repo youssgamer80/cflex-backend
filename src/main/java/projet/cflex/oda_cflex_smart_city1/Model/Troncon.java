@@ -27,7 +27,7 @@ public class Troncon {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_point_arret_B_fk", nullable = false)
-    private PointArret idPointArretBFk;
+    public PointArret idPointArretBFk;
 
     @Column(name = "distance", nullable = false)
     private Double distance;

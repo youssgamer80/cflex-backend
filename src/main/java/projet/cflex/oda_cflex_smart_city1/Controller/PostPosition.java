@@ -36,9 +36,6 @@ public class PostPosition{
     public ResponseEntity<Object> postPosition() {
 
 
-         
-
-
         OkHttpClient client = new OkHttpClient().newBuilder().build();
         MediaType mediaType = MediaType.parse("application/json");
         okhttp3.RequestBody body = okhttp3.RequestBody.create(mediaType, "{\n    \"collection\":\"positions\",\n    \"database\":\"bd_smart_city1\",\n    \"dataSource\":\"Cluster0\",\n    \"filter\": {\"_id\": 1}\n\n}");

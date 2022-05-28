@@ -44,7 +44,7 @@ public class DemandeService {
         return rus;
     }
 
-    Set<String> codeDemande = getRandomUniqueStrings(1, 7, true, true);
+    Set<String> codeDemande = getRandomUniqueStrings(2, 10, false, true);
 
     String code = codeDemande.toString();
 

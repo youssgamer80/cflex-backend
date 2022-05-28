@@ -18,6 +18,6 @@ public interface LigneRepository extends CrudRepository<Ligne, Integer> {
     public Ligne findLigne(Integer id);
 
 
-    public Ligne findByNom(String nom);	
+    public Ligne findByNom(String nom);
 
 }

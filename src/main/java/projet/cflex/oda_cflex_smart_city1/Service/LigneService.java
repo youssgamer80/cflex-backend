@@ -3,28 +3,32 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.internal.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Controller.LigneObject;
-import projet.cflex.oda_cflex_smart_city1.Model.*;
-import projet.cflex.oda_cflex_smart_city1.Repository.*;
-
+import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.TypeTransportRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 @Service
 public class LigneService {
 
     @Autowired
-    public LigneRepository ligneRepository;
+    public static LigneRepository ligneRepository;
 
     @Autowired
     private TypeTransportRepository typeTransportRepository;
     @Autowired
     private ZoneRepository zoneRepository;
 
-    private Boolean statut = true;
+    private static Boolean statut = true;
 
-    public List<Ligne> getAllLignes() {
+    public static List<Ligne> getAllLignes() {
 
         List<Ligne> lignes = new ArrayList<>();
 
@@ -95,9 +99,20 @@ public class LigneService {
 
     public Ligne deleteLigne(Integer id) {
 
-    Ligne existingLigne = this.ligneRepository.findById(id)
-    .orElseThrow(() -> new ResourceNotFoundException("Type transport not foundwith id :" + id));
-    existingLigne.setStatut(false);
-    return ligneRepository.save(existingLigne);
+        Ligne existingLigne = this.ligneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Type transport not foundwith id :" + id));
+        existingLigne.setStatut(false);
+        return ligneRepository.save(existingLigne);
     }
+    
+    public static List<Ligne> getAllTroncon() {
+
+        List<Ligne> lignes = new ArrayList<>();
+
+        ligneRepository.findByStatutJPQL(statut).forEach(lignes::add);
+        
+        return lignes;
+
+    }
+    
 }
