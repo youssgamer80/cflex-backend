@@ -32,7 +32,6 @@ public class VehiculeServiceImpl implements VehiculeService {
     public Vehicule create(Vehicule vehicule) {
         log.info("Enregistrement d'un nouveau vehicule: {}","Marque:"+" "+vehicule.getMarque()+"/n"+
                 "Modele:"+" "+vehicule.getModele());
-        //vehicule.setCarteGrise(setVehiculeCarteGrise());
         System.out.println("hum"+vehicule.getImmatriculation());
         return vehiculeRepository.save(vehicule);
     }
