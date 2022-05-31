@@ -28,7 +28,8 @@ public class PositionVehiculeController {
     PositionVehiculeRepository positionVehiculeRepository;
 
     @PostMapping("/setposition")
-    public ResponseEntity<Response> setPositiontracker( @RequestBody @Validated PositionVehicule positionVehicule){
+    public  ResponseEntity<Response> setPositiontracker( @RequestBody @Validated PositionVehicule positionVehicule){
+        //positionVehiculeImpl.run(positionVehicule);
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", positionVehiculeImpl.create(positionVehicule)))
                 .message("La position du véhicule a été enregistrée avec succès")
@@ -36,19 +37,8 @@ public class PositionVehiculeController {
                 .statusCode(CREATED.value())
                 .build()
         );
+
     }
-
-/*    @GetMapping("/getpositions")
-    public ResponseEntity<?> getallpositions(){
-        List positionVehiculeList = positionVehiculeRepository.findAll();
-        if (positionVehiculeList.size()>0) {
-            return new ResponseEntity<List<PositionVehicule>>(positionVehiculeList, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>("Aucune position valable", HttpStatus.NOT_FOUND);
-        }
-
-    }*/
 
 
     @GetMapping("/getposition/{id}")
