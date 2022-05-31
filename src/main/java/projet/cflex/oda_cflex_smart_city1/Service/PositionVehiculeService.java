@@ -13,4 +13,6 @@ public interface PositionVehiculeService {
     Collection<PositionVehicule> list(boolean isDeleted);
     PositionVehicule get(Long id);
     public void createTracker(PositionVehicule positionVehicule) throws ConstraintViolationException, PositionVehiculeException;
+
+    void run();
 }

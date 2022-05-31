@@ -7,10 +7,13 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Transient;
 import java.sql.Time;
 
 @Document(collection = "position_vehicule")
 public class PositionVehicule {
+    @Transient
+    public static final String positionSequence = "position_sequence";
     @Id
     private Long id;
 
@@ -109,4 +112,5 @@ public class PositionVehicule {
     public void setCoordinates(Double coordinates) {
         this.coordinates = coordinates;
     }
+
 }

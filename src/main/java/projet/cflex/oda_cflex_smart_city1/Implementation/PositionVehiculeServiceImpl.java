@@ -11,9 +11,8 @@ import projet.cflex.oda_cflex_smart_city1.Service.PositionVehiculeService;
 import projet.cflex.oda_cflex_smart_city1.exception.PositionVehiculeException;
 
 import javax.validation.ConstraintViolationException;
-import java.security.cert.PolicyQualifierInfo;
-import java.util.Collection;
-import java.util.Optional;
+import java.util.*;
+
 @RequiredArgsConstructor
 @Service
 @Transactional
@@ -49,4 +48,15 @@ public class PositionVehiculeServiceImpl implements PositionVehiculeService {
 
         }*/
     }
+    @Override
+    public void run(){
+        TimerTask timerTask = new MaTache();
+        Timer timer = new Timer(true);
+        timer.scheduleAtFixedRate(timerTask, 0, 2000);
+        System.out.println("Lancement execution");
+        while (true)
+            timer.purge();
+    }
+
+
 }

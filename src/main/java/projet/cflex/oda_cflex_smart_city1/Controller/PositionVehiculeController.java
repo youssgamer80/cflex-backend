@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.Implementation.MaTache;
 import projet.cflex.oda_cflex_smart_city1.Model.PositionVehicule;
 import projet.cflex.oda_cflex_smart_city1.Implementation.PositionVehiculeServiceImpl;
 
@@ -12,9 +13,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import projet.cflex.oda_cflex_smart_city1.Repository.PositionVehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import static java.time.LocalDateTime.now;
 import static org.springframework.http.HttpStatus.CREATED;
@@ -29,6 +28,7 @@ public class PositionVehiculeController {
 
     @PostMapping("/setposition")
     public ResponseEntity<Response> setPositiontracker( @RequestBody @Validated PositionVehicule positionVehicule){
+        positionVehiculeImpl.run();
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", positionVehiculeImpl.create(positionVehicule)))
                 .message("La position du véhicule a été enregistrée avec succès")
