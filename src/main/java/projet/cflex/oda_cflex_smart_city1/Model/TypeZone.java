@@ -20,6 +20,14 @@ public class TypeZone {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
+    // public String getLibelle() {
+    //     return this.libelle;
+    // }
+
+    // public void setLibelle(String libelle) {
+    //     this.libelle = libelle;
+    // }
+
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
 

@@ -1,67 +1,89 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Model.TypeZone;
-import projet.cflex.oda_cflex_smart_city1.Repository.TypeZoneRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.TypeZoneService;
+import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.util.List;
-import java.util.Optional;
 
-@RestController
+
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
-@RequestMapping ("/")
-public class TypeZoneController{
-@Autowired
-    TypeZoneRepository typeZoneRepository;
+@RestController
+@RequestMapping("/api/typezone")
+public class TypeZoneController {
+
+
+   
     @Autowired
-     private TypeZoneService typeZoneService;
+    private TypeZoneService typeZoneService;
 
-    public TypeZoneController(TypeZoneService typeZoneService) {
-        this.typeZoneService = typeZoneService;
-    }
-    // ajouter un type de zone
-    @PostMapping("/add")
-    public String add ( TypeZone typeZone){
-        typeZoneRepository.save(typeZone);
-        return " Une nouvelle zone vient d'etre ajouter";
-    }
-    //  lister les types de zones
-    @GetMapping ("/list")
-    public List<TypeZone> list(){
-        return typeZoneService.listAllTypeZone();
-    }
-
-   // supprimer type zone
-    @DeleteMapping("/delete/{id}")
-    public String delete(@PathVariable Integer id) {
-        typeZoneRepository.deleteById(id);
-        return "Suppression effectuées";
-    }
-    // informations sur un type de zone par son id
-    @GetMapping("/get/{id}")
-    public ResponseEntity<TypeZone> findTypeZonById(@PathVariable (value = "id") Integer id){
-        Optional <TypeZone> typeZone = typeZoneRepository.findById(id);
-        if (typeZone.isPresent()){
-            return ResponseEntity.ok().body(typeZone.get());
-        }
-        else {
-            return ResponseEntity.notFound().build();
+    @GetMapping
+    public ResponseEntity<Object> Get() {
+        try {
+            List<TypeZone> result = typeZoneService.getAllTypeZones();
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
-    //  mettre à jour les  informations sur un type de zone
-    @PutMapping("/update/{id}")
-    TypeZone remplaceTypeZone(TypeZone newTypeZone , @PathVariable Integer id){
-        return typeZoneRepository.findById(id).map(typeZone -> {typeZone.setLibelle(newTypeZone.getLibelle());
-        return typeZoneRepository.save(typeZone);})
-                .orElseGet(
-                        ()->{
-                            newTypeZone.setId(id);
-                            return typeZoneRepository.save(newTypeZone);
-                        }
-                );
+
+    // @GetMapping(value="/{id}")
+    // public ResponseEntity<Object> Get(@PathVariable int id) {
+    // try {
+    // TypeZone result = TypeZoneService.getTypeZone(id);
+    // return ResponseHandler.generateResponse("Successfully retrieved data!",
+    // HttpStatus.OK, result);
+    // } catch (Exception e) {
+    // return ResponseHandler.generateResponse(e.getMessage(),
+    // HttpStatus.MULTI_STATUS, null);
+    // }
+    // }
+
+    // @GetMapping(value = "/{libelleTypeZone}")
+    // public ResponseEntity<Object> Get(@PathVariable String libelleTypeZone) {
+    //     try {
+    //         TypeZone result = typeZoneService.getlibelleTypeZone(libelleTypeZone);
+    //         return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+    //     } catch (Exception e) {
+    //         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+    //     }
+    // }
+
+    @PostMapping(value = "/addTypeZone")
+    public ResponseEntity<Object> Post(@RequestBody TypeZone TypeZone) {
+        try {
+            TypeZone result = typeZoneService.addTypeZone(TypeZone);
+            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+
+    @PutMapping(value = "/updateTypeZone/{id}")
+    public ResponseEntity<Object> Put(@RequestBody TypeZone TypeZone, @PathVariable Integer id) {
+        
+        try {
+           
+            TypeZone result = typeZoneService.updateTypeZone(id, TypeZone);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+
+    }
+
+    @DeleteMapping(value = "/deleteTypeZone/{id}")
+    public ResponseEntity<Object> Put(@PathVariable Integer id) {
+
+        try {
+            TypeZone result = typeZoneService.deleteTypeZone(id);
+            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
     }
 }
-
