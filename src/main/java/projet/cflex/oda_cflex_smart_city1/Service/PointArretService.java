@@ -72,12 +72,11 @@ public class PointArretService {
 		return pointarretRepository.save(existingPointArret);
     }
 
-    public PointArret deletePointArret(Integer id, PointArret pointarret) {
-
+    public PointArret deletePointArret(Integer id){
         PointArret existingPointArret = this.pointarretRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Point d'Arret not found with id :" + id));
-		 existingPointArret.setStatut(pointarret.getStatut());
-		 return pointarretRepository.save(existingPointArret);
+        existingPointArret.setStatut(false);
+        return pointarretRepository.save(existingPointArret);
     }
 
 

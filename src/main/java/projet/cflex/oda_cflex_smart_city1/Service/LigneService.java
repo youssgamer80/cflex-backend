@@ -28,7 +28,7 @@ public class LigneService {
 
     private static Boolean statut = true;
 
-    public static List<Ligne> getAllLignes() {
+    public List<Ligne> getAllLignes() {
 
         List<Ligne> lignes = new ArrayList<>();
 
