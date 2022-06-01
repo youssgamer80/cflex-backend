@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:8080", maxAge = 360000)
 @RequestMapping ("/")
 public class TypeZoneController{
 @Autowired

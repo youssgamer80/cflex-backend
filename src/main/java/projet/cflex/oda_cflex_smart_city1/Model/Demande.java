@@ -41,19 +41,12 @@ public class Demande{
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "code_demande")
-    private String codeDemande;
-
     @Column(name = "etat")
     private Boolean etat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proprietaire_fk")
     private Proprietaire idProprietaireFk;;
-
-
-    @Column(name = "date", nullable = false)
-    private Timestamp date;
 
     @Column(name = "immatriculation", nullable = false)
     private String Immatriculation;
@@ -87,14 +80,6 @@ public class Demande{
         this.id = id;
     }
 
-    public String getCodeDemande() {
-        return codeDemande;
-    }
-
-    public void setCodeDemande(String codeDemande) {
-        this.codeDemande = codeDemande;
-    }
-
     public Boolean getEtat() {
         return etat;
     }
@@ -111,13 +96,6 @@ public class Demande{
         this.idProprietaireFk = idProprietaireFk;
     }
 
-    public Timestamp getDate() {
-        return date;
-    }
-
-    public void setDate(Timestamp date) {
-        this.date = date;
-    }
 
     public String getImmatriculation() {
         return Immatriculation;

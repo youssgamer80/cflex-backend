@@ -48,13 +48,9 @@ public class DemandeService {
 
     String code = codeDemande.toString();
 
-    String Mycode = code.substring(1,code.length()-1);
-
   
 
     public Demande addDemande(Demande demande) {
-
-        demande.setCodeDemande(Mycode);
 
         return demandeRepository.save(demande);
     }
@@ -75,10 +71,6 @@ public class DemandeService {
 
 		if(demande.getIdProprietaireFk()!=null){
              existingDemande.setIdProprietaireFk(demande.getIdProprietaireFk());
-       }
-
-       if(demande.getDate()!=null){
-        existingDemande.setDate(demande.getDate());
        }
 
        if(demande.getStatut()!=null){

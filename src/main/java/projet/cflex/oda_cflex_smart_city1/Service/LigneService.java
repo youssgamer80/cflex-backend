@@ -15,16 +15,16 @@ import projet.cflex.oda_cflex_smart_city1.Repository.*;
 public class LigneService {
 
     @Autowired
-    public LigneRepository ligneRepository;
+    public static LigneRepository ligneRepository;
 
     @Autowired
     private TypeTransportRepository typeTransportRepository;
     @Autowired
     private ZoneRepository zoneRepository;
 
-    private Boolean statut = true;
+    private static Boolean statut = true;
 
-    public List<Ligne> getAllLignes() {
+    public static List<Ligne> getAllLignes() {
 
         List<Ligne> lignes = new ArrayList<>();
 
