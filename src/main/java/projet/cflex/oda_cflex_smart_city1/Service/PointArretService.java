@@ -113,10 +113,6 @@ public class PointArretService {
         double el1 = 0;
         double el2 = 0;
 
-        //List<PointArret> pointarretsrResultats = new ArrayList<>();
-        //pointarretRepository.findByStatutJPQL(statut).forEach(pointarretsrResultats::add);
-        //List<PointArret> pointArrets = pointarretsrResultats;
-
         
         List<PointArret> pointarretsrResultats = new ArrayList<>();
         List<PointArret> pointArrets = pointarretRepository.findAll();

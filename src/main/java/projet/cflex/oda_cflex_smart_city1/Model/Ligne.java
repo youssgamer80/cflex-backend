@@ -28,6 +28,18 @@ public class Ligne {
     @Column(name = "arrivee", nullable = false)
     private String arrivee;
 
+    @Column(name = "depart_longitude", nullable = false)
+    private double depart_longitude;
+
+    @Column(name = "depart_latitude", nullable = false)
+    private double depart_latitude;
+
+    @Column(name = "arrivee_longitude", nullable = false)
+    private double arrivee_longitude;
+    
+    @Column(name = "arrivee_latitude", nullable = false)
+    private double arrivee_latitude;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_type_transport_fk", nullable = false)
     private TypeTransport idTypeTransportFk;
