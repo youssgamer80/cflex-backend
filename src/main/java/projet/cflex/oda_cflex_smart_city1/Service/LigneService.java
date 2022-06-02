@@ -72,6 +72,11 @@ public class LigneService {
         return ligneRepository.findByNom(nomLigne);
     }
 
+    public Ligne getLigneBydId(Integer id) {
+        // System.out.print(id);
+        return ligneRepository.findLigne(id);
+    }
+
     public Ligne updateLigne(Integer id, LigneObject ligneObject) {
 
         Ligne existingLigne = ligneRepository.findById(id)
