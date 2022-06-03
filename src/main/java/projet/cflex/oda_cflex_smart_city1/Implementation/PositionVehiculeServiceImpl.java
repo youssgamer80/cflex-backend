@@ -1,3 +1,4 @@
+/*
 package projet.cflex.oda_cflex_smart_city1.Implementation;
 
 import lombok.RequiredArgsConstructor;
@@ -6,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import projet.cflex.oda_cflex_smart_city1.Model.PositionVehicule;
-import projet.cflex.oda_cflex_smart_city1.Repository.PositionVehiculeRepository;
+//import projet.cflex.oda_cflex_smart_city1.Repository.PositionVehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.PositionVehiculeService;
 import projet.cflex.oda_cflex_smart_city1.exception.PositionVehiculeException;
 
@@ -42,11 +43,13 @@ public class PositionVehiculeServiceImpl implements PositionVehiculeService {
     public void createTracker(PositionVehicule positionVehicule)throws ConstraintViolationException, PositionVehiculeException{
         Optional<PositionVehicule> positionVehiculeOptional = positionVehiculeRepository.findPositionVehiculeBy(positionVehicule.getTitle());
         positionVehiculeRepository.save(positionVehicule);
-       /* if (positionVehiculeOptional.isPresent()){
+       */
+/* if (positionVehiculeOptional.isPresent()){
             throw new PositionVehiculeException(PositionVehiculeException.TrackerAlreadyExists());
         }else{
 
-        }*/
+        }*//*
+
     }
     @Override
     public void run(){
@@ -60,3 +63,4 @@ public class PositionVehiculeServiceImpl implements PositionVehiculeService {
 
 
 }
+*/

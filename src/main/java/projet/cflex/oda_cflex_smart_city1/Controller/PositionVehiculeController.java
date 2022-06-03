@@ -1,3 +1,4 @@
+/*
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.PositionVehicule;
 import projet.cflex.oda_cflex_smart_city1.Implementation.PositionVehiculeServiceImpl;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
-import projet.cflex.oda_cflex_smart_city1.Repository.PositionVehiculeRepository;
+//import projet.cflex.oda_cflex_smart_city1.Repository.PositionVehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
 
 import java.util.*;
@@ -24,7 +25,7 @@ public class PositionVehiculeController {
     @Autowired
     PositionVehiculeServiceImpl positionVehiculeImpl;
     @Autowired
-    PositionVehiculeRepository positionVehiculeRepository;
+    //PositionVehiculeRepository positionVehiculeRepository;
 
     @PostMapping("/setposition")
     public ResponseEntity<Response> setPositiontracker( @RequestBody @Validated PositionVehicule positionVehicule){
@@ -38,6 +39,7 @@ public class PositionVehiculeController {
         );
     }
 
+*/
 /*    @GetMapping("/getpositions")
     public ResponseEntity<?> getallpositions(){
         List positionVehiculeList = positionVehiculeRepository.findAll();
@@ -48,7 +50,8 @@ public class PositionVehiculeController {
             return new ResponseEntity<>("Aucune position valable", HttpStatus.NOT_FOUND);
         }
 
-    }*/
+    }*//*
+
 
 
     @GetMapping("/getposition/{id}")
@@ -61,3 +64,4 @@ public class PositionVehiculeController {
         }
     }
 }
+*/

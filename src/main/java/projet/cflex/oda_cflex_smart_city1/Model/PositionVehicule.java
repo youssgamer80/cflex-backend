@@ -1,3 +1,4 @@
+/*
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import org.springframework.data.annotation.Id;
@@ -113,4 +114,4 @@ public class PositionVehicule {
         this.coordinates = coordinates;
     }
 
-}
+}*/

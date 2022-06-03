@@ -1,3 +1,4 @@
+/*
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -10,3 +11,4 @@ public interface PositionVehiculeRepository extends MongoRepository<PositionVehi
     @Query("{'tracker':?0}")
     Optional<PositionVehicule> findPositionVehiculeBy(String trackerposvehicule);
 }
+*/
