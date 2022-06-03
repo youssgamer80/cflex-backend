@@ -33,9 +33,9 @@ public class PositionVehicule {
 
     @Field(value = "fill")
     private Boolean fill;
-
+/*
     @Field(value="heure")
-    private Time heure;
+    private Time heure;*/
 
     @Field(value = "type")
     private String type;
@@ -90,13 +90,13 @@ public class PositionVehicule {
     public void setFill(Boolean fill) {
         this.fill = fill;
     }
-
+/*
     public Time getHeure() {
         return heure;}
 
     public void setHeure(Time heure) {
         this.heure = heure;
-    }
+    }*/
 
     public String getType() {
         return type;
