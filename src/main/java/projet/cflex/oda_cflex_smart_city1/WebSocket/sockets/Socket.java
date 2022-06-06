@@ -1,5 +1,12 @@
 package projet.cflex.oda_cflex_smart_city1.WebSocket.sockets;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.controller.TrackerController;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.repository.TrackerRepository;
 import projet.cflex.oda_cflex_smart_city1.WebSocket.utils.MessageDecoder;
 import projet.cflex.oda_cflex_smart_city1.WebSocket.utils.MessageEncoder;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +24,12 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @ServerEndpoint(value = "/webSocket", encoders = MessageEncoder.class, decoders = MessageDecoder.class)
 public class Socket {
     private Session session;
+
+    @Autowired
+    TrackerRepository trackerRepository;
+
     public static Set<Socket> listeners = new CopyOnWriteArraySet<>();
+
 
     @OnOpen
     public void onOpen(Session session) throws InterruptedException {
@@ -25,6 +37,7 @@ public class Socket {
         listeners.add(this);
         log.info(String.format("Un tracker connecté: %s", listeners.size()));
     }
+
 
     @OnMessage //Allows the client to send message to the socket.
     public void onMessage(String message) {
@@ -44,7 +57,6 @@ public class Socket {
 
     public static void broadcast(String message) {
         JSONObject value = new JSONObject(message) ;
-        String immatriculation = value.getString("immatriculation");
         String lattitude = value.getString("lattitude");
         String longitude = value.getString("longitude");
         String typetransport = value.getString("typetransport");
@@ -52,6 +64,8 @@ public class Socket {
         for (Socket listener : listeners) {
             listener.sendMessage(message);
         }
+
+
     }
 
     private void sendMessage(String message) {
@@ -61,4 +75,16 @@ public class Socket {
             log.error("Caught exception while sending message to Session Id: " + this.session.getId(), e.getMessage(), e);
         }
     }
+
+    public ResponseEntity<Tracker> saveTrackerinMongo(@RequestBody Tracker tracker) {
+
+        if(tracker.getIdtracker()==null) {
+            Tracker _tracker = trackerRepository.save(new Tracker(tracker.getId(), tracker.getIdtracker(),tracker.getLattitude(), tracker.getLongitude(),tracker.getTypetransport()));
+            return new ResponseEntity<>(_tracker, HttpStatus.CREATED);
+        } else{
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+
+    }
+
 }
