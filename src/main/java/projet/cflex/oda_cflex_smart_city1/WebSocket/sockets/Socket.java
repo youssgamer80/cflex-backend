@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
+import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 import projet.cflex.oda_cflex_smart_city1.MongoDB.controller.TrackerController;
 import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
 import projet.cflex.oda_cflex_smart_city1.MongoDB.repository.TrackerRepository;
@@ -56,8 +57,11 @@ public class Socket {
     }
 
     public static void broadcast(String message) {
+        Vehicule vehicule;
         JSONObject value = new JSONObject(message) ;
-        String lattitude = value.getString("lattitude");
+        String idtracker = value.getString("idtracker");
+        String immatriculation = value.getString("immatriculation");
+        String latitude = value.getString("latitude");
         String longitude = value.getString("longitude");
         String typetransport = value.getString("typetransport");
 
@@ -79,7 +83,7 @@ public class Socket {
     public ResponseEntity<Tracker> saveTrackerinMongo(@RequestBody Tracker tracker) {
 
         if(tracker.getIdtracker()==null) {
-            Tracker _tracker = trackerRepository.save(new Tracker(tracker.getId(), tracker.getIdtracker(),tracker.getLattitude(), tracker.getLongitude(),tracker.getTypetransport()));
+            Tracker _tracker = trackerRepository.save(tracker);
             return new ResponseEntity<>(_tracker, HttpStatus.CREATED);
         } else{
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

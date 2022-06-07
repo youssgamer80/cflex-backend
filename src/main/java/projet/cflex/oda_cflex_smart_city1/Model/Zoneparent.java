@@ -22,7 +22,7 @@ public class Zoneparent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "id", nullable = false, unique = true)
     private Integer id;
 
     @Column(name = "zoneparent", nullable = false)

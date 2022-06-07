@@ -9,6 +9,7 @@ public class Tracker {
   private String id;
 
   private String idtracker;
+  private String immatriculation;
   private Double lattitude;
   private Double longitude;
   private String typetransport;
@@ -17,9 +18,10 @@ public class Tracker {
 
   }
 
-  public Tracker(String id, String idtracker, Double lattitude, Double longitude, String typetransport) {
+  public Tracker(String id, String idtracker, String immatriculation, Double lattitude, Double longitude, String typetransport) {
     this.id = id;
     this.idtracker = idtracker;
+    this.immatriculation = immatriculation;
     this.lattitude = lattitude;
     this.longitude = longitude;
     this.typetransport = typetransport;
@@ -39,6 +41,14 @@ public class Tracker {
 
   public void setIdtracker(String idtracker) {
     this.idtracker = idtracker;
+  }
+
+  public String getImmatriculation() {
+    return immatriculation;
+  }
+
+  public void setImmatriculation(String immatriculation) {
+    this.immatriculation = immatriculation;
   }
 
   public Double getLattitude() {
@@ -67,6 +77,6 @@ public class Tracker {
 
   @Override
   public String toString() {
-    return "Tracker [id=" + id + ", idtracker="+idtracker +", lattitude=" + lattitude + ", longitude=" + longitude + ", Type Transport=" + typetransport + "]";
+    return "Tracker [id=" + id + ", idtracker="+idtracker +",immatriculation="+immatriculation+", lattitude=" + lattitude + ", longitude=" + longitude + ", Type Transport=" + typetransport + "]";
   }
 }

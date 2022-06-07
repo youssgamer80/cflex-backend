@@ -41,7 +41,7 @@ public class Vehicule {
     @JoinColumn(name = "id_type_transport_fk")
     private TypeTransport idTypeTransportFk;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_zone_fk")
     private Zone zone;
 

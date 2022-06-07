@@ -55,6 +55,7 @@ public class VehiculeController {
     }
     @PostMapping("/save")
     public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){
+
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", vehiculeService.create(vehicule)))
                 .message("Véhicule enregistré avec succès")

@@ -53,7 +53,7 @@ public class TrackerController {
   @PostMapping("/settrackers")
   public ResponseEntity<Tracker> createTracker(@RequestBody Tracker tracker) {
     try {
-      Tracker _tracker = trackerRepository.save(new Tracker(tracker.getId(), tracker.getIdtracker(),tracker.getLattitude(), tracker.getLongitude(),tracker.getTypetransport()));
+      Tracker _tracker = trackerRepository.save(new Tracker(tracker.getId(),tracker.getImmatriculation(), tracker.getIdtracker(),tracker.getLattitude(), tracker.getLongitude(),tracker.getTypetransport()));
       return new ResponseEntity<>(_tracker, HttpStatus.CREATED);
     } catch (Exception e) {
       return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
