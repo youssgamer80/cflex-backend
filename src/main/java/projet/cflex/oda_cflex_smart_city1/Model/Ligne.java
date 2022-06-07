@@ -40,6 +40,9 @@ public class Ligne {
     @Column(name = "arrivee_latitude", nullable = false)
     private double arrivee_latitude;
 
+    @Column(name = "tarif", nullable = false)
+    private double tarif;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_type_transport_fk", nullable = false)
     private TypeTransport idTypeTransportFk;

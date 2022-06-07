@@ -58,6 +58,7 @@ public class LigneService {
         
         ligne.setArrivee_longitude(ligneObject.arrivee_latitude);
         ligne.setArrivee_latitude(ligneObject.arrivee_latitude);
+        ligne.setTarif(ligneObject.tarif);
 
         
         ligne.setIdTypeTransportFk(typeTransport);
