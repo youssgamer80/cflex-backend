@@ -2,6 +2,8 @@ package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import java.util.List;
 
+import javax.validation.constraints.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,7 +65,14 @@ public class LigneController {
     @PostMapping(value = "/addLigne")
     public ResponseEntity<Object> Post(@RequestBody LigneObject ligneObject) {
         try {
+            // System.out.print(ligneObject);
+            System.out.print("LIGNE OBJECT ");
+        System.out.print(ligneObject.nom);
+        System.out.print(ligneObject.depart);
+        System.out.print(ligneObject.arrivee);
+
             Ligne result = ligneService.addLigne(ligneObject);
+            // Ligne result = null;
             return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
