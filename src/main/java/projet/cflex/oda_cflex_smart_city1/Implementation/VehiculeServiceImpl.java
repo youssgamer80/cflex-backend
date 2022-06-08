@@ -6,14 +6,20 @@ import org.hibernate.Filter;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
 import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.VehiculeService;
 
 import javax.persistence.EntityManager;
 import java.util.Collection;
+import java.util.Optional;
 
 
 import static java.lang.Boolean.TRUE;
@@ -33,6 +39,7 @@ public class VehiculeServiceImpl implements VehiculeService {
         log.info("Enregistrement d'un nouveau vehicule: {}","Marque:"+" "+vehicule.getMarque()+"/n"+
                 "Modele:"+" "+vehicule.getModele());
         System.out.println("hum"+vehicule.getImmatriculation());
+
         return vehiculeRepository.save(vehicule);
     }
 

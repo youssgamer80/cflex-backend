@@ -53,7 +53,7 @@ public class VehiculeController {
                 .build()
         );
     }
-    @PostMapping("/save")
+/*    @PostMapping("/save")
     public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){
 
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
@@ -63,9 +63,24 @@ public class VehiculeController {
                 .statusCode(CREATED.value())
                 .build()
         );
+    }*/
+    @PostMapping("/savevehicule")
+    public ResponseEntity<Vehicule> createVehicule(Vehicule vehicule) {
+
+        if(vehicule.getProprietaire().getStatut()==false) {
+            return new ResponseEntity<>(null, NOT_ACCEPTABLE);
+        }
+        else {
+            vehiculeRepository.save(vehicule);
+            return (ResponseEntity<Vehicule>) ResponseEntity.ok(Response.builder().timeStamp(now()).
+                    data(Map.of("vehicule", vehiculeService.create(vehicule)))
+                    .message("Véhicule enregistré avec succès")
+                    .status(CREATED)
+                    .statusCode(CREATED.value())
+                    .build()
+            );
+        }
     }
-
-
     @GetMapping("/get/{id}")
     public ResponseEntity<Response> getProprietaire(@PathVariable("id") Integer id){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
