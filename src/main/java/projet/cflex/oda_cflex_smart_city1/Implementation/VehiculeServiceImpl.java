@@ -59,32 +59,7 @@ public class VehiculeServiceImpl implements VehiculeService {
         log.info("Recherche par vehicule:{}",id);
         return vehiculeRepository.findById(id).get();
     }
-    public Vehicule majVehicule(Integer id, Vehicule vehicule) {
 
-        Vehicule existingvehicule = this.vehiculeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Ce vehicule n'existe pas :" + id));
-
-        if(vehicule.getImmatriculation()!=null){
-            existingvehicule.setImmatriculation(vehicule.getImmatriculation());
-        }
-
-        if(vehicule.getMarque()!=null){
-            existingvehicule.setMarque(vehicule.getMarque());
-        }
-
-        if(vehicule.getModele()!=null){
-            existingvehicule.setModele(vehicule.getModele());
-        }
-
-        if(vehicule.getCarteGrise()!=null){
-            existingvehicule.setCarteGrise(vehicule.getCarteGrise());
-        }
-   /*     if(vehicule.getIdZoneFk()!=null){
-            existingvehicule.setIdZoneFk(vehicule.getIdZoneFk());
-        }*/
-
-        return vehiculeRepository.save(existingvehicule);
-    }
 
     @Override
     public Boolean delete(Integer id) {

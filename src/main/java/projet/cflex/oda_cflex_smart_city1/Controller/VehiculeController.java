@@ -1,5 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 import lombok.RequiredArgsConstructor;
+import okhttp3.OkHttpClient;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
@@ -13,6 +15,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.time.LocalDateTime.now;
@@ -53,32 +56,18 @@ public class VehiculeController {
                 .build()
         );
     }
-/*    @PostMapping("/save")
-    public ResponseEntity<Response> saveVehicule( @RequestBody @Validated Vehicule vehicule){
 
-        return ResponseEntity.ok(Response.builder().timeStamp(now()).
-                data(Map.of("vehicule", vehiculeService.create(vehicule)))
-                .message("Véhicule enregistré avec succès")
-                .status(CREATED)
-                .statusCode(CREATED.value())
-                .build()
-        );
-    }*/
     @PostMapping("/savevehicule")
     public ResponseEntity<Vehicule> createVehicule(Vehicule vehicule) {
 
         if(vehicule.getProprietaire().getStatut()==false) {
-            return new ResponseEntity<>(null, NOT_ACCEPTABLE);
+
+            return new ResponseEntity<>(null, NOT_FOUND);
         }
         else {
-            vehiculeRepository.save(vehicule);
-            return (ResponseEntity<Vehicule>) ResponseEntity.ok(Response.builder().timeStamp(now()).
-                    data(Map.of("vehicule", vehiculeService.create(vehicule)))
-                    .message("Véhicule enregistré avec succès")
-                    .status(CREATED)
-                    .statusCode(CREATED.value())
-                    .build()
-            );
+            Vehicule _vehicule = vehiculeRepository.save(vehicule);
+            return new ResponseEntity<>(_vehicule, HttpStatus.CREATED);
+
         }
     }
     @GetMapping("/get/{id}")
@@ -107,13 +96,20 @@ public class VehiculeController {
     }
 
     @PutMapping(value = "/updateVehicule/{id}")
-    public ResponseEntity<Object> Put(@RequestBody Vehicule vehicule, @PathVariable Integer id) {
+    public ResponseEntity<Vehicule> testupdateVehicule(@PathVariable("id") Integer id, @RequestBody Vehicule vehicule) {
 
-        try{
-            Vehicule result = vehiculeService.majVehicule(id, vehicule);
-            return ResponseHandler.generateResponse("Mise à jour effectuée avec succès!", HttpStatus.OK, result);
-        }catch(Exception e){
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        Optional<Vehicule> existingvehicule = Optional.ofNullable(this.vehiculeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Ce vehicule n'existe pas :" + id)));
+        if (existingvehicule.isPresent()) {
+            Vehicule _vehicule = existingvehicule.get();
+            _vehicule.setImmatriculation(vehicule.getImmatriculation());
+            _vehicule.setMarque(vehicule.getMarque());
+            _vehicule.setModele(vehicule.getModele());
+            _vehicule.setCarteGrise(vehicule.getCarteGrise());
+            _vehicule.setProprietaire(vehicule.getProprietaire());
+            return new ResponseEntity<>(vehiculeRepository.save(_vehicule), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

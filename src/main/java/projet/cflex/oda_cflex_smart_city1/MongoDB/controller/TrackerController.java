@@ -1,5 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.MongoDB.controller;
 
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
 import projet.cflex.oda_cflex_smart_city1.MongoDB.repository.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
