@@ -43,10 +43,7 @@ public class LigneService {
         TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
         Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
 
-        // System.out.print(ligneObject.nom);
-        // System.out.print(ligneObject.depart);
-        // System.out.print(ligneObject.arrivee);
-
+        
         Ligne ligne = new Ligne();
 
         ligne.setNom(ligneObject.nom);
@@ -56,7 +53,7 @@ public class LigneService {
         ligne.setDepart_longitude(ligneObject.depart_longitude);
         ligne.setDepart_latitude(ligneObject.depart_latitude);
         
-        ligne.setArrivee_longitude(ligneObject.arrivee_latitude);
+        ligne.setArrivee_longitude(ligneObject.arrivee_longitude);
         ligne.setArrivee_latitude(ligneObject.arrivee_latitude);
         ligne.setTarif(ligneObject.tarif);
 
