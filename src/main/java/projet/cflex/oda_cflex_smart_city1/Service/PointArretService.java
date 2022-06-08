@@ -115,7 +115,7 @@ public class PointArretService {
 
         
         List<PointArret> pointarretsrResultats = new ArrayList<>();
-        List<PointArret> pointArrets = pointarretRepository.findAll();
+        List<PointArret> pointArrets = pointarretRepository.findByStatutJPQL(true);;
             pointArrets.forEach(
                     pointArret -> {
                         if (distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2) <= 1000) {
