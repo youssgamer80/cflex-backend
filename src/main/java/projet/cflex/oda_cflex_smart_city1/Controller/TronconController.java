@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
+import projet.cflex.oda_cflex_smart_city1.Model.Ligne_PointArret;
 import projet.cflex.oda_cflex_smart_city1.Model.Troncon;
 import projet.cflex.oda_cflex_smart_city1.Repository.TronconRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.TronconService;
@@ -32,8 +31,6 @@ public class TronconController {
     @Autowired
     private TronconRepository tronconRepo;
 
-    //private double longitude= ;
-   // private double latitude;
 
     /** Optenir la liste des tronçons
      * @return la liste des tronçons
@@ -91,32 +88,16 @@ public class TronconController {
 
     }
 
-    /** Supprimer un tronçon avec l'id passé en paramètre
-     * @param id
-     * @return le tronçon supprimé
+    /** Générer de nouveaux tronçons
+     * @param ligne_pointarrets
+     * @return les tronçons ajoutés
      */
 
-    @DeleteMapping("/deleteTroncon/{id}")
-    public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
+    @PostMapping("/addTronconGenere")
+    public ResponseEntity<Object> Create(@RequestBody Ligne_PointArret Ligne_PointArrets) {
         try {
-            Troncon resultat = tronconServ.deleteTroncon(id);
-            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, resultat);
-        } 
-        catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
-        }
-    } 
-
-    /** Ajouter un nouveau tronçon
-     * @param pointdarret
-     * @return le tronçon ajouté
-     */
-    
-    @PostMapping("/addTroncon")
-    public ResponseEntity<Object> Post(@RequestBody Troncon newtroncon) {
-        try {
-            Troncon result = tronconServ.AddTroncon(newtroncon);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+            List<Troncon> resultat = tronconServ.Generatetroncon(Ligne_PointArrets);
+            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, resultat);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
@@ -138,7 +119,6 @@ public class TronconController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
     
-        
     }
 
     @PutMapping(value = "/detachLigne/{id}")
@@ -153,13 +133,21 @@ public class TronconController {
 
     }
 
+    /** Supprimer un tronçon avec l'id passé en paramètre
+     * @param id
+     * @return le tronçon supprimé
+     */
 
-
-
-
-
-
+    @DeleteMapping("/deleteTroncon/{id}")
+    public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
+        try {
+            Troncon resultat = tronconServ.deleteTroncon(id);
+            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, resultat);
+        } 
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
+    } 
     
-
     
 }

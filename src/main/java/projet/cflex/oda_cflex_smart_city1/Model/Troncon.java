@@ -3,16 +3,30 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import lombok.*;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
-@AllArgsConstructor
-@NoArgsConstructor
+//@NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "troncon")
 public class Troncon {
+
+    public Troncon() {
+    }
+
+    public Troncon(String nom, PointArret idPointArretAFk, PointArret idPointArretBFk, Double distance, Integer duree, Integer tarif, Boolean statut, Ligne idLigneFk) {
+        this.nom = nom;
+        this.idPointArretAFk = idPointArretAFk;
+        this.idPointArretBFk = idPointArretBFk;
+        this.distance = distance;
+        this.duree = duree;
+        this.tarif = tarif;
+        this.statut = statut;
+        this.idLigneFk = idLigneFk;
+    }
+   
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -27,7 +41,7 @@ public class Troncon {
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_point_arret_B_fk", nullable = false)
-    public PointArret idPointArretBFk;
+    private PointArret idPointArretBFk;
 
     @Column(name = "distance", nullable = false)
     private Double distance;
@@ -35,25 +49,14 @@ public class Troncon {
     @Column(name = "duree", nullable = false)
     private Integer duree;
 
-    @Column(name = "tarif", nullable = false, precision = 10, scale = 2)
-    private BigDecimal tarif;
+    @Column(name = "tarif", nullable = false, precision = 10)
+    private Integer tarif;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_ligne_fk", nullable = true)
+    @JoinColumn(name = "id_ligne_fk")
     private Ligne idLigneFk;
-
-    // public Ligne getIdLigneFk() {
-    //     return this.idLigneFk;
-    // }
-
-    // public void setIdLigneFk(Ligne idLigneFk) {
-    //     this.idLigneFk = idLigneFk;
-    // }
-
-    @Column(name = "rang")
-    private Integer rang;
 
 }

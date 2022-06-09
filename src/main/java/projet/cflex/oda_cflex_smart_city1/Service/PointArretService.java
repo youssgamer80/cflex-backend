@@ -72,12 +72,11 @@ public class PointArretService {
 		return pointarretRepository.save(existingPointArret);
     }
 
-    public PointArret deletePointArret(Integer id, PointArret pointarret) {
-
+    public PointArret deletePointArret(Integer id){
         PointArret existingPointArret = this.pointarretRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Point d'Arret not found with id :" + id));
-		 existingPointArret.setStatut(pointarret.getStatut());
-		 return pointarretRepository.save(existingPointArret);
+        existingPointArret.setStatut(false);
+        return pointarretRepository.save(existingPointArret);
     }
 
 
@@ -114,13 +113,9 @@ public class PointArretService {
         double el1 = 0;
         double el2 = 0;
 
-        //List<PointArret> pointarretsrResultats = new ArrayList<>();
-        //pointarretRepository.findByStatutJPQL(statut).forEach(pointarretsrResultats::add);
-        //List<PointArret> pointArrets = pointarretsrResultats;
-
         
         List<PointArret> pointarretsrResultats = new ArrayList<>();
-        List<PointArret> pointArrets = pointarretRepository.findAll();
+        List<PointArret> pointArrets = pointarretRepository.findByStatutJPQL(true);;
             pointArrets.forEach(
                     pointArret -> {
                         if (distance(lat, pointArret.getLatitude(), lon, pointArret.getLongitude(), el1, el2) <= 1000) {

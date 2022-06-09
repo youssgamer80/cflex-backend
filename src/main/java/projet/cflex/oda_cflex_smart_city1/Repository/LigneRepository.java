@@ -13,7 +13,7 @@ public interface LigneRepository extends CrudRepository<Ligne, Integer> {
 	@Query("FROM Ligne WHERE statut = ?1")
     public Iterable<Ligne> findByStatutJPQL(Boolean statut);
     
-    @Query("FROM Ligne WHERE id = ?1")
+    @Query("FROM Ligne WHERE id = ?1 AND statut=true")
     public Ligne findLigne(Integer id);
 
 

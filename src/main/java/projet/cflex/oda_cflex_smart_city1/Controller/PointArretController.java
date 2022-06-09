@@ -78,10 +78,10 @@ public class PointArretController {
     }
 
     @DeleteMapping("/deletePointArret/{id}")
-    public ResponseEntity<Object> Put(@PathVariable Integer id, @RequestBody PointArret pointarret) {
+    public ResponseEntity<Object> Put(@PathVariable Integer id) {
 
         try {
-            PointArret result = pointArretService.deletePointArret(id, pointarret);
+            PointArret result = pointArretService.deletePointArret(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
