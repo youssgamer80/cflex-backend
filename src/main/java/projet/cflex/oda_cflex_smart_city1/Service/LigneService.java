@@ -3,19 +3,24 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.modelmapper.internal.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Controller.LigneObject;
-import projet.cflex.oda_cflex_smart_city1.Model.*;
-import projet.cflex.oda_cflex_smart_city1.Repository.*;
+import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
+import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.TypeTransportRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 
 @Service
 public class LigneService {
 
     @Autowired
-    public static LigneRepository ligneRepository;
+    public  LigneRepository ligneRepository;
 
     @Autowired
     private TypeTransportRepository typeTransportRepository;
@@ -24,7 +29,7 @@ public class LigneService {
 
     private static Boolean statut = true;
 
-    public static List<Ligne> getAllLignes() {
+    public  List<Ligne> getAllLignes() {
 
         List<Ligne> lignes = new ArrayList<>();
 
@@ -47,6 +52,14 @@ public class LigneService {
         ligne.setNom(ligneObject.nom);
         ligne.setDepart(ligneObject.depart);
         ligne.setArrivee(ligneObject.arrivee);
+
+        ligne.setDepart_longitude(ligneObject.depart_longitude);
+        ligne.setDepart_latitude(ligneObject.depart_latitude);
+        
+        ligne.setArrivee_longitude(ligneObject.arrivee_latitude);
+        ligne.setArrivee_latitude(ligneObject.arrivee_latitude);
+
+        
         ligne.setIdTypeTransportFk(typeTransport);
         ligne.setIdZoneFk(zone);
         ligne.setStatut(true);
@@ -61,7 +74,7 @@ public class LigneService {
 
     public Ligne updateLigne(Integer id, LigneObject ligneObject) {
 
-        Ligne existingLigne = this.ligneRepository.findById(id)
+        Ligne existingLigne = ligneRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Type Transport not foundwith id :" + id));
 
         if (ligneObject.nom != null) {
@@ -88,6 +101,27 @@ public class LigneService {
             existingLigne.setIdZoneFk(zone);
         }
 
+        if (ligneObject.depart_longitude != 0L) {
+           
+            existingLigne.setDepart_longitude(ligneObject.depart_longitude);
+        }
+
+        if (ligneObject.depart_latitude != 0L) {
+           
+            existingLigne.setDepart_latitude(ligneObject.depart_latitude);
+        }
+
+        if (ligneObject.arrivee_longitude != 0L) {
+           
+            existingLigne.setArrivee_longitude(ligneObject.arrivee_longitude);
+        }
+
+        if (ligneObject.arrivee_latitude != 0L) {
+           
+            existingLigne.setArrivee_latitude(ligneObject.arrivee_latitude);
+        }
+
+
         existingLigne.setStatut(true);
 
         return ligneRepository.save(existingLigne);
@@ -95,9 +129,20 @@ public class LigneService {
 
     public Ligne deleteLigne(Integer id) {
 
-    Ligne existingLigne = this.ligneRepository.findById(id)
-    .orElseThrow(() -> new ResourceNotFoundException("Type transport not foundwith id :" + id));
-    existingLigne.setStatut(false);
-    return ligneRepository.save(existingLigne);
+        Ligne existingLigne = ligneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Type transport not foundwith id :" + id));
+        existingLigne.setStatut(false);
+        return ligneRepository.save(existingLigne);
     }
+    
+    // public static List<Ligne> getAllTroncon() {
+
+    //     List<Ligne> lignes = new ArrayList<>();
+
+    //     ligneRepository.findByStatutJPQL(statut).forEach(lignes::add);
+        
+    //     return lignes;
+
+    // }
+    
 }

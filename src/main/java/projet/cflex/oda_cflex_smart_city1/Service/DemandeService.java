@@ -33,6 +33,15 @@ public class DemandeService {
 
         return demandes;
     }
+
+    public List<Demande> getAllDemande() {
+        
+        List<Demande> demandes = new ArrayList<>();
+
+        demandeRepository.findAll().forEach(demandes::add);
+
+        return demandes;
+    }
     
     static Set<String> getRandomUniqueStrings(int count, int length, boolean letters, boolean numbers){
         Set<String> rus = new HashSet<>();
@@ -44,7 +53,7 @@ public class DemandeService {
         return rus;
     }
 
-    Set<String> codeDemande = getRandomUniqueStrings(1, 7, true, true);
+    Set<String> codeDemande = getRandomUniqueStrings(2, 10, false, true);
 
     String code = codeDemande.toString();
 

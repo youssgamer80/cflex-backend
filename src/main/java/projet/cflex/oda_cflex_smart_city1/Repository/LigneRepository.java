@@ -9,7 +9,6 @@ import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
 @Repository
 public interface LigneRepository extends CrudRepository<Ligne, Integer> {
 
-    public Iterable<Ligne> findByStatut(Boolean statut);
 	
 	@Query("FROM Ligne WHERE statut = ?1")
     public Iterable<Ligne> findByStatutJPQL(Boolean statut);
@@ -18,6 +17,6 @@ public interface LigneRepository extends CrudRepository<Ligne, Integer> {
     public Ligne findLigne(Integer id);
 
 
-    public Ligne findByNom(String nom);	
+    public Ligne findByNom(String nom);
 
 }

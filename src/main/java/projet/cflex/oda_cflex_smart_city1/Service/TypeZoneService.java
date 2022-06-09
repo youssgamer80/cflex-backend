@@ -1,40 +1,69 @@
 package projet.cflex.oda_cflex_smart_city1.Service;
 
-import  java.util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 
 import projet.cflex.oda_cflex_smart_city1.Model.TypeZone;
 import projet.cflex.oda_cflex_smart_city1.Repository.TypeZoneRepository;
+
 @Service
 public class TypeZoneService {
     @Autowired
     private TypeZoneRepository typeZoneRepository;
+    private Boolean statut = true;
 
-    public TypeZoneService (TypeZoneRepository  typeZoneRepository){
-        this.typeZoneRepository = typeZoneRepository;
-    }
-     // Service add
+    public List<TypeZone> getAllTypeZones() {
 
-    public  void saveTypeZone(TypeZone  typeZone) {
-        typeZoneRepository.save(typeZone);
-    }
-     //  Service List
-    public List<TypeZone>listAllTypeZone(){
-        return typeZoneRepository.findAll();
-    }
-    //Service Get by id
-    public TypeZone get ( Integer  id){
-        return typeZoneRepository.findById(id).get();
-    }
-    //Service Delete
-   public String delete ( Integer id){
-        typeZoneRepository.deleteById(id);
-        return "Supprimé avec Succès";
-   }
-    //Service Put
+    List<TypeZone> typeZones = new ArrayList<>();
 
+    typeZoneRepository.findByStatutJPQL(statut).forEach(typeZones::add);
+
+    return typeZones;
+    }
+
+    public TypeZone addTypeZone(TypeZone typeZone) {
+
+        return typeZoneRepository.save(typeZone);
+    }
+
+    public TypeZone getTypeZone(int id) {
+
+        return this.typeZoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Type Zone not found with id :" + id));
+    }
+
+    // public TypeZone getlibelleTypeZone(String libelleTypeZone) {
+    // return typeZoneRepository.findBylibelleTypeZone(libelleTypeZone);
+    // }
+
+    public TypeZone updateTypeZone(Integer id, TypeZone typeZone) {
+
+        TypeZone existingTypeZone = this.typeZoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Type Zone not found with id :" + id));
+
+        if (typeZone.getLibelle() != null) {
+            System.out.print("dfvdf");
+            existingTypeZone.setLibelle(typeZone.getLibelle());
+        }
+
+        if (typeZone.getStatut() != null) {
+            existingTypeZone.setStatut(true);
+        }
+
+        return typeZoneRepository.save(existingTypeZone);
+    }
+
+    public TypeZone deleteTypeZone(Integer id) {
+
+        TypeZone existingTypeZone = this.typeZoneRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Type Zone not found with id :" + id));
+        existingTypeZone.setStatut(false);
+        return typeZoneRepository.save(existingTypeZone);
+    }
+    // Service Put
 
 }
-
