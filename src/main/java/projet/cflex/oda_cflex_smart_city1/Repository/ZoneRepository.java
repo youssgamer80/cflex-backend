@@ -9,7 +9,7 @@ public interface ZoneRepository extends JpaRepository<Zone, Integer> {
 
     public Iterable<Zone> findByStatut(Boolean statut);
 
-    @Query("FROM Zone WHERE statut = ?1")
+    @Query("FROM Zone WHERE statut = ?1 ORDER BY libelle")
     public Iterable<Zone> findByStatutJPQL(Boolean statut);
 
     @Query("FROM Zone WHERE id = ?1")
