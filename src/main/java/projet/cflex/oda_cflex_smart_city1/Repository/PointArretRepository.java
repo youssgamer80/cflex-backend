@@ -21,5 +21,9 @@ public interface PointArretRepository extends JpaRepository<PointArret, Integer>
 
    @Query(value="SELECT * FROM point_arret WHERE nom=:nom AND statut = 1",nativeQuery=true)
    public Iterable<PointArret>  findByNomNative(@Param("nom") String nom);
+
+
+   @Query(value="SELECT * FROM point_arret WHERE id_zone_fk=:idZoneFk",nativeQuery=true)
+   public Iterable<PointArret> findByIdZoneFkNative(@Param("idZoneFk") Integer idZoneFk);
    
 }
