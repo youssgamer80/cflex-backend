@@ -1,19 +1,22 @@
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
-import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne_Point_Arret;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
+@Repository
+public interface Ligne_Point_ArretRepository extends CrudRepository<Ligne_Point_Arret, Integer> {
 
-public interface Ligne_Point_ArretRepository extends JpaRepository<Ligne_Point_Arret, Integer>{
-
-
-    @Query(value="SELECT * FROM ligne_point_arret WHERE id_ligne_fk=:idLigneFk",nativeQuery=true)
-    public Iterable<Ligne_Point_Arret> findByIdLigneFkNative(@Param("idLigneFk") Integer idLigneFk);
-
-
-
+	
+	@Query("FROM Ligne_Point_Arret WHERE statut = ?1 ORDER BY id")
+    public Iterable<Ligne_Point_Arret> findByStatutJPQL(Boolean statut);
     
+    @Query("FROM Ligne_Point_Arret WHERE id = ?1 AND statut=true")
+    public Ligne_Point_Arret findLigne(Integer id);
+
+
+    // public Ligne findByNom(String nom);
+
 }

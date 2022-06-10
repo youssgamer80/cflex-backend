@@ -13,6 +13,7 @@ public interface PointArretRepository extends JpaRepository<PointArret, Integer>
 
    public Iterable<PointArret> findByStatut(Boolean statut);
 	
+   
 	@Query("FROM PointArret WHERE statut = ?1 ORDER BY nom")
     public List<PointArret> findByStatutJPQL(Boolean statut);
 
@@ -25,5 +26,8 @@ public interface PointArretRepository extends JpaRepository<PointArret, Integer>
 
    @Query(value="SELECT * FROM point_arret WHERE id_zone_fk=:idZoneFk",nativeQuery=true)
    public Iterable<PointArret> findByIdZoneFkNative(@Param("idZoneFk") Integer idZoneFk);
+
+   @Query("FROM PointArret WHERE id = ?1 AND statut=true")
+   public PointArret findPointArret(Integer id);
    
 }
