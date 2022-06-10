@@ -66,10 +66,10 @@ public class LigneController {
     public ResponseEntity<Object> Post(@RequestBody LigneObject ligneObject) {
         try {
             // System.out.print(ligneObject);
-            System.out.print("LIGNE OBJECT ");
-        System.out.print(ligneObject.nom);
-        System.out.print(ligneObject.depart);
-        System.out.print(ligneObject.arrivee);
+        //     System.out.print("LIGNE OBJECT ");
+        // System.out.print(ligneObject.nom);
+        // System.out.print(ligneObject.depart);
+        // System.out.print(ligneObject.arrivee);
 
             Ligne result = ligneService.addLigne(ligneObject);
             // Ligne result = null;

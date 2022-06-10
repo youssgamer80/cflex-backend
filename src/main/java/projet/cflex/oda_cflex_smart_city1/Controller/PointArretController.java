@@ -65,6 +65,18 @@ public class PointArretController {
         }
     }
 
+    @GetMapping("/getPointArretByZone/{idzonefk}")
+    public ResponseEntity<Object> Getter(Integer idzone) {
+        try {
+
+            List<PointArret> result = pointArretService.Liste(idzone);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+
+
     @PostMapping(value = "/addPointArret")
     public ResponseEntity<Object> Post(@RequestBody PointArret pointarret) {
         try {
