@@ -45,6 +45,16 @@ public class PointArretController {
         }
     }
 
+    @GetMapping(value = "/search/{nom}")
+    public ResponseEntity<Object> Get(@PathVariable String nom) {
+        try {
+            Iterable<PointArret> result = pointArretService.getPointArretByNom(nom);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<Object> Get(@PathVariable int id) {
         try {

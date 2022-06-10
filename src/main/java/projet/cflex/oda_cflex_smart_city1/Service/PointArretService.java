@@ -37,6 +37,12 @@ public class PointArretService {
         return pointarretRepository.save(pointarret);
     }
 
+    public Iterable<PointArret> getPointArretByNom(String nom) {
+
+
+        return this.pointarretRepository.findByNomNative(nom);
+    }
+
     public PointArret getPointArret(int id) {
 
         return this.pointarretRepository.findById(id)
