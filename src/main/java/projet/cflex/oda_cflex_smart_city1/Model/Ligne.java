@@ -43,9 +43,9 @@ public class Ligne {
     @Column(name = "tarif", nullable = false)
     private double tarif;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_type_transport_fk", nullable = false)
-    private TypeTransport idTypeTransportFk;
+    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    // @JoinColumn(name = "id_type_transport_fk", nullable = false)
+    // private TypeTransport idTypeTransportFk;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "id_zone_fk", nullable = false)

@@ -12,7 +12,7 @@ public class LigneObject {
     public double depart_latitude;
     public double arrivee_longitude;
     public double arrivee_latitude;
-    public Integer idTypeTransportFk;
+    // public Integer idTypeTransportFk;
     public Integer idZoneFk;
 
 }

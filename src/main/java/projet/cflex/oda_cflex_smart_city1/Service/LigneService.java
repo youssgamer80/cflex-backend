@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Controller.LigneObject;
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
-import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
+// import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
-import projet.cflex.oda_cflex_smart_city1.Repository.TypeTransportRepository;
+// import projet.cflex.oda_cflex_smart_city1.Repository.TypeTransportRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 
 @Service
@@ -22,8 +22,8 @@ public class LigneService {
     @Autowired
     public  LigneRepository ligneRepository;
 
-    @Autowired
-    private TypeTransportRepository typeTransportRepository;
+    // @Autowired
+    // private TypeTransportRepository typeTransportRepository;
     @Autowired
     private ZoneRepository zoneRepository;
 
@@ -40,7 +40,7 @@ public class LigneService {
 
     public Ligne addLigne(LigneObject ligneObject) {
 
-        TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
+        // TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
         Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
 
         
@@ -58,7 +58,7 @@ public class LigneService {
         ligne.setTarif(ligneObject.tarif);
 
         
-        ligne.setIdTypeTransportFk(typeTransport);
+        // ligne.setIdTypeTransportFk(typeTransport);
         ligne.setIdZoneFk(zone);
         ligne.setStatut(true);
 
@@ -92,11 +92,11 @@ public class LigneService {
             existingLigne.setArrivee(ligneObject.arrivee);
         }
 
-        if (ligneObject.idTypeTransportFk != null) {
-            TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
+        // if (ligneObject.idTypeTransportFk != null) {
+        //     TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
 
-            existingLigne.setIdTypeTransportFk(typeTransport);
-        }
+        //     existingLigne.setIdTypeTransportFk(typeTransport);
+        // }
 
         if (ligneObject.idZoneFk != null) {
             Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);

@@ -27,6 +27,9 @@ public class Ligne_Point_Arret {
     @JoinColumn(name = "id_point_arret_fk", nullable = false)
     private PointArret idPointArretFk;
 
+    @Column(name = "rang", nullable = false)
+    private Integer rang;
+
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
 

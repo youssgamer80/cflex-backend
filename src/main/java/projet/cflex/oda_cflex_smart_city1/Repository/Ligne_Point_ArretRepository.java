@@ -16,7 +16,8 @@ public interface Ligne_Point_ArretRepository extends CrudRepository<Ligne_Point_
     @Query("FROM Ligne_Point_Arret WHERE id = ?1 AND statut=true")
     public Ligne_Point_Arret findLigne(Integer id);
 
-
+    // @Query("FROM Ligne_Point_Arret ORDER BY id DESC LIMIT 1;")
+    // public Ligne_Point_Arret findLastRecord();
     // public Ligne findByNom(String nom);
 
 }
