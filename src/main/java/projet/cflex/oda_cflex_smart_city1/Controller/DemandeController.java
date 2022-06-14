@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -57,18 +56,6 @@ public class DemandeController {
                 return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
             }
         }
-
-
-    @PostMapping(value = "/addDemande")
-    public ResponseEntity<Object> Post(@RequestBody Demande demande) {
-        try {
-            Demande result = demandeService.addDemande(demande);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
-    }
- 
     
     @PutMapping(value = "/updateDemande/{id}")
     public ResponseEntity<Object> Put(@RequestBody Demande demande, @PathVariable Integer id) {
@@ -83,10 +70,10 @@ public class DemandeController {
     }
 
     @DeleteMapping(value = "/deleteDemande/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Demande demande) {
+    public ResponseEntity<Object> Put( @PathVariable Integer id) {
        
         try{
-            Demande result = demandeService.deleteDemande(id,demande);
+            Demande result = demandeService.deleteDemande(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);

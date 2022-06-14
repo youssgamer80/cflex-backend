@@ -59,10 +59,10 @@ public class DemandeService {
 
   
 
-    public Demande addDemande(Demande demande) {
+    /*public Demande addDemande(Demande demande) {
 
         return demandeRepository.save(demande);
-    }
+    }*/
 
     public Demande getDemande(int id) {
 
@@ -113,11 +113,11 @@ public class DemandeService {
             return demandeRepository.save(existingDemande);
         }
 
-    public Demande deleteDemande(Integer id, Demande demande) {
+    public Demande deleteDemande(Integer id) {
 
         Demande existingDemande = this.demandeRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Demande not found with id :" + id));
-		 existingDemande.setStatut(demande.getStatut());
+		 existingDemande.setStatut(false);
 		 return demandeRepository.save(existingDemande);
     }
     

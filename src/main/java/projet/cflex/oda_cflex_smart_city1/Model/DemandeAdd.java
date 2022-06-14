@@ -37,7 +37,7 @@ import lombok.ToString;
 
 })
 
-public class Demande{
+public class DemandeAdd{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -58,9 +58,6 @@ public class Demande{
 
     @Column(name = "model", nullable = false)
     private String model;
-
-    @Column(name = "date", nullable = false)
-    private Date date;
 
     @Column(name = "nb_place", nullable = false)
     private Integer nbPlace;
@@ -91,13 +88,6 @@ public class Demande{
 
     public void setEtat(Boolean etat) {
         this.etat = etat;
-    }
-
-    public void setDate(Date date) {
-        this.date = date;
-    }
-    public Date getDate() {
-        return date;
     }
 
     public Proprietaire getIdProprietaireFk() {
@@ -165,3 +155,4 @@ public class Demande{
         this.statut = statut;
     }
 }
+

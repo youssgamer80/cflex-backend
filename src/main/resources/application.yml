@@ -1,0 +1,8 @@
+auth0:
+  audience: http://192.168.252.206:4000/api/demandes
+spring:
+  security:
+    oauth2:
+        resourceserver:
+            jwt:
+                issuer-uri: https://dev-n6bi29eu.us.auth0.com/

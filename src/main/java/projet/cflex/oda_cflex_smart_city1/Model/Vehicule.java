@@ -113,6 +113,10 @@ public class Vehicule {
         this.carteGrise = carteGrise;
     }
 
-    public Zone getZone() {return zone;}
-    public void setZone(Zone zone) {this.zone = zone;}
+    public Zone getIdZoneFk() {
+        return zone;
+    }
+    public void setIdZoneFk(Zone zone) {
+        this.zone = zone;
+    }
 }

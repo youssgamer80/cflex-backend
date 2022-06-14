@@ -20,13 +20,13 @@ public interface PointArretRepository extends JpaRepository<PointArret, Integer>
    @Query(value = "SELECT * FROM point_arret INNER JOIN zone ON point_arret.id_zone_fk = zone.id WHERE zone.libelle = :libelle", nativeQuery = true)
    public Iterable<PointArret> findByLibelleNative(@Param("libelle") String libelle);
 
-   @Query(value="SELECT * FROM point_arret WHERE nom=:nom AND statut = 1",nativeQuery=true)
-   public Iterable<PointArret>  findByNomNative(@Param("nom") String nom);
+   @Query(value="SELECT * FROM point_arret WHERE point_arret.nom LIKE %:nom%",nativeQuery = true)
+   public Iterable<PointArret> findByNomNative(@Param("nom") String nom);
 
    @Query(value="SELECT * FROM point_arret WHERE id_zone_fk=:idZoneFk",nativeQuery=true)
    public Iterable<PointArret> findByIdZoneFkNative(@Param("idZoneFk") Integer idZoneFk);
 
    @Query("FROM PointArret WHERE id = ?1 AND statut=true")
    public PointArret findPointArret(Integer id);
-   
+
 }
