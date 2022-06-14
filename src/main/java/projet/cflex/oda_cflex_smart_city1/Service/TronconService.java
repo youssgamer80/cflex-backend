@@ -80,10 +80,6 @@ public class TronconService {
             existingTroncon.setDuree(troncon.getDuree());
         }
 
-        if(troncon.getTarif()!=null){
-            existingTroncon.setTarif(troncon.getTarif());
-        }
-
         if(troncon.getStatut()!=null){
             existingTroncon.setStatut(troncon.getStatut());
         }
@@ -141,7 +137,6 @@ public class TronconService {
                 distanceij = distance(pointarret1.getLatitude(), pointarret2.getLatitude(), pointarret1.getLongitude(), pointarret2.getLongitude(), el1, el2);
                 String nom="troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")";
                 Integer duree = 0;
-                Integer tarif = 0;
                 Boolean statut = true;
                 Ligne idLigneFk = new Ligne();
                 idLigneFk.setId(Ligne_PointArrets.getId_ligne());
@@ -149,11 +144,23 @@ public class TronconService {
 
                 if (i != j) {
 
-                    Troncon troncon = new Troncon( nom,  pointarret1,  pointarret2,  distanceij,  duree,  tarif,  statut,  idLigneFk);
-             
-                    tronconRepo.save(troncon);
-                    TronconsGeneres.add(troncon);
-                    System.out.println("troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")");
+                    if (Ligne_PointArrets.getSens()) {
+                        Troncon troncon = new Troncon( nom,  pointarret1,  pointarret2,  distanceij,  duree,  statut,  idLigneFk);
+                        tronconRepo.save(troncon);
+                        TronconsGeneres.add(troncon);
+                        System.out.println("troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")");
+                        
+                    } 
+                    else {
+                        if (i < j) {
+                            Troncon troncon = new Troncon( nom,  pointarret1,  pointarret2,  distanceij,  duree,  statut,  idLigneFk);
+                            tronconRepo.save(troncon);
+                            TronconsGeneres.add(troncon);
+                            System.out.println("troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")");
+                            
+                        }
+                        
+                    }
                     
                 }              
                 

@@ -15,13 +15,12 @@ public class Troncon {
     public Troncon() {
     }
 
-    public Troncon(String nom, PointArret idPointArretAFk, PointArret idPointArretBFk, Double distance, Integer duree, Integer tarif, Boolean statut, Ligne idLigneFk) {
+    public Troncon(String nom, PointArret idPointArretAFk, PointArret idPointArretBFk, Double distance, Integer duree, Boolean statut, Ligne idLigneFk) {
         this.nom = nom;
         this.idPointArretAFk = idPointArretAFk;
         this.idPointArretBFk = idPointArretBFk;
         this.distance = distance;
         this.duree = duree;
-        this.tarif = tarif;
         this.statut = statut;
         this.idLigneFk = idLigneFk;
     }
@@ -48,9 +47,6 @@ public class Troncon {
 
     @Column(name = "duree", nullable = false)
     private Integer duree;
-
-    @Column(name = "tarif", nullable = false, precision = 10)
-    private Integer tarif;
 
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
