@@ -6,6 +6,8 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
+import com.mongodb.client.model.geojson.Point;
+
 import javax.persistence.*;
 
 @AllArgsConstructor
@@ -24,18 +26,12 @@ public class Borne {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    
-
-
     @Column(name = "libelle", nullable = true)
     private String libelle;
 
-    // @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
-    // @JoinColumn(name = "id_point_arret_fk")
-    // private Integer idPointArretFk;
-
-    @Column(name = "id_point_arret_fk", nullable = true)
-    private Integer idPointArretFk;
+    @ManyToOne(targetEntity = PointArret.class,fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_point_arret_fk")
+    private PointArret idPointArretFk;
 
     
 
@@ -55,13 +51,16 @@ public class Borne {
         this.libelle = libelle;
     }
 
-    public Integer getIdPointArretFk() {
+
+    public PointArret getIdPointArretFk() {
         return this.idPointArretFk;
     }
 
-    public void setIdPointArretFk(Integer idPointArretFk) {
+    public void setIdPointArretFk(PointArret idPointArretFk) {
         this.idPointArretFk = idPointArretFk;
     }
+
+    
     public Boolean getStatut() {
         return this.statut;
     }
