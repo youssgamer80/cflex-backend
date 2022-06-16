@@ -10,7 +10,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.Borne;
 public interface BorneRepository extends CrudRepository<Borne, Integer> {
 
 	
-	@Query("FROM Borne WHERE statut = ?1 ORDER BY nom")
+	@Query("FROM Borne WHERE statut = ?1 ORDER BY libelle")
     public Iterable<Borne> findByStatutJPQL(Boolean statut);
     
     @Query("FROM Borne WHERE id = ?1 AND statut=true")
