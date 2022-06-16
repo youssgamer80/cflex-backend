@@ -68,14 +68,22 @@ public class PointArretService {
 
 		if(pointarret.getLongitude()!=0){
              existingPointArret.setLongitude(pointarret.getLongitude());
-       }
+        }
 
-       if(pointarret.getLatitude()!=0){
+        if(pointarret.getLatitude()!=0){
         existingPointArret.setLatitude(existingPointArret.getLatitude());
-       }
+        }
 
-       if(pointarret.getStatut()!=null){
-        existingPointArret.setStatut(pointarret.getStatut());
+        if(pointarret.getIdZoneFk()!=null){
+        existingPointArret.setIdZoneFk(pointarret.getIdZoneFk());
+        }
+
+        if(pointarret.getIdtypePointArret()!=null){
+            existingPointArret.setIdtypePointArret(pointarret.getIdtypePointArret());
+        }
+
+        if(pointarret.getStatut()!=null){
+            existingPointArret.setStatut(pointarret.getStatut());
    }
 
 		return pointarretRepository.save(existingPointArret);

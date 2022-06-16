@@ -31,6 +31,30 @@ public class PointArret {
     @JoinColumn(name = "id_zone_fk")
     private Zone idZoneFk;
 
+    @ManyToOne(targetEntity = TypePointArret.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_type_point_arret_fk")
+    private TypePointArret idtypePointArret;
+
+    public Zone getIdZoneFk() {
+        return this.idZoneFk;
+    }
+
+    public void setIdZoneFk(Zone idZoneFk) {
+        this.idZoneFk = idZoneFk;
+    }
+
+    public TypePointArret getIdtypePointArret() {
+        return this.idtypePointArret;
+    }
+
+    public void setIdtypePointArret(TypePointArret idtypePointArret) {
+        this.idtypePointArret = idtypePointArret;
+    }
+
+    public Boolean isStatut() {
+        return this.statut;
+    }
+
     public Boolean getStatut() {
         return statut;
     }
