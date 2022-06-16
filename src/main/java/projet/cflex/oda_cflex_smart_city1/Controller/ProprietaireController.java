@@ -1,33 +1,30 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import projet.cflex.oda_cflex_smart_city1.Implementation.ProprietaireServiceImpl;
-import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
-import projet.cflex.oda_cflex_smart_city1.Model.Usager;
-import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
-import projet.cflex.oda_cflex_smart_city1.Response.Response;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.Implementation.ProprietaireServiceImpl;
+import projet.cflex.oda_cflex_smart_city1.Model.Proprietaire;
+import projet.cflex.oda_cflex_smart_city1.Repository.ProprietaireRepository;
+import projet.cflex.oda_cflex_smart_city1.Response.Response;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.security.SecureRandom;
 import java.util.Map;
 
 import static java.time.LocalDateTime.now;
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.http.MediaType.IMAGE_PNG_VALUE;
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
 @RequestMapping("proprietaire")
 @RequiredArgsConstructor
 public class ProprietaireController {
+    protected static SecureRandom random = new SecureRandom();
     @Autowired
     private final ProprietaireServiceImpl proprietaireService;
     @Autowired
@@ -43,7 +40,6 @@ public class ProprietaireController {
                 .build()
         );
     }
-
     @PostMapping("/save")
     public ResponseEntity<Response> saveProprietaire(@RequestBody @Validated Proprietaire proprietaire){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
@@ -54,7 +50,6 @@ public class ProprietaireController {
                 .build()
         );
     }
-
     @GetMapping("/get/{id}")
     public ResponseEntity<Response> getProprietaire(@PathVariable("id") Integer id){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
@@ -82,6 +77,7 @@ public class ProprietaireController {
 
 
 
+/*
     @GetMapping(path = "/image/{permis}", produces = IMAGE_PNG_VALUE)
     public byte[] getProprietairePermis(@PathVariable("permis") String permis) throws IOException {
         return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+permis));
@@ -91,6 +87,8 @@ public class ProprietaireController {
     public byte[] getProprietairePieceIdentite(@PathVariable("pieceidentite") String pieceidentite) throws IOException {
         return Files.readAllBytes(Paths.get(System.getProperty("user.home")+"/Downloads/images"+pieceidentite));
     }
+*/
+
 
     @PutMapping(value = "/updateProprio/{id}")
     public ResponseEntity<Object> Put(@RequestBody Proprietaire proprietaire, @PathVariable Integer id) {

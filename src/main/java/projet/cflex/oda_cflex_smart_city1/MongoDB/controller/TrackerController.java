@@ -1,12 +1,11 @@
 package projet.cflex.oda_cflex_smart_city1.MongoDB.controller;
 
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
-import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
-import projet.cflex.oda_cflex_smart_city1.MongoDB.repository.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
+import projet.cflex.oda_cflex_smart_city1.MongoDB.repository.TrackerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,18 +95,6 @@ public class TrackerController {
     }
   }
 
-  /*@GetMapping("/tutorials/published")
-  public ResponseEntity<List<Tutorial>> findByPublished() {
-    try {
-      List<Tutorial> tutorials = tutorialRepository.findByPublished(true);
 
-      if (tutorials.isEmpty()) {
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-      }
-      return new ResponseEntity<>(tutorials, HttpStatus.OK);
-    } catch (Exception e) {
-      return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }*/
 
 }

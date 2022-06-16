@@ -1,25 +1,26 @@
 package projet.cflex.oda_cflex_smart_city1.Controller;
+
 import lombok.RequiredArgsConstructor;
-import okhttp3.OkHttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import projet.cflex.oda_cflex_smart_city1.Repository.TokenRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.VehiculeRepository;
 import projet.cflex.oda_cflex_smart_city1.Response.Response;
-import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import static java.time.LocalDateTime.now;
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
@@ -112,5 +113,9 @@ public class VehiculeController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+
+
+
 
 }
