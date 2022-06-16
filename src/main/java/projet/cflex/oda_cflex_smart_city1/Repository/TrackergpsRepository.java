@@ -1,25 +1,32 @@
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Trackergps;
+import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
 
-import org.springframework.data.jpa.repository.JpaRepository;
-// import org.springframework.data.jpa.repository.Query;
-// import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-// public interface BorneRepository extends CrudRepository<Borne, Integer> {
 
-//     public Iterable<Borne> findByStatut(Boolean statut);
+
+@Repository
+public interface TrackergpsRepository extends CrudRepository<Trackergps, Integer> {
+
 	
-// 	@Query("FROM Borne WHERE statut = ?1")
-//     public Iterable<Borne> findByStatutJPQL(Boolean statut);
+	@Query("FROM Trackergps WHERE statut = ?1 ORDER BY libelle")
+    public Iterable<Trackergps> findByStatutJPQL(Boolean statut);
     
-    
-    
-
-// }
+    @Query("FROM Trackergps WHERE id = ?1 AND statut=true")
+    public Trackergps findTrackergps(Integer id);
 
 
-public interface TrackergpsRepository extends JpaRepository<Trackergps, Integer> {
+    // @Query("FROM Trackergps WHERE id_vehicule_fk = ?1")
+    // public Trackergps findTrackergpsVehicule(Integer id);
 
-    public Trackergps findByLibelle(String libelle);
+    boolean existsTrackergpsByIdVehiculeFk(Vehicule vehicule);
+
+    public Trackergps findByLibelle(String nom);
+
 }
+
+

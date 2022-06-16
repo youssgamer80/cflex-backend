@@ -28,12 +28,14 @@ public class Trackergps {
     @Column(name = "libelle", nullable = false)
     private String libelle;
 
-    // @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    // @JoinColumn(name = "id_vehicule_fk", nullable = false)
-    // private Vehicule idVehiculeFk;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_vehicule_fk", nullable = false)
+    private Vehicule idVehiculeFk;
 
-    @Column(name = "id_vehicule_fk", nullable = true)
-    private Integer idVehiculeFk;
+  
+
+    // @Column(name = "id_vehicule_fk", nullable = true)
+    // private Integer idVehiculeFk;
 
     
 
@@ -65,11 +67,11 @@ public class Trackergps {
     //     this.idVehiculeFk = idVehiculeFk;
     // }
 
-    public Integer getIdVehiculeFk() {
+    public Vehicule getIdVehiculeFk() {
         return this.idVehiculeFk;
     }
 
-    public void setIdVehiculeFk(Integer idVehiculeFk) {
+    public void setIdVehiculeFk(Vehicule idVehiculeFk) {
         this.idVehiculeFk = idVehiculeFk;
     }
 
