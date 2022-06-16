@@ -37,7 +37,7 @@ public class TrackergpsController {
     @GetMapping("/list")
     public ResponseEntity<Response> getTrackergps() {
         return ResponseEntity
-                .ok(Response.builder().timeStamp(now()).data(Map.of("borne", trackergpsServiceImpl.list(true)))
+                .ok(Response.builder().timeStamp(now()).data(Map.of("trackergps", trackergpsServiceImpl.list(true)))
                         .message("trackergps recupéré")
                         .status(OK)
                         .statusCode(OK.value())
