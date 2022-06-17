@@ -48,14 +48,14 @@ public class TronconTypeTransportController {
         }
     }
 
-    @PostMapping(value = "/addTronconTypeTransport")
-    public ResponseEntity<Object> Post(@RequestBody TronconTypeTransport troncon_typetransport) {
-        try {
-            TronconTypeTransport result = service.add(troncon_typetransport);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-        }
-    }
+    // @PostMapping(value = "/addTronconTypeTransport")
+    // public ResponseEntity<Object> Post(@RequestBody TronconTypeTransport troncon_typetransport) {
+    //     try {
+    //         TronconTypeTransport result = service.add(troncon_typetransport);
+    //         return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+    //     } catch (Exception e) {
+    //         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+    //     }
+    // }
 
 }

@@ -33,9 +33,9 @@ public class TronconTypeTransportService {
 
         return resultat;
     }
-    public TronconTypeTransport add(TronconTypeTransport troncontypetransport) {
-        return repository.save(troncontypetransport);
-    }
+    // public TronconTypeTransport add(TronconTypeTransport troncontypetransport) {
+    //     return repository.save(troncontypetransport);
+    // }
     
     
 }

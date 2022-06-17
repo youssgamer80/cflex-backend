@@ -55,15 +55,17 @@ public class TronconController {
      */
 
     @GetMapping("/getTronconById/{id}")
+
     @ResponseBody
-    public Object UnMode(@Validated @PathVariable("id") Integer id){
+    public ResponseEntity<Object> UnMode(@Validated @PathVariable("id") Integer id){
 
         try {
+
             Troncon untroncon = tronconServ.TronconById(id).orElseThrow(() -> new IllegalArgumentException("Id invalide" + id));
-            return untroncon;
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, untroncon);
         } 
         catch (Exception e) {
-            return ("Le troncon avec l'Id:"+id+" n'existe pas");
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
 
     }
@@ -73,13 +75,13 @@ public class TronconController {
      * @return tronçons
      */
 
-    @GetMapping("/getTronconByNom/{nom}")
+    @GetMapping(value="/getTronconByNom/{nom}")
     @ResponseBody
-    public ResponseEntity<Object> ListeMode(@Validated @PathVariable("troncon") String troncon){
+    public ResponseEntity<Object> ListeMode(@Validated @PathVariable String nom){
 
         try {
 
-            List<Troncon> troncons = tronconServ.TronconByNom(troncon);
+            List<Troncon> troncons = tronconServ.TronconByNom(nom);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, troncons);
         } 
         catch (Exception e) {
@@ -121,33 +123,23 @@ public class TronconController {
     
     }
 
-    @PutMapping(value = "/detachLigne/{id}")
-    public ResponseEntity<Object> Put(@PathVariable Integer id) {
-
-        try {
-            Troncon result = tronconServ.detacherLigne(id);
-            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
-        }
-
-    }
 
     /** Supprimer un tronçon avec l'id passé en paramètre
      * @param id
      * @return le tronçon supprimé
      */
 
-    @DeleteMapping("/deleteTroncon/{id}")
-    public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
+    @DeleteMapping("/deleteTroncon/{nom}")
+    public ResponseEntity<Object> Delete( @Validated @PathVariable String nom){
         try {
-            Troncon resultat = tronconServ.deleteTroncon(id);
+            List<Troncon> resultat = tronconServ.deleteTroncon(nom);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, resultat);
         } 
         catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     } 
-    
+       
+
     
 }

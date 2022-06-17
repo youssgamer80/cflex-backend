@@ -27,6 +27,7 @@ public class TronconService {
     @Autowired
     private PointArretService pointArretService;
 
+
     public List<Troncon> Liste(){
 
         List<Troncon> troncons = new ArrayList<>();
@@ -42,15 +43,30 @@ public class TronconService {
 
     public List<Troncon> TronconByNom(String nom){
         List<Troncon> troncons = new ArrayList<>();
-        tronconRepo.findByNom(nom).forEach(troncons::add);
+        tronconRepo.findByNomNative(nom).forEach(troncons::add);
+        System.out.println(troncons.size());
 
         return troncons;
     }
 
-    public Troncon deleteTroncon(Integer id){
-        Troncon realTroncon = this.tronconRepo.findById(id).orElseThrow(() -> new RuntimeException("Troncon" + id + "nexiste pas"));
-        realTroncon.setStatut(false);
-        return tronconRepo.save(realTroncon);
+    public List<Troncon> deleteTroncon(String nom){
+        List<Troncon> result = new ArrayList<>();
+        tronconRepo.findByNomNative(nom).forEach(result::add);
+
+        List<Troncon> resultat = new ArrayList<>();
+
+         for (int i = 0; i <= result.size(); i++) {
+
+            Troncon real = result.get(i);
+            real.setStatut(false);
+            tronconRepo.save(real);
+            resultat.add(real);
+
+        }
+
+        return resultat;
+
+
     }
 
     
@@ -92,13 +108,6 @@ public class TronconService {
 		return tronconRepo.save(existingTroncon);
  }
 
- public Troncon detacherLigne(Integer id) {
-
-    Troncon existingTroncon = this.tronconRepo.findById(id)
-    .orElseThrow(() -> new ResourceNotFoundException("Troncon not foundwith id :" + id));
-    existingTroncon.setIdLigneFk(null);
-    return tronconRepo.save(existingTroncon);
-    }
 
 
     public static double distance(double lat1, double lat2, double lon1,
@@ -129,26 +138,30 @@ public class TronconService {
         List<Troncon> TronconsGeneres = new ArrayList<>();
         double distanceij;
 
+
         for (int i = 1; i <= Ligne_PointArrets.getPoints().length; i++) {
+
             for (int j = 1; j <= Ligne_PointArrets.getPoints().length; j++) {
 
                 PointArret pointarret1 = pointArretService.getPointArret(Ligne_PointArrets.getPoints()[i-1]);
                 PointArret pointarret2 = pointArretService.getPointArret(Ligne_PointArrets.getPoints()[j-1]);
                 distanceij = distance(pointarret1.getLatitude(), pointarret2.getLatitude(), pointarret1.getLongitude(), pointarret2.getLongitude(), el1, el2);
-                String nom="troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")";
+                String nom="troncon(" + pointarret1.getNom() + " , " + pointarret2.getNom() + ")";
                 Integer duree = 0;
                 Boolean statut = true;
                 Ligne idLigneFk = new Ligne();
                 idLigneFk.setId(Ligne_PointArrets.getId_ligne());
-
-
+                
+                
+                
                 if (i != j) {
 
                     if (Ligne_PointArrets.getSens()) {
                         Troncon troncon = new Troncon( nom,  pointarret1,  pointarret2,  distanceij,  duree,  statut,  idLigneFk);
                         tronconRepo.save(troncon);
                         TronconsGeneres.add(troncon);
-                        System.out.println("troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")");
+                        System.out.println("troncon(" + pointarret1.getNom() + " , " + pointarret2.getNom() + ")");
+
                         
                     } 
                     else {
@@ -156,7 +169,7 @@ public class TronconService {
                             Troncon troncon = new Troncon( nom,  pointarret1,  pointarret2,  distanceij,  duree,  statut,  idLigneFk);
                             tronconRepo.save(troncon);
                             TronconsGeneres.add(troncon);
-                            System.out.println("troncon(" + Ligne_PointArrets.getPoints()[i-1] + "," + Ligne_PointArrets.getPoints()[j-1] + ")");
+                            System.out.println("troncon(" + pointarret1.getNom() + " , " + pointarret2.getNom() + ")");
                             
                         }
                         
@@ -165,7 +178,7 @@ public class TronconService {
                 }              
                 
             }
-        }   
+        }    
         
         return TronconsGeneres;
 
