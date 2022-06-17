@@ -4,16 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 
-//@NoArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @ToString
 @Entity
 @Table(name = "troncon")
 public class Troncon {
-
-    public Troncon() {
-    }
 
     public Troncon(String nom, PointArret idPointArretAFk, PointArret idPointArretBFk, Double distance, Integer duree, Boolean statut, Ligne idLigneFk) {
         this.nom = nom;

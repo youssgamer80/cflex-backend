@@ -43,10 +43,20 @@ public class PointArretService {
                 .orElseThrow(() -> new ResourceNotFoundException("Point d'arret not found with id :" + id));
     }
 
-    public List<PointArret> Liste(Integer idzone){
+    public List<PointArret> ListeByZone(Integer idzone){
 
         List<PointArret> result = new ArrayList<>();
         pointarretRepository.findByIdZoneFkNative(idzone).forEach(result::add);
+ 
+        return result;
+
+    }
+
+
+    public List<PointArret> ListeByTypePointArret(Integer idtypepointarret){
+
+        List<PointArret> result = new ArrayList<>();
+        pointarretRepository.findByIdTypePointArretFkNative(idtypepointarret).forEach(result::add);
  
         return result;
 

@@ -56,10 +56,21 @@ public class PointArretController {
     }
 
     @GetMapping("/getPointArretByZone/{idzonefk}")
-    public ResponseEntity<Object> Getter(Integer idzone) {
+    public ResponseEntity<Object> GetPointArretByZone(Integer idzone) {
         try {
 
-            List<PointArret> result = pointArretService.Liste(idzone);
+            List<PointArret> result = pointArretService.ListeByZone(idzone);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
+        }
+    }
+
+    @GetMapping("/getPointArretByType/{idtypepointarretfk}")
+    public ResponseEntity<Object> GetPointArretByType(Integer idtypePA) {
+        try {
+
+            List<PointArret> result = pointArretService.ListeByTypePointArret(idtypePA);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
