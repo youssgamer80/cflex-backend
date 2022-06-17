@@ -10,6 +10,7 @@ import projet.cflex.oda_cflex_smart_city1.Repository.TronconTypeTransportReposit
 
 @Service
 public class TronconTypeTransportService {
+    private Boolean statut=true;
     @Autowired
     private final TronconTypeTransportRepository repository;
 
@@ -24,5 +25,17 @@ public class TronconTypeTransportService {
         return result;
 
     }
+
+    public List<TronconTypeTransport> Liste(){
+
+        List<TronconTypeTransport> resultat = new ArrayList<>();
+        repository.findByStatutJPQL(statut).forEach(resultat::add);
+
+        return resultat;
+    }
+    public TronconTypeTransport add(TronconTypeTransport troncontypetransport) {
+        return repository.save(troncontypetransport);
+    }
+    
     
 }
