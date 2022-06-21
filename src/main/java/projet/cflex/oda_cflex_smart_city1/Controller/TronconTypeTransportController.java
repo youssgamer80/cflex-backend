@@ -5,9 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -46,6 +50,31 @@ public class TronconTypeTransportController {
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
+    }
+    
+    @PutMapping("/updateTronconTypeTransport/{id}")
+    public ResponseEntity<Object> update(@PathVariable("id") Integer id, @RequestBody TronconTypeTransport one){
+        try{
+            TronconTypeTransport resultat= service.updateTronconTypeTransport(id,one);
+            return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, resultat);
+        }
+        catch (Exception e) {
+            
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
+        }
+    }
+
+    
+    @DeleteMapping("/deleteTronconTypeTransport/{id}")
+    public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
+        try {
+            TronconTypeTransport resultat = service.delete(id);
+            return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, resultat);
+        } 
+        catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
+        }
+              
     }
 
     // @PostMapping(value = "/addTronconTypeTransport")

@@ -36,6 +36,40 @@ public class TronconTypeTransportService {
     // public TronconTypeTransport add(TronconTypeTransport troncontypetransport) {
     //     return repository.save(troncontypetransport);
     // }
+
+    public TronconTypeTransport updateTronconTypeTransport(Integer id, TronconTypeTransport newTronconTypeTransport){
+        
+        TronconTypeTransport real = this.repository.findById(id).orElseThrow(() -> new RuntimeException("TronconTypeTransport" + id + "nexiste pas"));
+
+        if(newTronconTypeTransport.getIdTronconFk()!= null){
+            newTronconTypeTransport.setIdTronconFk(real.getIdTronconFk());
+
+        } 
+
+        if(newTronconTypeTransport.getIdTypeTransportFk()!= null){
+            real.setIdTypeTransportFk(newTronconTypeTransport.getIdTypeTransportFk());
+
+        }
+
+        if(newTronconTypeTransport.getPrix()!= null){
+            real.setPrix(newTronconTypeTransport.getPrix());
+
+        } 
     
+        if(newTronconTypeTransport.getStatut()!= null){
+            real.setStatut(newTronconTypeTransport.getStatut());
+
+        } 
+               
+        return repository.save(real);
+
+    } 
+
+    public TronconTypeTransport delete(Integer id){
+        TronconTypeTransport real = this.repository.findById(id).orElseThrow(() -> new RuntimeException("Le troncon_type_transport" + id + "nexiste pas"));
+        real.setStatut(false);
+        return repository.save(real);
+    }
+
     
 }
