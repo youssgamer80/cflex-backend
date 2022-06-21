@@ -24,6 +24,7 @@ public class Ligne_Point_ArretService {
 
     @Autowired
     private LigneRepository ligneRepository;
+
     @Autowired
     private PointArretRepository pointArretRepository;
 
@@ -40,31 +41,24 @@ public class Ligne_Point_ArretService {
 
     public Ligne_Point_Arret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
+        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+        addligne(ligne_Point_ArretObject, ligne_Point_Arret);
+
+        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
+    }
+
+
+    public  void addligne(Ligne_Point_ArretObject ligne_Point_ArretObject, Ligne_Point_Arret ligne_Point_Arret){
+
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
 
-        System.out.println("LE NOMBRE DE POINT ");
-        System.out.println(ligne_Point_ArretObject.idPointArretFk);
 
         Integer nbPointArret = ligne_Point_ArretObject.idPointArretFk.length;
-
-        // for (int i = 0; i < nbPointArret; ++i) {
-
-        //     System.out.println(ligne_Point_ArretObject.idPointArretFk[i]);
-        //      Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
-        //     PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[i]);
-           
-        //     ligne_Point_Arret.setIdPointArretFk(pointArret);
-        //     ligne_Point_Arret.setIdLigneFk(ligne);
-        //     ligne_Point_Arret.setStatut(true);
-        //     ligne_Point_Arret.setRang(i + 1);
-        //     ligne_Point_ArretRepository.save(ligne_Point_Arret);
-        // }
-
 
         for (int i = 0; i < nbPointArret-1; ++i) {
 
             System.out.println(ligne_Point_ArretObject.idPointArretFk[i]);
-            Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+            // Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
             PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[i]);
            
             ligne_Point_Arret.setIdPointArretFk(pointArret);
@@ -76,7 +70,7 @@ public class Ligne_Point_ArretService {
 
 
         System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
-        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+       
         PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
        
         ligne_Point_Arret.setIdPointArretFk(pointArret);
@@ -85,20 +79,26 @@ public class Ligne_Point_ArretService {
         ligne_Point_Arret.setRang(nbPointArret);
         ligne_Point_ArretRepository.save(ligne_Point_Arret);
 
-      
+    }
+    
 
-        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
+    public List<Ligne_Point_Arret> getByIdLigne(Integer idligne) {
+    System.out.print(idligne);
+    // Ligne ligne = ligneRepository.findLigne(idligne);
+    
+    return ligne_Point_ArretRepository.findByIdligne(idligne);
     }
 
-    // public Ligne getLigne(String nomLigne) {
-    // System.out.print(nomLigne);
-    // return ligneRepository.findByNom(nomLigne);
-    // }
+ 
+    public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject){
 
-    // public Ligne getLigneBydId(Integer id) {
-    // // System.out.print(id);
-    // return ligneRepository.findLigne(id);
-    // }
+        // System.out.printf("idligne", idligne);
+
+        ligne_Point_ArretRepository.deleteById(17);
+        
+        return "Supprimé";
+    }
+
 
     // public Ligne updateLigne(Integer id, LigneObject ligneObject) {
 

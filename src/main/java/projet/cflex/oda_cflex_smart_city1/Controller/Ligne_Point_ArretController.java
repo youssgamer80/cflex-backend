@@ -39,30 +39,20 @@ public class Ligne_Point_ArretController {
         }
     }
 
-    // @GetMapping(value="byid/{id}")
-    // public ResponseEntity<Object> Get(@PathVariable int id) {
-    // try {
-    // Ligne result = ligneService.getLigneBydId(id);
-    // return ResponseHandler.generateResponse("Successfully retrieved data!",
-    // HttpStatus.OK, result);
-    // } catch (Exception e) {
-    // return ResponseHandler.generateResponse(e.getMessage(),
-    // HttpStatus.MULTI_STATUS, null);
-    // }
-    // }
+   
 
-    // @GetMapping(value ="/{nomLigne}")
-    // public ResponseEntity<Object> Get(@PathVariable String nomLigne) {
-    // try {
+    @GetMapping(value = "/{idligne}")
+    public ResponseEntity<Object> Get(@PathVariable Integer idligne) {
+        try {
 
-    // Ligne result = ligneService.getLigne(nomLigne);
-    // return ResponseHandler.generateResponse("Successfully retrieved data!",
-    // HttpStatus.OK, result);
-    // } catch (Exception e) {
-    // return ResponseHandler.generateResponse(e.getMessage(),
-    // HttpStatus.MULTI_STATUS, null);
-    // }
-    // }
+            List<Ligne_Point_Arret> result = ligne_Point_ArretService.getByIdLigne(idligne);
+            return ResponseHandler.generateResponse("Successfully retrieved data!",
+                    HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(),
+                    HttpStatus.MULTI_STATUS, null);
+        }
+    }
 
     @PostMapping(value = "/addLignePointArret")
     public ResponseEntity<Object> Post(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
@@ -76,32 +66,19 @@ public class Ligne_Point_ArretController {
         }
     }
 
-    // @PutMapping(value = "/updateligne/{id}")
-    // public ResponseEntity<Object> Put(@RequestBody LigneObject ligneObject,
-    // @PathVariable Integer id) {
 
-    // try {
-    // Ligne result = ligneService.updateLigne(id, ligneObject);
-    // return ResponseHandler.generateResponse("Successfully updated data!",
-    // HttpStatus.OK, result);
-    // } catch (Exception e) {
-    // return ResponseHandler.generateResponse(e.getMessage(),
-    // HttpStatus.MULTI_STATUS, e);
-    // }
+    @PutMapping(value = "/updateligne/{idligne}")
+    public ResponseEntity<Object> Put(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-    // }
-
-    // @DeleteMapping(value = "/deleteligne/{id}")
-    // public ResponseEntity<Object> Put(@PathVariable Integer id) {
-
-    // try {
-    // Ligne result = ligneService.deleteLigne(id);
-    // return ResponseHandler.generateResponse("Successfully deleted data!",
-    // HttpStatus.OK, result);
-    // } catch (Exception e) {
-    // return ResponseHandler.generateResponse(e.getMessage(),
-    // HttpStatus.MULTI_STATUS);
-    // }
-    // }
+        try {
+            String result = ligne_Point_ArretService.deleteLigne_Point_Arrets(ligne_Point_ArretObject);
+            System.out.println(result);
+            return ResponseHandler.generateResponse("Successfully deleted data!",
+                    HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(),
+                    HttpStatus.MULTI_STATUS);
+        }
+    }
 
 }

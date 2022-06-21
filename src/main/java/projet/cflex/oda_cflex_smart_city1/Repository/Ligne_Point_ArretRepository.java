@@ -1,9 +1,12 @@
 package projet.cflex.oda_cflex_smart_city1.Repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+// import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne_Point_Arret;
 
 @Repository
@@ -13,11 +16,11 @@ public interface Ligne_Point_ArretRepository extends CrudRepository<Ligne_Point_
 	@Query("FROM Ligne_Point_Arret WHERE statut = ?1 ORDER BY id")
     public Iterable<Ligne_Point_Arret> findByStatutJPQL(Boolean statut);
     
-    @Query("FROM Ligne_Point_Arret WHERE id = ?1 AND statut=true")
-    public Ligne_Point_Arret findLigne(Integer id);
+    @Query("FROM Ligne_Point_Arret WHERE id_ligne_fk = ?1")
+    public List<Ligne_Point_Arret> findByIdligne(Integer idligne);
 
-    // @Query("FROM Ligne_Point_Arret ORDER BY id DESC LIMIT 1;")
-    // public Ligne_Point_Arret findLastRecord();
-    // public Ligne findByNom(String nom);
+    
+    // public Ligne_Point_Arret deleteByIdligneFk(Integer idligne);
+
 
 }
