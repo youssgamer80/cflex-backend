@@ -1,14 +1,11 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
-import lombok.*;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
-
-
 @Entity
 
 @Table(name = "vehicule")
@@ -21,31 +18,36 @@ public class Vehicule {
     @Column(name = "id", nullable = false)
     private Integer id;
 
-    @Column(name = "immatriculation")
+    @Column(name = "immatriculation", nullable = false)
     private String immatriculation;
 
-    @Column(name = "marque")
+    @Column(name = "marque", nullable = false)
     private String marque;
 
-    @Column(name = "modele")
+    @Column(name = "modele", nullable = false)
     private String modele;
 
-   @ManyToOne(fetch = FetchType.EAGER)
-   @JoinColumn(name = "id_proprietaire_fk")
-   private Proprietaire proprietaire;
+/*
+    @Column(name = "token")
+    private String token;
+*/
 
-    @Column(name = "statut")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_proprietaire_fk", nullable = false)
+    private Proprietaire proprietaire;
+
+    @Column(name = "statut", nullable = false)
     private Boolean statut;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_type_transport_fk")
+    @JoinColumn(name = "id_type_transport_fk", nullable = false)
     private TypeTransport idTypeTransportFk;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "id_zone_fk")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_zone_fk", nullable = false)
     private Zone zone;
 
-    @Column(name = "nb_place")
+    @Column(name = "nb_place", nullable = false)
     private Integer nbPlace;
     @Column(name = "carte_grise", nullable = false)
     private String carteGrise;
@@ -77,6 +79,14 @@ public class Vehicule {
     public String getModele() {
         return modele;
     }
+
+/*    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }*/
 
     public void setModele(String modele) {
         this.modele = modele;

@@ -9,6 +9,4 @@ public interface VehiculeService {
     Collection<Vehicule> list(boolean isDeleted);
     Vehicule get(Integer id);
     Boolean delete(Integer id);
-    Vehicule majVehicule(Integer id, Vehicule vehicule) ;
-
 }

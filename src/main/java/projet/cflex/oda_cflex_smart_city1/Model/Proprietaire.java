@@ -7,8 +7,6 @@ import org.hibernate.annotations.SQLDelete;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-
-
 @Entity
 @Table(name = "proprietaire")
 @SQLDelete(sql = "UPDATE proprietaire SET statut = false WHERE id=?")

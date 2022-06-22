@@ -10,6 +10,6 @@ public interface ProprioService {
     Collection <Proprietaire> list(boolean isDeleted);
     Proprietaire get(Integer id);
     Boolean delete(Integer id);
-    Proprietaire majProprietaire(Integer id, Proprietaire proprietaire) ;
+
 
 }
