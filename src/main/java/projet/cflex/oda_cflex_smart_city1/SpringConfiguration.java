@@ -1,3 +1,4 @@
+/*
 package projet.cflex.oda_cflex_smart_city1;
 
 import com.mongodb.ConnectionString;
@@ -30,3 +31,4 @@ public class SpringConfiguration {
     }
 
 }
+*/

@@ -26,7 +26,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 
 public class OdaCflexSmartCity1Application {
 
-  @Value("${spring.data.mongodb.uri}")
+/*  @Value("${spring.data.mongodb.uri}")
   private String connectionString;
 
   @Bean("MyBean")
@@ -37,7 +37,7 @@ public class OdaCflexSmartCity1Application {
         .applyConnectionString(new ConnectionString(connectionString))
         .codecRegistry(codecRegistry)
         .build());
-  }
+  }*/
   public static void main(String[] args) {
 
     SpringApplication.run(OdaCflexSmartCity1Application.class, args);
