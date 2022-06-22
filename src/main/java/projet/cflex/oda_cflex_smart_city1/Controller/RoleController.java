@@ -71,10 +71,10 @@ public class RoleController {
     }
 
     @DeleteMapping(value = "/deleteRole/{id}")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Role role) {
+    public ResponseEntity<Object> Put( @PathVariable Integer id) {
        
         try{
-            Role result = roleService.deleteRole(id,role);
+            Role result = roleService.deleteRole(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);

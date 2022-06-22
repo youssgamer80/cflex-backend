@@ -9,6 +9,6 @@ public interface RoleRepository extends CrudRepository<Role, Integer> {
 
     public Iterable<Role> findByStatut(Boolean statut);
 	
-	@Query("FROM Usager WHERE statut = ?1")
+	@Query("FROM Role WHERE statut = 1")
     public Iterable<Role> findByStatutJPQL(Boolean statut);
 }

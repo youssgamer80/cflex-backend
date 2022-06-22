@@ -16,7 +16,7 @@ public class RoleService {
 
     @Autowired
     public RoleRepository roleRepository;
-    private Boolean statut;
+    private Boolean statut = true;
     public Role role;
 
 
@@ -55,11 +55,9 @@ public class RoleService {
 		return roleRepository.save(existingRole);
     }
 
-    public Role deleteRole(Integer id, Role role) {
-
-        Role existingRole = this.roleRepository.findById(id)
-			.orElseThrow(() -> new ResourceNotFoundException("Role not found with id :" + id));
-		 existingRole.setStatut(role.getStatut());
-		 return roleRepository.save(existingRole);
+    public Role deleteRole(Integer id){
+        Role real = this.roleRepository.findById(id).orElseThrow(() -> new RuntimeException("Role" + id + "nexiste pas"));
+        real.setStatut(false);
+        return roleRepository.save(real);
     }
 }

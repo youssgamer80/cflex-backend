@@ -3,6 +3,7 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Model.TronconTypeTransport;
@@ -37,33 +38,32 @@ public class TronconTypeTransportService {
     //     return repository.save(troncontypetransport);
     // }
 
-    public TronconTypeTransport updateTronconTypeTransport(Integer id, TronconTypeTransport newTronconTypeTransport){
-        
-        TronconTypeTransport real = this.repository.findById(id).orElseThrow(() -> new RuntimeException("TronconTypeTransport" + id + "nexiste pas"));
+    public TronconTypeTransport updateTronconTypeTransport(Integer id, TronconTypeTransport newTTT) {
 
-        if(newTronconTypeTransport.getIdTronconFk()!= null){
-            newTronconTypeTransport.setIdTronconFk(real.getIdTronconFk());
+        TronconTypeTransport existing = this.repository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Troncon not found with id :" + id));
 
-        } 
-
-        if(newTronconTypeTransport.getIdTypeTransportFk()!= null){
-            real.setIdTypeTransportFk(newTronconTypeTransport.getIdTypeTransportFk());
+        if(newTTT.getIdTronconFk()!=null){
+            newTTT.setIdTronconFk(existing.getIdTronconFk());
 
         }
 
-        if(newTronconTypeTransport.getPrix()!= null){
-            real.setPrix(newTronconTypeTransport.getPrix());
+        if(newTTT.getIdTypeTransportFk()!=null){
+            existing.setIdTypeTransportFk(newTTT.getIdTypeTransportFk());
+        }
 
-        } 
-    
-        if(newTronconTypeTransport.getStatut()!= null){
-            real.setStatut(newTronconTypeTransport.getStatut());
+        if(newTTT.getPrix()!=null){
+            existing.setPrix(newTTT.getPrix());
+        }
 
-        } 
-               
-        return repository.save(real);
+        if(newTTT.getStatut()!=null){
+            existing.setStatut(newTTT.getStatut());
+        }
+       
+		return repository.save(existing);
+ }
 
-    } 
+
 
     public TronconTypeTransport delete(Integer id){
         TronconTypeTransport real = this.repository.findById(id).orElseThrow(() -> new RuntimeException("Le troncon_type_transport" + id + "nexiste pas"));

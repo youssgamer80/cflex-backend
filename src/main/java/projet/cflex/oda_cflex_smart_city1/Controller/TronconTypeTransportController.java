@@ -55,7 +55,7 @@ public class TronconTypeTransportController {
     @PutMapping("/updateTronconTypeTransport/{id}")
     public ResponseEntity<Object> update(@PathVariable("id") Integer id, @RequestBody TronconTypeTransport one){
         try{
-            TronconTypeTransport resultat= service.updateTronconTypeTransport(id,one);
+            TronconTypeTransport resultat= service.updateTronconTypeTransport(id, one);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, resultat);
         }
         catch (Exception e) {

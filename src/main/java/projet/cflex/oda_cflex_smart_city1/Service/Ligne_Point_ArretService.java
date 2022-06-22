@@ -42,13 +42,13 @@ public class Ligne_Point_ArretService {
     public Ligne_Point_Arret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
         Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
-        addligne(ligne_Point_ArretObject, ligne_Point_Arret);
+        addlignePA(ligne_Point_ArretObject, ligne_Point_Arret);
 
         return ligne_Point_ArretRepository.save(ligne_Point_Arret);
     }
 
 
-    public  void addligne(Ligne_Point_ArretObject ligne_Point_ArretObject, Ligne_Point_Arret ligne_Point_Arret){
+    public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, Ligne_Point_Arret ligne_Point_Arret){
 
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
 
