@@ -148,7 +148,7 @@ public class TronconService {
                 distanceij = distance(pointarret1.getLatitude(), pointarret2.getLatitude(), pointarret1.getLongitude(), pointarret2.getLongitude(), el1, el2);
                 String nom="troncon(" + pointarret1.getNom() + " , " + pointarret2.getNom() + ")";
                 Integer duree = 0;
-                Boolean statut = true;
+                Boolean statut = false;
                 Ligne idLigneFk = new Ligne();
                 idLigneFk.setId(Ligne_PointArrets.getId_ligne());
                 
