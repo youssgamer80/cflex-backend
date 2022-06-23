@@ -41,26 +41,16 @@ public class Ligne_Point_ArretService {
 
     public Ligne_Point_Arret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
-        addlignePA(ligne_Point_ArretObject, ligne_Point_Arret);
-
-        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
-    }
-
-
-    public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, Ligne_Point_Arret ligne_Point_Arret){
-
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
-
 
         Integer nbPointArret = ligne_Point_ArretObject.idPointArretFk.length;
 
-        for (int i = 0; i < nbPointArret-1; ++i) {
+        for (int i = 0; i < nbPointArret - 1; ++i) {
 
             System.out.println(ligne_Point_ArretObject.idPointArretFk[i]);
-            // Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+            Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
             PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[i]);
-           
+
             ligne_Point_Arret.setIdPointArretFk(pointArret);
             ligne_Point_Arret.setIdLigneFk(ligne);
             ligne_Point_Arret.setStatut(true);
@@ -68,37 +58,40 @@ public class Ligne_Point_ArretService {
             ligne_Point_ArretRepository.save(ligne_Point_Arret);
         }
 
+        System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
+        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
 
-        System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
-       
-        PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
-       
+        PointArret pointArret = pointArretRepository
+                .findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
+
         ligne_Point_Arret.setIdPointArretFk(pointArret);
         ligne_Point_Arret.setIdLigneFk(ligne);
         ligne_Point_Arret.setStatut(true);
         ligne_Point_Arret.setRang(nbPointArret);
-        ligne_Point_ArretRepository.save(ligne_Point_Arret);
 
+        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
     }
-    
 
     public List<Ligne_Point_Arret> getByIdLigne(Integer idligne) {
-    System.out.print(idligne);
-    // Ligne ligne = ligneRepository.findLigne(idligne);
-    
-    return ligne_Point_ArretRepository.findByIdligne(idligne);
+        System.out.print(idligne);
+        // Ligne ligne = ligneRepository.findLigne(idligne);
+
+        return ligne_Point_ArretRepository.findByIdligne(idligne);
     }
 
- 
-    public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject){
+    public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-        // System.out.printf("idligne", idligne);
-
-        ligne_Point_ArretRepository.deleteById(17);
+        List<Ligne_Point_Arret> ligne_Point_Arret = ligne_Point_ArretRepository.findByIdligne(ligne_Point_ArretObject.idLigneFk);
         
+        for( Ligne_Point_Arret item : ligne_Point_Arret){
+            System.out.print("Element ");
+            // item.setStatut(false);
+            System.out.println(item.getStatut());
+        }
+        
+
         return "Supprimé";
     }
-
 
     // public Ligne updateLigne(Integer id, LigneObject ligneObject) {
 

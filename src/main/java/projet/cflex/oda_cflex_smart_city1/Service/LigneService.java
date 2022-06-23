@@ -40,6 +40,8 @@ public class LigneService {
 
     public Ligne addLigne(LigneObject ligneObject) {
 
+
+    
         // TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
         Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
 
@@ -149,3 +151,4 @@ public class LigneService {
     // }
     
 }
+

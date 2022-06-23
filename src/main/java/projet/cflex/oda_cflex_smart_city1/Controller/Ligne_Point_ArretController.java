@@ -67,12 +67,12 @@ public class Ligne_Point_ArretController {
     }
 
 
-    @PutMapping(value = "/updateligne/{idligne}")
+    @PutMapping(value = "/updateligne/")
     public ResponseEntity<Object> Put(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
         try {
             String result = ligne_Point_ArretService.deleteLigne_Point_Arrets(ligne_Point_ArretObject);
-            System.out.println(result);
+            // System.out.println(result);
             return ResponseHandler.generateResponse("Successfully deleted data!",
                     HttpStatus.OK, result);
         } catch (Exception e) {
