@@ -70,16 +70,19 @@ public class LigneController {
     public ResponseEntity<Object> Post(@RequestBody LigneObject ligneObject) {
         try {
             Ligne result ;
+            String message ;
             if(ligneRepository.existsLigneByNom(ligneObject.nom)== false){
                result = ligneService.addLigne(ligneObject);
+               message = "Successfully added data!";
             }
             else{
                  result = null;
+               message = "Nom de ligne existante";
             }
 
             
             // Ligne result = null;
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+            return ResponseHandler.generateResponse(message, HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }

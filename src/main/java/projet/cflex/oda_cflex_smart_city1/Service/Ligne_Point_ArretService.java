@@ -2,6 +2,7 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.internal.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,93 +80,67 @@ public class Ligne_Point_ArretService {
         return ligne_Point_ArretRepository.findByIdligne(idligne);
     }
 
-    public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject) {
+    public String updateLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-        List<Ligne_Point_Arret> ligne_Point_Arret = ligne_Point_ArretRepository.findByIdligne(ligne_Point_ArretObject.idLigneFk);
-        
-        for( Ligne_Point_Arret item : ligne_Point_Arret){
-            System.out.print("Element ");
-            // item.setStatut(false);
-            System.out.println(item.getStatut());
+        Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
+
+        // Integer rang ;
+
+        List<Ligne_Point_Arret> ligne_Point_Arret = ligne_Point_ArretRepository
+                .findByIdligne(ligne_Point_ArretObject.idLigneFk);
+
+        // System.out.println(ligne_Point_ArretRepository.findByIdligne(ligne_Point_ArretObject.idLigneFk).size());
+
+        for (Ligne_Point_Arret item : ligne_Point_Arret) {
+
+            // System.out.print("Element ");
+            // System.out.println(item.getIdPointArretFk().getId());
+            item.setStatut(false);
+            item.setRang(0);
+            // System.out.println(item.getStatut());
+            ligne_Point_ArretRepository.save(item);
+            // System.out.print("--------------------------------- ");
         }
-        
 
-        return "Supprimé";
+        Boolean trouve = false;
+        Integer rang=0;
+        for (Integer idpoint : ligne_Point_ArretObject.idPointArretFk) {
+            System.out.print("IDPOINT ");
+            System.out.println(idpoint);
+
+            for (Ligne_Point_Arret item : ligne_Point_Arret) {
+
+            if (idpoint == item.getIdPointArretFk().getId()) {
+            trouve = true;
+            rang++;
+            System.out.println("POINT ARRÊT EXISTANT");
+            item.setStatut(true);
+            item.setRang(rang);
+            ligne_Point_ArretRepository.save(item);
+
+            }
+
+            }
+
+            if (!trouve) {
+
+                Ligne_Point_Arret ligne_Point_Arrett = new Ligne_Point_Arret();
+
+                PointArret pointArret = pointArretRepository
+                        .findPointArret(idpoint);
+
+                ligne_Point_Arrett.setIdPointArretFk(pointArret);
+                ligne_Point_Arrett.setIdLigneFk(ligne);
+                ligne_Point_Arrett.setStatut(true);
+                ligne_Point_Arrett.setRang(rang+1);
+                ligne_Point_ArretRepository.save(ligne_Point_Arrett);
+
+            }
+            trouve = false;
+
+        }
+
+        return "Modifié";
     }
-
-    // public Ligne updateLigne(Integer id, LigneObject ligneObject) {
-
-    // Ligne existingLigne = ligneRepository.findById(id)
-    // .orElseThrow(() -> new ResourceNotFoundException("Type Transport not
-    // foundwith id :" + id));
-
-    // if (ligneObject.nom != null) {
-    // existingLigne.setNom(ligneObject.nom);
-    // }
-
-    // if (ligneObject.depart != null) {
-    // existingLigne.setDepart(ligneObject.depart);
-    // }
-
-    // if (ligneObject.arrivee != null) {
-    // existingLigne.setArrivee(ligneObject.arrivee);
-    // }
-
-    // if (ligneObject.idTypeTransportFk != null) {
-    // TypeTransport typeTransport =
-    // typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
-
-    // existingLigne.setIdTypeTransportFk(typeTransport);
-    // }
-
-    // if (ligneObject.idZoneFk != null) {
-    // Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
-
-    // existingLigne.setIdZoneFk(zone);
-    // }
-
-    // if (ligneObject.depart_longitude != 0L) {
-
-    // existingLigne.setDepart_longitude(ligneObject.depart_longitude);
-    // }
-
-    // if (ligneObject.depart_latitude != 0L) {
-
-    // existingLigne.setDepart_latitude(ligneObject.depart_latitude);
-    // }
-
-    // if (ligneObject.arrivee_longitude != 0L) {
-
-    // existingLigne.setArrivee_longitude(ligneObject.arrivee_longitude);
-    // }
-
-    // if (ligneObject.arrivee_latitude != 0L) {
-
-    // existingLigne.setArrivee_latitude(ligneObject.arrivee_latitude);
-    // }
-
-    // existingLigne.setStatut(true);
-
-    // return ligneRepository.save(existingLigne);
-    // }
-
-    // public Ligne deleteLigne(Integer id) {
-
-    // Ligne existingLigne = ligneRepository.findById(id)
-    // .orElseThrow(() -> new ResourceNotFoundException("Type transport not
-    // foundwith id :" + id));
-    // existingLigne.setStatut(false);
-    // return ligneRepository.save(existingLigne);
-    // }
-
-    // public static List<Ligne> getAllTroncon() {
-
-    // List<Ligne> lignes = new ArrayList<>();
-
-    // ligneRepository.findByStatutJPQL(statut).forEach(lignes::add);
-
-    // return lignes;
-
-    // }
 
 }

@@ -30,7 +30,7 @@ public interface PointArretRepository extends JpaRepository<PointArret, Integer>
    @Query(value="SELECT * FROM point_arret WHERE id_type_point_arret_fk=:idtypePointArret",nativeQuery=true)
    public Iterable<PointArret> findByIdTypePointArretFkNative(@Param("idtypePointArret") Integer idtypePointArret);
 
-   @Query("FROM PointArret WHERE id = ?1 AND statut=true")
+   @Query("FROM PointArret WHERE id = ?1 ")
    public PointArret findPointArret(Integer id);
    
 }

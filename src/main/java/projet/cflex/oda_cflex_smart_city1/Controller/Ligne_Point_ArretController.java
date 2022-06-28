@@ -71,9 +71,19 @@ public class Ligne_Point_ArretController {
     public ResponseEntity<Object> Put(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
         try {
-            String result = ligne_Point_ArretService.deleteLigne_Point_Arrets(ligne_Point_ArretObject);
+            String result;
+            String message ;
+            if(ligne_Point_ArretObject.idPointArretFk.length>0){
+                result = ligne_Point_ArretService.updateLigne_Point_Arrets(ligne_Point_ArretObject);
+                message="Successfully deleted data!";
+            }
+            else{
+                result = null;
+                message="Problème rencontré";
+            }
+            
             // System.out.println(result);
-            return ResponseHandler.generateResponse("Successfully deleted data!",
+            return ResponseHandler.generateResponse(message,
                     HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(),
