@@ -2,6 +2,7 @@ package projet.cflex.oda_cflex_smart_city1.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.modelmapper.internal.util.Stack;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,7 @@ public class LignePointArretService {
 
     public LignePointArret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
+<<<<<<< HEAD:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/LignePointArretService.java
         LignePointArret ligne_Point_Arret = new LignePointArret();
         addlignePA(ligne_Point_ArretObject, ligne_Point_Arret);
 
@@ -50,17 +52,18 @@ public class LignePointArretService {
 
     public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, LignePointArret ligne_Point_Arret){
 
+=======
+>>>>>>> eb52bef35c493dd7f34a0554bf46fdee3f6796da:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/Ligne_Point_ArretService.java
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
-
 
         Integer nbPointArret = ligne_Point_ArretObject.idPointArretFk.length;
 
-        for (int i = 0; i < nbPointArret-1; ++i) {
+        for (int i = 0; i < nbPointArret - 1; ++i) {
 
             System.out.println(ligne_Point_ArretObject.idPointArretFk[i]);
-            // Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+            Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
             PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[i]);
-           
+
             ligne_Point_Arret.setIdPointArretFk(pointArret);
             ligne_Point_Arret.setIdLigneFk(ligne);
             ligne_Point_Arret.setStatut(true);
@@ -68,20 +71,21 @@ public class LignePointArretService {
             ligne_Point_ArretRepository.save(ligne_Point_Arret);
         }
 
+        System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
+        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
 
-        System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
-       
-        PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret-1]);
-       
+        PointArret pointArret = pointArretRepository
+                .findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
+
         ligne_Point_Arret.setIdPointArretFk(pointArret);
         ligne_Point_Arret.setIdLigneFk(ligne);
         ligne_Point_Arret.setStatut(true);
         ligne_Point_Arret.setRang(nbPointArret);
-        ligne_Point_ArretRepository.save(ligne_Point_Arret);
 
+        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
     }
-    
 
+<<<<<<< HEAD:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/LignePointArretService.java
     public List<LignePointArret> getByIdLigne(Integer idligne) {
     System.out.print(idligne);
     // Ligne ligne = ligneRepository.findLigne(idligne);
@@ -91,88 +95,76 @@ public class LignePointArretService {
 
  
     public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject){
+=======
+    public List<Ligne_Point_Arret> getByIdLigne(Integer idligne) {
+        System.out.print(idligne);
+        // Ligne ligne = ligneRepository.findLigne(idligne);
+>>>>>>> eb52bef35c493dd7f34a0554bf46fdee3f6796da:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/Ligne_Point_ArretService.java
 
-        // System.out.printf("idligne", idligne);
-
-        ligne_Point_ArretRepository.deleteById(17);
-        
-        return "Supprimé";
+        return ligne_Point_ArretRepository.findByIdligne(idligne);
     }
 
+    public String updateLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-    // public Ligne updateLigne(Integer id, LigneObject ligneObject) {
+        Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
 
-    // Ligne existingLigne = ligneRepository.findById(id)
-    // .orElseThrow(() -> new ResourceNotFoundException("Type Transport not
-    // foundwith id :" + id));
+        // Integer rang ;
 
-    // if (ligneObject.nom != null) {
-    // existingLigne.setNom(ligneObject.nom);
-    // }
+        List<Ligne_Point_Arret> ligne_Point_Arret = ligne_Point_ArretRepository
+                .findByIdligne(ligne_Point_ArretObject.idLigneFk);
 
-    // if (ligneObject.depart != null) {
-    // existingLigne.setDepart(ligneObject.depart);
-    // }
+        // System.out.println(ligne_Point_ArretRepository.findByIdligne(ligne_Point_ArretObject.idLigneFk).size());
 
-    // if (ligneObject.arrivee != null) {
-    // existingLigne.setArrivee(ligneObject.arrivee);
-    // }
+        for (Ligne_Point_Arret item : ligne_Point_Arret) {
 
-    // if (ligneObject.idTypeTransportFk != null) {
-    // TypeTransport typeTransport =
-    // typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
+            // System.out.print("Element ");
+            // System.out.println(item.getIdPointArretFk().getId());
+            item.setStatut(false);
+            item.setRang(0);
+            // System.out.println(item.getStatut());
+            ligne_Point_ArretRepository.save(item);
+            // System.out.print("--------------------------------- ");
+        }
 
-    // existingLigne.setIdTypeTransportFk(typeTransport);
-    // }
+        Boolean trouve = false;
+        Integer rang=0;
+        for (Integer idpoint : ligne_Point_ArretObject.idPointArretFk) {
+            System.out.print("IDPOINT ");
+            System.out.println(idpoint);
 
-    // if (ligneObject.idZoneFk != null) {
-    // Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
+            for (Ligne_Point_Arret item : ligne_Point_Arret) {
 
-    // existingLigne.setIdZoneFk(zone);
-    // }
+            if (idpoint == item.getIdPointArretFk().getId()) {
+            trouve = true;
+            rang++;
+            System.out.println("POINT ARRÊT EXISTANT");
+            item.setStatut(true);
+            item.setRang(rang);
+            ligne_Point_ArretRepository.save(item);
 
-    // if (ligneObject.depart_longitude != 0L) {
+            }
 
-    // existingLigne.setDepart_longitude(ligneObject.depart_longitude);
-    // }
+            }
 
-    // if (ligneObject.depart_latitude != 0L) {
+            if (!trouve) {
 
-    // existingLigne.setDepart_latitude(ligneObject.depart_latitude);
-    // }
+                Ligne_Point_Arret ligne_Point_Arrett = new Ligne_Point_Arret();
 
-    // if (ligneObject.arrivee_longitude != 0L) {
+                PointArret pointArret = pointArretRepository
+                        .findPointArret(idpoint);
 
-    // existingLigne.setArrivee_longitude(ligneObject.arrivee_longitude);
-    // }
+                ligne_Point_Arrett.setIdPointArretFk(pointArret);
+                ligne_Point_Arrett.setIdLigneFk(ligne);
+                ligne_Point_Arrett.setStatut(true);
+                ligne_Point_Arrett.setRang(rang+1);
+                ligne_Point_ArretRepository.save(ligne_Point_Arrett);
 
-    // if (ligneObject.arrivee_latitude != 0L) {
+            }
+            trouve = false;
 
-    // existingLigne.setArrivee_latitude(ligneObject.arrivee_latitude);
-    // }
+        }
 
-    // existingLigne.setStatut(true);
-
-    // return ligneRepository.save(existingLigne);
-    // }
-
-    // public Ligne deleteLigne(Integer id) {
-
-    // Ligne existingLigne = ligneRepository.findById(id)
-    // .orElseThrow(() -> new ResourceNotFoundException("Type transport not
-    // foundwith id :" + id));
-    // existingLigne.setStatut(false);
-    // return ligneRepository.save(existingLigne);
-    // }
-
-    // public static List<Ligne> getAllTroncon() {
-
-    // List<Ligne> lignes = new ArrayList<>();
-
-    // ligneRepository.findByStatutJPQL(statut).forEach(lignes::add);
-
-    // return lignes;
-
-    // }
+        return "Modifié";
+    }
 
 }

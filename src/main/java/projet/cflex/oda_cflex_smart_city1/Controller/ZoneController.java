@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Service.ZoneService;
+import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
@@ -28,6 +29,11 @@ public class ZoneController {
 
     @Autowired
     private ZoneService zoneService;
+
+    @Autowired
+    private ZoneRepository zoneRepository;
+
+
     @GetMapping
         public ResponseEntity<Object> Get() {
             try {
@@ -52,8 +58,20 @@ public class ZoneController {
     @PostMapping(value = "/addZone")
     public ResponseEntity<Object> Post(@RequestBody Zone zone) {
         try {
-            Zone result = zoneService.addZone(zone);
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+
+
+            Zone result ;
+            String message ;
+            if(zoneRepository.existsZoneByLibelle(zone.getLibelle())== false){
+               result = zoneService.addZone(zone);
+               message = "Successfully added data!";
+            }
+            else{
+                 result = null;
+               message = "Nom de Zone existante";
+            }
+           
+            return ResponseHandler.generateResponse(message, HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }

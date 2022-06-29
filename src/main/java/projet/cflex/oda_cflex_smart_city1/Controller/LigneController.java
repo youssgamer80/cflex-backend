@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
+import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.LigneService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
@@ -29,6 +30,9 @@ public class LigneController {
     @Autowired
     private LigneService ligneService;
 
+    @Autowired
+    private LigneRepository ligneRepository;
+    
     @GetMapping
     public ResponseEntity<Object> Get() {
         try {
@@ -39,22 +43,22 @@ public class LigneController {
         }
     }
 
-    @GetMapping(value="byid/{id}")
+    @GetMapping(value = "byid/{id}")
     public ResponseEntity<Object> Get(@PathVariable int id) {
-    try {
-    Ligne result = ligneService.getLigneBydId(id);
-    return ResponseHandler.generateResponse("Successfully retrieved data!",
-    HttpStatus.OK, result);
-    } catch (Exception e) {
-    return ResponseHandler.generateResponse(e.getMessage(),
-    HttpStatus.MULTI_STATUS, null);
-    }
+        try {
+            Ligne result = ligneService.getLigneBydId(id);
+            return ResponseHandler.generateResponse("Successfully retrieved data!",
+                    HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(),
+                    HttpStatus.MULTI_STATUS, null);
+        }
     }
 
-    @GetMapping(value ="/{nomLigne}")
+    @GetMapping(value = "/{nomLigne}")
     public ResponseEntity<Object> Get(@PathVariable String nomLigne) {
         try {
-            
+
             Ligne result = ligneService.getLigne(nomLigne);
             return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
         } catch (Exception e) {
@@ -65,15 +69,20 @@ public class LigneController {
     @PostMapping(value = "/addLigne")
     public ResponseEntity<Object> Post(@RequestBody LigneObject ligneObject) {
         try {
-            // System.out.print(ligneObject);
-        //     System.out.print("LIGNE OBJECT ");
-        // System.out.print(ligneObject.nom);
-        // System.out.print(ligneObject.depart);
-        // System.out.print(ligneObject.arrivee);
+            Ligne result ;
+            String message ;
+            if(ligneRepository.existsLigneByNom(ligneObject.nom)== false){
+               result = ligneService.addLigne(ligneObject);
+               message = "Successfully added data!";
+            }
+            else{
+                 result = null;
+               message = "Nom de ligne existante";
+            }
 
-            Ligne result = ligneService.addLigne(ligneObject);
+            
             // Ligne result = null;
-            return ResponseHandler.generateResponse("Successfully added data!", HttpStatus.OK, result);
+            return ResponseHandler.generateResponse(message, HttpStatus.OK, result);
         } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
