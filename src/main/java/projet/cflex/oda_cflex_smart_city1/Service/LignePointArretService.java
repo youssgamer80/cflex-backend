@@ -9,18 +9,18 @@ import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Controller.Ligne_Point_ArretObject;
-import projet.cflex.oda_cflex_smart_city1.Model.Ligne_Point_Arret;
+import projet.cflex.oda_cflex_smart_city1.Model.LignePointArret;
 import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
-import projet.cflex.oda_cflex_smart_city1.Repository.Ligne_Point_ArretRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.LignePointArretRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.PointArretRepository;
 
 @Service
-public class Ligne_Point_ArretService {
+public class LignePointArretService {
 
     @Autowired
-    public Ligne_Point_ArretRepository ligne_Point_ArretRepository;
+    public LignePointArretRepository ligne_Point_ArretRepository;
 
     @Autowired
     private LigneRepository ligneRepository;
@@ -30,25 +30,25 @@ public class Ligne_Point_ArretService {
 
     private static Boolean statut = true;
 
-    public List<Ligne_Point_Arret> getAllLignesPointArret() {
+    public List<LignePointArret> getAllLignesPointArret() {
 
-        List<Ligne_Point_Arret> lignes = new ArrayList<>();
+        List<LignePointArret> lignes = new ArrayList<>();
 
         ligne_Point_ArretRepository.findByStatutJPQL(statut).forEach(lignes::add);
 
         return lignes;
     }
 
-    public Ligne_Point_Arret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
+    public LignePointArret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+        LignePointArret ligne_Point_Arret = new LignePointArret();
         addlignePA(ligne_Point_ArretObject, ligne_Point_Arret);
 
         return ligne_Point_ArretRepository.save(ligne_Point_Arret);
     }
 
 
-    public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, Ligne_Point_Arret ligne_Point_Arret){
+    public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, LignePointArret ligne_Point_Arret){
 
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
 
@@ -82,7 +82,7 @@ public class Ligne_Point_ArretService {
     }
     
 
-    public List<Ligne_Point_Arret> getByIdLigne(Integer idligne) {
+    public List<LignePointArret> getByIdLigne(Integer idligne) {
     System.out.print(idligne);
     // Ligne ligne = ligneRepository.findLigne(idligne);
     

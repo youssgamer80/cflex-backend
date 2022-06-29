@@ -13,7 +13,7 @@ import javax.persistence.*;
 @ToString
 @Entity
 @Table(name = "ligne_point_arret")
-public class Ligne_Point_Arret {
+public class LignePointArret {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
