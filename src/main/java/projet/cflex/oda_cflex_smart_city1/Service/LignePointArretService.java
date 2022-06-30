@@ -42,18 +42,6 @@ public class LignePointArretService {
 
     public LignePointArret addLignePointArret(Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
-<<<<<<< HEAD:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/LignePointArretService.java
-        LignePointArret ligne_Point_Arret = new LignePointArret();
-        addlignePA(ligne_Point_ArretObject, ligne_Point_Arret);
-
-        return ligne_Point_ArretRepository.save(ligne_Point_Arret);
-    }
-
-
-    public  void addlignePA(Ligne_Point_ArretObject ligne_Point_ArretObject, LignePointArret ligne_Point_Arret){
-
-=======
->>>>>>> eb52bef35c493dd7f34a0554bf46fdee3f6796da:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/Ligne_Point_ArretService.java
         Ligne ligne = ligneRepository.findLigne(ligne_Point_ArretObject.idLigneFk);
 
         Integer nbPointArret = ligne_Point_ArretObject.idPointArretFk.length;
@@ -61,7 +49,7 @@ public class LignePointArretService {
         for (int i = 0; i < nbPointArret - 1; ++i) {
 
             System.out.println(ligne_Point_ArretObject.idPointArretFk[i]);
-            Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+            LignePointArret ligne_Point_Arret = new LignePointArret();
             PointArret pointArret = pointArretRepository.findPointArret(ligne_Point_ArretObject.idPointArretFk[i]);
 
             ligne_Point_Arret.setIdPointArretFk(pointArret);
@@ -72,7 +60,7 @@ public class LignePointArretService {
         }
 
         System.out.println(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
-        Ligne_Point_Arret ligne_Point_Arret = new Ligne_Point_Arret();
+        LignePointArret ligne_Point_Arret = new LignePointArret();
 
         PointArret pointArret = pointArretRepository
                 .findPointArret(ligne_Point_ArretObject.idPointArretFk[nbPointArret - 1]);
@@ -85,21 +73,9 @@ public class LignePointArretService {
         return ligne_Point_ArretRepository.save(ligne_Point_Arret);
     }
 
-<<<<<<< HEAD:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/LignePointArretService.java
     public List<LignePointArret> getByIdLigne(Integer idligne) {
-    System.out.print(idligne);
-    // Ligne ligne = ligneRepository.findLigne(idligne);
-    
-    return ligne_Point_ArretRepository.findByIdligne(idligne);
-    }
-
- 
-    public String deleteLigne_Point_Arrets(Ligne_Point_ArretObject ligne_Point_ArretObject){
-=======
-    public List<Ligne_Point_Arret> getByIdLigne(Integer idligne) {
         System.out.print(idligne);
         // Ligne ligne = ligneRepository.findLigne(idligne);
->>>>>>> eb52bef35c493dd7f34a0554bf46fdee3f6796da:src/main/java/projet/cflex/oda_cflex_smart_city1/Service/Ligne_Point_ArretService.java
 
         return ligne_Point_ArretRepository.findByIdligne(idligne);
     }
@@ -110,12 +86,12 @@ public class LignePointArretService {
 
         // Integer rang ;
 
-        List<Ligne_Point_Arret> ligne_Point_Arret = ligne_Point_ArretRepository
+        List<LignePointArret> ligne_Point_Arret = ligne_Point_ArretRepository
                 .findByIdligne(ligne_Point_ArretObject.idLigneFk);
 
         // System.out.println(ligne_Point_ArretRepository.findByIdligne(ligne_Point_ArretObject.idLigneFk).size());
 
-        for (Ligne_Point_Arret item : ligne_Point_Arret) {
+        for (LignePointArret item : ligne_Point_Arret) {
 
             // System.out.print("Element ");
             // System.out.println(item.getIdPointArretFk().getId());
@@ -132,7 +108,7 @@ public class LignePointArretService {
             System.out.print("IDPOINT ");
             System.out.println(idpoint);
 
-            for (Ligne_Point_Arret item : ligne_Point_Arret) {
+            for (LignePointArret item : ligne_Point_Arret) {
 
             if (idpoint == item.getIdPointArretFk().getId()) {
             trouve = true;
@@ -148,7 +124,7 @@ public class LignePointArretService {
 
             if (!trouve) {
 
-                Ligne_Point_Arret ligne_Point_Arrett = new Ligne_Point_Arret();
+                LignePointArret ligne_Point_Arrett = new LignePointArret();
 
                 PointArret pointArret = pointArretRepository
                         .findPointArret(idpoint);
