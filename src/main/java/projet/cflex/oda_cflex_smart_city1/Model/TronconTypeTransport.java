@@ -1,7 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.Model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 @NoArgsConstructor
@@ -9,8 +8,10 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
+
 @Table(name = "troncon_type_transport")
 public class TronconTypeTransport {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -30,4 +31,5 @@ public class TronconTypeTransport {
     @Column(name = "statut", nullable = false)
     private Boolean statut = false;
     
+
 }

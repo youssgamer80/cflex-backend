@@ -16,7 +16,8 @@ public interface LigneRepository extends CrudRepository<Ligne, Integer> {
     @Query("FROM Ligne WHERE id = ?1 AND statut=true")
     public Ligne findLigne(Integer id);
 
-
+    boolean existsLigneByNom(String nom);
+    
     public Ligne findByNom(String nom);
 
 }

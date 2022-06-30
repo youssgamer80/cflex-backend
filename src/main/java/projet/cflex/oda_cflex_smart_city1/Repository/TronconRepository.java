@@ -12,7 +12,11 @@ public interface TronconRepository extends CrudRepository<Troncon, Integer> {
     @Query("FROM Troncon WHERE statut = ?1")
     public Iterable<Troncon> findByStatutJPQL(Boolean statut);
 
-    @Query(value="SELECT * FROM troncon WHERE nom=:nom",nativeQuery=true) 
-    public Iterable<Troncon> findByNomNative(@Param("nom") String nom);
+    // @Query(value="SELECT * FROM troncon WHERE nom=:nom",nativeQuery=true) 
+    // public Iterable<Troncon> findByNomNative(@Param("nom") String nom);
+
+
+    @Query("FROM Troncon WHERE id=:id AND statut= true")
+    public Troncon findTroncon(@Param("id")Integer id);
 
 }
