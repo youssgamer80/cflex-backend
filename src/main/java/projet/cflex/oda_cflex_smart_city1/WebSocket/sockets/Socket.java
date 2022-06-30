@@ -48,7 +48,7 @@ public class Socket {
 
     @OnClose
     public void onClose(Session session) {
-        //listeners.remove(this);
+        listeners.remove(this);
         log.info(String.format("Déconnecté: %s", listeners.size()));
     }
 
