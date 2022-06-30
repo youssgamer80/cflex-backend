@@ -39,7 +39,7 @@ public class TokenController {
         token.setProprietaire(proprietaire1);
         long longToken = Math.abs( random.nextLong() );
         String random = Long.toString( longToken, 10 );
-        String _token = "test"+random;
+        String _token = token.getVehicule().getMarque()+random+vehicule1+proprietaire1;
         token.setToken(_token);
 
         return new ResponseEntity<>(tokenRepository.save(token), HttpStatus.CREATED);
