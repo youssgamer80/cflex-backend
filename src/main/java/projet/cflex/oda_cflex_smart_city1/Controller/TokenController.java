@@ -31,7 +31,7 @@ public class TokenController {
     @PostMapping("/generatebyproprio")
     public ResponseEntity<Token>  generateToken(@RequestBody Integer vehicule, @RequestBody Integer proprio) {
 
-        Vehicule vehicule1 = vehiculeRepository.getById(vehicule);
+        Vehicule vehicule1 = vehiculeRepository.findVehiculeById(vehicule);
         Proprietaire proprietaire1 = proprietaireRepository.getById(proprio);
 
         Token token = new Token();

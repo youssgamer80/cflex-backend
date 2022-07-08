@@ -17,4 +17,7 @@ public interface UsagerRepository extends CrudRepository<Usager, Integer> {
     @Query(value="SELECT * FROM Usager WHERE telephone = :telephone", nativeQuery=true)
     public Usager findByTelephone(@Param("telephone") String telephone);
 
+    @Query("FROM Usager WHERE id = ?1")
+    public Usager findUsagerById(Integer id);
+
 }

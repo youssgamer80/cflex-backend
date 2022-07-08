@@ -56,7 +56,7 @@ public class VehiculeController {
 
     @GetMapping("/listvehiculesproprio/{id}")
     public ResponseEntity<Response> getVehiculeProprio(@PathVariable("id") Integer id){
-        List<Vehicule> listeVehicule= vehiculeRepository.findAll();
+        List<Vehicule> listeVehicule= vehiculeRepository.findAllVehicule();
         List<Vehicule> filteredListVehicule = listeVehicule.stream()
                 .filter(s -> s.getProprietaire().getId()==id)
                 .collect(Collectors.toList());
