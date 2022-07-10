@@ -32,7 +32,7 @@ public class TokenController {
     public ResponseEntity<Token>  generateToken(@RequestBody Integer vehicule, @RequestBody Integer proprio) {
         System.out.println(vehicule);
 
-        Vehicule vehicule1 = vehiculeRepository.getById(vehicule);
+        Vehicule vehicule1 = vehiculeRepository.findVehiculeById(vehicule);
         Proprietaire proprietaire1 = proprietaireRepository.getById(proprio);
         System.out.println(vehicule1);
         System.out.println("gggggggggggggggggggggg");

@@ -42,7 +42,7 @@ public class VehiculeServiceImpl implements VehiculeService {
         Session session = entityManager.unwrap(Session.class);
         Filter filter = session.enableFilter("deletedVehiculeFilter");
         filter.setParameter("isDeleted", isDeleted);
-        Collection<Vehicule> vehicules =  vehiculeRepository.findAll();
+        Collection<Vehicule> vehicules =  vehiculeRepository.findAllVehicule();
         session.disableFilter("deletedVehiculeFilter");
         return vehicules;
     }
