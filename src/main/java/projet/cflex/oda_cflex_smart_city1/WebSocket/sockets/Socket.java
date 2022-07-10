@@ -1,5 +1,6 @@
 package projet.cflex.oda_cflex_smart_city1.WebSocket.sockets;
 
+
 import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,6 +60,7 @@ public class Socket {
 
     public static void broadcast(String message) {
         Vehicule vehicule;
+        //trackerRepository.save().setIdtracker();
         TrackerController trackerController = new TrackerController();
         JSONObject value = new JSONObject(message) ;
         String idtracker = value.getString("idtracker");
@@ -75,7 +77,7 @@ public class Socket {
             listener.sendMessage(message);
             trackerController.createTracker(new Tracker(idtracker,immatriculation,latitude,longitude,typetransport));
         }
-       saveTrackerinMongo(new Tracker(idtracker, immatriculation, latitude, longitude, typetransport));
+        saveTrackerinMongo(new Tracker(idtracker, immatriculation, latitude, longitude, typetransport));
 
     }
 
