@@ -1,4 +1,4 @@
-package projet.cflex.oda_cflex_smart_city1.MongoDB.model;
+package projet.cflex.oda_cflex_smart_city1.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

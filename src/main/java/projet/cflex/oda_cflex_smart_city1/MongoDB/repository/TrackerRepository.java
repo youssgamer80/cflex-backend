@@ -1,6 +1,7 @@
 package projet.cflex.oda_cflex_smart_city1.MongoDB.repository;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+
 import projet.cflex.oda_cflex_smart_city1.MongoDB.model.Tracker;
 
 import java.util.List;
