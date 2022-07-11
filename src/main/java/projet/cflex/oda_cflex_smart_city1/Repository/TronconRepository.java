@@ -16,7 +16,7 @@ public interface TronconRepository extends CrudRepository<Troncon, Integer> {
     public Iterable<Troncon> findByNomNative(@Param("nom") String nom);
 
 
-    @Query("FROM Troncon WHERE id=:id AND statut= true")
-    public Troncon findTroncon(@Param("id")Integer id);
+    @Query("FROM Troncon WHERE id = ?1")
+    public Troncon findTroncon(Integer id);
 
 }

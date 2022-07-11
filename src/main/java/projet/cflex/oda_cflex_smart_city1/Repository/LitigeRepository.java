@@ -4,28 +4,26 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import projet.cflex.oda_cflex_smart_city1.Model.TronconTypeTransport;
-
+import projet.cflex.oda_cflex_smart_city1.Model.Litige;
 
 @Repository
-public interface TronconTypeTransportRepository  extends CrudRepository<TronconTypeTransport, Integer> {
+public interface LitigeRepository extends CrudRepository<Litige, Integer> {
     
 
-    @Query("FROM TronconTypeTransport WHERE statut = true ORDER BY id")
-    public Iterable<TronconTypeTransport> findByStatutJPQL();
+    @Query("FROM Litige WHERE statut = ?1 ORDER BY id")
+    public Iterable<Litige> findByStatutJPQL(Boolean statut);
     
-    // @Query("FROM TronconTypeTransport WHERE id_ligne_fk = ?1")
-    // public List<TronconTypeTransport> findByIdligne(Integer idligne);
+    @Query("FROM Litige WHERE id_usager_fk = ?1")
+    public List<Litige> findByIdUsager(Integer idusager);
 
-    // @Query("FROM TronconTypeTransport WHERE id = ?1")
-    // public TronconTypeTransport findByIdlignePointArrêt(Integer idligne);
+    @Query("FROM Litige WHERE id_usager_fk = ?1")
+    public List<Litige> findByIdVehicule(Integer idvehicule);
 
-
-    // @Query("UPDATE TronconTypeTransport SET statut = true WHERE id_ligne_fk = :idligne AND id_point_arret_fk = :idpoint AND id = :id")
-    // public TronconTypeTransport UpdatlignePointArret(@Param("idligne") int idligne, @Param("idpoint") int idpoint);
+    
+    // @Query("UPDATE Litige SET statut = true WHERE id_ligne_fk = :idligne AND id_point_arret_fk = :idpoint AND id = :id")
+    // public Litige UpdatlignePointArret(@Param("idligne") int idligne, @Param("idpoint") int idpoint);
 
     
     // public LignePointArret deleteByIdligneFk(Integer idligne);
