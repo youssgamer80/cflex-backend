@@ -8,7 +8,6 @@ public class LitigeObject {
     public String libelle;
     public String description;
     public Integer idUsagerFk;
-    public Integer idVehiculeFk;
     // public Integer rang;
 
 }

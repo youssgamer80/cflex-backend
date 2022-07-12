@@ -56,18 +56,6 @@ public class LitigeController {
     }
 
 
-    @GetMapping(value = "/ByVehicule/{idVehicule}")
-    public ResponseEntity<Object> GetByVehicule(@PathVariable Integer idVehicule) {
-        try {
-
-            List<Litige> result = litigeService.getByVehicule(idVehicule);
-            return ResponseHandler.generateResponse("Successfully retrieved data!",
-                    HttpStatus.OK, result);
-        } catch (Exception e) {
-            return ResponseHandler.generateResponse(e.getMessage(),
-                    HttpStatus.MULTI_STATUS, null);
-        }
-    }
 
     @PostMapping(value = "/addLitige")
     public ResponseEntity<Object> Post(@RequestBody LitigeObject litigeObject) {

@@ -31,14 +31,4 @@ public class Litige {
     @JoinColumn(name = "id_usager_fk", nullable = false)
     private Usager idUsagerFk;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_vehicule_fk", nullable = false)
-    private Vehicule idVehiculeFk;
-
- 
-
-   
-
-
-
 }

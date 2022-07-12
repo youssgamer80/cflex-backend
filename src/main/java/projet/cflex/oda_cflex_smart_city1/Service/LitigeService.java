@@ -49,7 +49,6 @@ public class LitigeService {
 
        
         Usager usager = usagerRepository.findUsagerById(litigeObject.idUsagerFk);
-        Vehicule vehicule = vehiculeRepository.findVehiculeById(litigeObject.idVehiculeFk);
 
         // System.out.println("VEHICULE");
         // System.out.println(vehicule);
@@ -63,8 +62,6 @@ public class LitigeService {
         litige.setDescription(litigeObject.description);
     
         litige.setIdUsagerFk(usager);
-        litige.setIdVehiculeFk(vehicule);
-        
 
         return litigeRepository.save(litige);
     }
