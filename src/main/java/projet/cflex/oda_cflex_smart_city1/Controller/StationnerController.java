@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Implementation.StationnerServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Stationner;
@@ -26,6 +27,7 @@ public class StationnerController {
     @Autowired
     StationnerRepository stationnerRepository;
     @GetMapping("/liststationnement/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Response> getStatVehicule(@PathVariable("id") Integer id){
         List<Stationner> listeStationnement= stationnerRepository.findAll();
         List<Stationner> filteredListStationnement = listeStationnement.stream()

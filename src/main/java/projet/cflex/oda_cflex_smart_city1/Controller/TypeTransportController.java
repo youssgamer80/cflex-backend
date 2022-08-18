@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +29,7 @@ public class TypeTransportController {
     @Autowired
     private TypeTransportService typeTransportService;
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get() {
             try {
                 List<TypeTransport> result = typeTransportService.getAllTypeTransports();
@@ -48,6 +50,7 @@ public class TypeTransportController {
         // }
 
         @GetMapping(value="/{libelleTypeTransport}")
+        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get(@PathVariable String libelleTypeTransport) {
             try {
                 TypeTransport result = typeTransportService.getlibelleTypeTransport(libelleTypeTransport);
@@ -58,6 +61,7 @@ public class TypeTransportController {
         }
 
     @PostMapping(value = "/addtypetransport")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody TypeTransport typeTransport) {
         try {
             TypeTransport result = typeTransportService.addTypeTransport(typeTransport);
@@ -68,6 +72,7 @@ public class TypeTransportController {
     }
 
     @PutMapping(value = "/updatetypetransport/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody TypeTransport typeTransport, @PathVariable Integer id) {
         
         try{
@@ -80,6 +85,7 @@ public class TypeTransportController {
     }
 
     @DeleteMapping(value = "/deletetypetransport/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody TypeTransport typeTransport) {
        
         try{

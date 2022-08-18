@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class ItineraireController {
     @Autowired
     private ItineraireService itineraireService;
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get() {
             try {
                 List<Itineraire> result = itineraireService.getAllItineraires();
@@ -39,6 +41,7 @@ public class ItineraireController {
         }
 
         @GetMapping(value="/{id}")
+        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
                 Itineraire result = itineraireService.getItineraire(id);
@@ -50,6 +53,7 @@ public class ItineraireController {
 
 
     @PostMapping(value = "/addItineraire")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody Itineraire itineraire) {
         try {
             Itineraire result = itineraireService.addItineraire(itineraire);
@@ -61,6 +65,7 @@ public class ItineraireController {
  
     
     @PutMapping(value = "/updateItineraire/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Itineraire itineraire, @PathVariable Integer id) {
         
         try{
@@ -73,6 +78,7 @@ public class ItineraireController {
     }
 
     @DeleteMapping(value = "/deleteUsager/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Itineraire itineraire) {
        
         try{

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,6 +44,7 @@ public class TronconController {
      */
 
     @GetMapping("/getTroncons")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> ListeTroncon(){
         try {
             List<Troncon> resultat = tronconServ.Liste();
@@ -61,7 +63,7 @@ public class TronconController {
      */
 
     @GetMapping("/getTronconById/{id}")
-
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Object> UnMode(@Validated @PathVariable("id") Integer id){
 
@@ -82,6 +84,7 @@ public class TronconController {
      */
 
     @GetMapping(value="/getTronconByNom/{nom}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Object> ListeMode(@Validated @PathVariable String nom){
 
@@ -102,6 +105,7 @@ public class TronconController {
      */
 
     @PostMapping("/addTronconGenere")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Create(@RequestBody Ligne_PointArret Ligne_PointArrets) {
         try {
             List<Troncon> resultat = tronconServ.Generatetroncon(Ligne_PointArrets);
@@ -118,6 +122,7 @@ public class TronconController {
      */
 
     @PutMapping("/updateTroncon/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Troncon troncon, @PathVariable Integer id) {
         
         try{
@@ -136,6 +141,7 @@ public class TronconController {
      */
 
     @DeleteMapping("/deleteTroncon/{nom}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Delete( @Validated @PathVariable String nom){
         try {
             List<Troncon> resultat = tronconServ.deleteTroncon(nom);

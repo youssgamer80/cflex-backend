@@ -7,6 +7,7 @@ import javax.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,6 +35,7 @@ public class LigneController {
     private LigneRepository ligneRepository;
     
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<Ligne> result = ligneService.getAllLignes();
@@ -44,6 +46,7 @@ public class LigneController {
     }
 
     @GetMapping(value = "byid/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable int id) {
         try {
             Ligne result = ligneService.getLigneBydId(id);
@@ -56,6 +59,7 @@ public class LigneController {
     }
 
     @GetMapping(value = "/{nomLigne}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable String nomLigne) {
         try {
 
@@ -67,6 +71,7 @@ public class LigneController {
     }
 
     @PostMapping(value = "/addLigne")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody LigneObject ligneObject) {
         try {
             Ligne result ;
@@ -89,6 +94,7 @@ public class LigneController {
     }
 
     @PutMapping(value = "/updateligne/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody LigneObject ligneObject, @PathVariable Integer id) {
 
         try {
@@ -101,6 +107,7 @@ public class LigneController {
     }
 
     @DeleteMapping(value = "/deleteligne/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@PathVariable Integer id) {
 
         try {

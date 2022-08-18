@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -37,6 +38,7 @@ public class TypePointArretController {
      */
 
     @GetMapping("/getTypePointArrets")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> ListeTypesPointArret(){
         try {
             List<TypePointArret> resultat = service.Liste();
@@ -55,6 +57,7 @@ public class TypePointArretController {
      */
 
     @GetMapping("/getTypePointArretById/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     @ResponseBody
     public Object UnType(@Validated @PathVariable("id") Integer id){
 
@@ -76,6 +79,7 @@ public class TypePointArretController {
 
 
     @PostMapping("/addTypePointArret")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> AddTypePA (@RequestBody TypePointArret type){
         try {
             TypePointArret resultat = service.NewTypePA(type);
@@ -93,6 +97,7 @@ public class TypePointArretController {
      */
 
     @PutMapping("/updateTypePointArret/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> updateTypePA(@PathVariable("id") Integer id, @RequestBody TypePointArret mode){
         try{
             TypePointArret resultat= service.updateTypePA(id,mode);
@@ -111,6 +116,7 @@ public class TypePointArretController {
      */
 
     @DeleteMapping("/deleteTypePointArret/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
         try {
             TypePointArret resultat = service.deleteTypePA(id);

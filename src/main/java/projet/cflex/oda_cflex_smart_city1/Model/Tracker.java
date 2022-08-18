@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Document(collection = "tracker")
 public class Tracker {
   @Id
   private String id;
@@ -25,8 +24,10 @@ public class Tracker {
   public Tracker(String idtracker, String immatriculation, String latitude, String longitude, String typetransport) {
 
   }
+
   @JsonCreator
-  public Tracker(String id, String idtracker, String immatriculation, Double latitude, Double longitude, String typetransport) {
+  public Tracker(String id, String idtracker, String immatriculation, Double latitude, Double longitude,
+      String typetransport) {
     this.id = id;
     this.idtracker = idtracker;
     this.immatriculation = immatriculation;
@@ -85,6 +86,7 @@ public class Tracker {
 
   @Override
   public String toString() {
-    return "Tracker [id=" + id + ", idtracker="+idtracker +",immatriculation="+immatriculation+", latitude=" + latitude + ", longitude=" + longitude + ", Type Transport=" + typetransport + "]";
+    return "Tracker [id=" + id + ", idtracker=" + idtracker + ",immatriculation=" + immatriculation + ", latitude="
+        + latitude + ", longitude=" + longitude + ", Type Transport=" + typetransport + "]";
   }
 }

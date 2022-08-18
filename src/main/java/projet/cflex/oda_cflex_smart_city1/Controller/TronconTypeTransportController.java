@@ -7,6 +7,7 @@ import javax.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class TronconTypeTransportController {
     private TronconTypeTransportService tronconTypeTransportService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<TronconTypeTransport> result = tronconTypeTransportService.getAllTronconTypeTransports();
@@ -41,6 +43,7 @@ public class TronconTypeTransportController {
 
 
     @PostMapping("/addTronconTypeTransport")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody TronconTypeTransportObject tronconTypeTransportObject){
 
         try{

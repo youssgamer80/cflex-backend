@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Implementation.VehiculeServiceImpl;
 import projet.cflex.oda_cflex_smart_city1.Model.Vehicule;
@@ -31,6 +32,7 @@ public class VehiculeController {
     VehiculeRepository vehiculeRepository;
 
     @PostMapping("/savevehicule")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Vehicule> createVehicule(Vehicule vehicule) {
 
         if(vehicule.getProprietaire().getStatut()==false) {
@@ -44,6 +46,7 @@ public class VehiculeController {
         }
     }
     @GetMapping("/list")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Response> getVehicule(){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", vehiculeService.list(true)))
@@ -55,6 +58,7 @@ public class VehiculeController {
     }
 
     @GetMapping("/listvehiculesproprio/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Response> getVehiculeProprio(@PathVariable("id") Integer id){
         List<Vehicule> listeVehicule= vehiculeRepository.findAllVehicule();
         List<Vehicule> filteredListVehicule = listeVehicule.stream()
@@ -70,6 +74,7 @@ public class VehiculeController {
     }
 
     @GetMapping("/get/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Response> getVehicule(@PathVariable("id") Integer id){
         return ResponseEntity.ok(Response.builder().timeStamp(now()).
                 data(Map.of("vehicule", vehiculeService.get(id)))
@@ -81,6 +86,7 @@ public class VehiculeController {
     }
 
     @PutMapping(value = "/updatevehicule/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Vehicule> updateVehicule(@PathVariable("id") Integer id, @RequestBody Vehicule vehicule) {
 
         Optional<Vehicule> existingvehicule = Optional.ofNullable(this.vehiculeRepository.findById(id)
@@ -100,6 +106,7 @@ public class VehiculeController {
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Response> deleteVehicule(@PathVariable("id") Integer id){
         boolean exists = vehiculeRepository.existsById(id);
         if(!exists){throw new IllegalStateException("Le vehicule avec le numero "+id+" n'existe pas");}

@@ -28,9 +28,9 @@ import projet.cflex.oda_cflex_smart_city1.Model.Myres;
 @RequestMapping("/api")
 @Tag(name = "API Envoie SmsOtp", description = "Api service d'envoie otp")
 public class SmsOtpController {
-
+    
     @PostMapping(value = "/sendotp") // Map ONLY POST Requests
-            
+    
         public ResponseEntity<Object> sendotp(@RequestBody MyPhone myPhone) {
             
             String Telephone = myPhone.getTelephone();

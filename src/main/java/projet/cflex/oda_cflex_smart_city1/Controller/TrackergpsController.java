@@ -7,6 +7,7 @@ import javax.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +40,7 @@ public class TrackergpsController {
     private VehiculeService vehiculeService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<Trackergps> result = trackergpsService.getAllTrackergps();
@@ -49,6 +51,7 @@ public class TrackergpsController {
     }
 
     @GetMapping(value = "byid/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable int id) {
         try {
             Trackergps result = trackergpsService.getTrackergpsBydId(id);
@@ -61,6 +64,7 @@ public class TrackergpsController {
     }
 
     @GetMapping(value = "/{nomTrackergps}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable String nomTrackergps) {
         try {
 
@@ -72,6 +76,7 @@ public class TrackergpsController {
     }
 
     @PostMapping(value = "/addTrackergps")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody TrackergpsObject trackergpsObject) {
         try {
 
@@ -98,6 +103,7 @@ public class TrackergpsController {
     }
 
     @PutMapping(value = "/updateTrackergps/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody TrackergpsObject TrackergpsObject, @PathVariable Integer id) {
 
         try {
@@ -112,6 +118,7 @@ public class TrackergpsController {
     }
 
     @DeleteMapping(value = "/deleteTrackergps/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@PathVariable Integer id) {
 
         try {

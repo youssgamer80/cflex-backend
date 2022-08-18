@@ -3,24 +3,30 @@ package projet.cflex.oda_cflex_smart_city1.Model;
 import lombok.*;
 
 import javax.persistence.*;
-
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@ToString
 @Entity
-@Table(name = "role")
+@Table(name = "roles")
 public class Role {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
-    private Integer id;
-
-    @Column(name = "role", nullable = false)
-    private String role;
-
-    @Column(name = "statut", nullable = false)
-    private Boolean statut = false;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Integer id;
+	@Enumerated(EnumType.STRING)
+	@Column(length = 20)
+	private ERole name;
+	public Role() {
+	}
+	public Role(ERole name) {
+		this.name = name;
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
+	public ERole getName() {
+		return name;
+	}
+	public void setName(ERole name) {
+		this.name = name;
+	}
 }

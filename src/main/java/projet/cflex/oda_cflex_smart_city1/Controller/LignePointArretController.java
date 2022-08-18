@@ -7,6 +7,7 @@ import javax.validation.constraints.Null;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,6 +31,7 @@ public class LignePointArretController {
     private LignePointArretService ligne_Point_ArretService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<LignePointArret> result = ligne_Point_ArretService.getAllLignesPointArret();
@@ -42,6 +44,7 @@ public class LignePointArretController {
    
 
     @GetMapping(value = "/{idligne}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable Integer idligne) {
         try {
 
@@ -55,6 +58,7 @@ public class LignePointArretController {
     }
 
     @PostMapping(value = "/addLignePointArret")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
         try {
 
@@ -68,6 +72,7 @@ public class LignePointArretController {
 
 
     @PutMapping(value = "/updateligne/")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Ligne_Point_ArretObject ligne_Point_ArretObject) {
 
         try {

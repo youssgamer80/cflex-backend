@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class ZoneparentController {
     @Autowired
     private ZoneparentService zoneparentService;
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get() {
             try {
                 List<Zoneparent> result = zoneparentService.getAllZoneparents();
@@ -39,6 +41,7 @@ public class ZoneparentController {
         }
 
         @GetMapping(value="/{id}")
+        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
                 Zoneparent result = zoneparentService.getZoneparent(id);
@@ -50,6 +53,7 @@ public class ZoneparentController {
 
 
     @PostMapping(value = "/addZoneparent")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody Zoneparent zoneparent) {
         try {
             Zoneparent result = zoneparentService.addZoneparent(zoneparent);
@@ -61,6 +65,7 @@ public class ZoneparentController {
  
     
     @PutMapping(value = "/updateZoneparent/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Zoneparent zoneparent, @PathVariable Integer id) {
         
         try{
@@ -73,6 +78,7 @@ public class ZoneparentController {
     }
 
     @DeleteMapping(value = "/deleteZoneparent/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zoneparent zoneparent) {
        
         try{

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +41,7 @@ public class ModeDeplacementController {
      */
 
     @GetMapping("/getModeDeplacements")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> ListeModeDeplacement(){
         try {
             List<ModeDeplacement> resultat = MDService.Liste();
@@ -58,6 +60,7 @@ public class ModeDeplacementController {
      */
 
     @GetMapping("/getModeDeplacementById/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     @ResponseBody
     public Object UnMode(@Validated @PathVariable("id") Integer id){
 
@@ -78,6 +81,7 @@ public class ModeDeplacementController {
      */
 
     @GetMapping("/getModeDeplacementByMode/{modeDeplacement}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     @ResponseBody
     public ResponseEntity<Object> ListeMode(@Validated @PathVariable("modeDeplacement") String modeDeplacement){
 
@@ -99,6 +103,7 @@ public class ModeDeplacementController {
 
 
     @PostMapping("/addModeDeplacement")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post (@RequestBody ModeDeplacement mode){
         try {
             ModeDeplacement resultat = MDService.NewMode(mode);
@@ -116,6 +121,7 @@ public class ModeDeplacementController {
      */
 
     @PutMapping("/updateModeDeplacement/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> updateMode(@PathVariable("id") Integer id, @RequestBody ModeDeplacement mode){
         try{
             ModeDeplacement resultat= MDService.updateModeDeplacement(id,mode);
@@ -134,6 +140,7 @@ public class ModeDeplacementController {
      */
 
     @DeleteMapping("/deleteModeDeplacement/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Delete( @Validated @PathVariable Integer id){
         try {
             ModeDeplacement resultat = MDService.deleteMode(id);

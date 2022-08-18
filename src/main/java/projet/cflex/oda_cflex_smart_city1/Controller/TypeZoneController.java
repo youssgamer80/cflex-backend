@@ -3,6 +3,7 @@ package projet.cflex.oda_cflex_smart_city1.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Model.TypeZone;
 import projet.cflex.oda_cflex_smart_city1.Service.TypeZoneService;
@@ -22,6 +23,7 @@ public class TypeZoneController {
     private TypeZoneService typeZoneService;
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<TypeZone> result = typeZoneService.getAllTypeZones();
@@ -54,6 +56,7 @@ public class TypeZoneController {
     // }
 
     @PostMapping(value = "/addTypeZone")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody TypeZone TypeZone) {
         try {
             TypeZone result = typeZoneService.addTypeZone(TypeZone);
@@ -64,6 +67,7 @@ public class TypeZoneController {
     }
 
     @PutMapping(value = "/updateTypeZone/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody TypeZone TypeZone, @PathVariable Integer id) {
         
         try {
@@ -77,6 +81,7 @@ public class TypeZoneController {
     }
 
     @DeleteMapping(value = "/deleteTypeZone/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@PathVariable Integer id) {
 
         try {

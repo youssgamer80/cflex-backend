@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,6 +30,7 @@ public class UsagerController {
     @Autowired
     private UsagerService usagerService;
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get() {
             try {
                 List<Usager> result = usagerService.getAllUsagers();
@@ -39,6 +41,7 @@ public class UsagerController {
         }
 
         @GetMapping(value="/{id}")
+        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
                 Usager result = usagerService.getUsager(id);
@@ -50,6 +53,7 @@ public class UsagerController {
 
 
     @PostMapping(value = "/addUsager")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody Usager usager) {
         try {
             Usager result = usagerService.addUsager(usager);
@@ -62,6 +66,7 @@ public class UsagerController {
  
     
     @PutMapping(value = "/updateUsager/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Usager usager, @PathVariable Integer id) {
         
         try{
@@ -74,6 +79,7 @@ public class UsagerController {
     }
 
     @DeleteMapping(value = "/deleteUsager/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Usager usager) {
        
         try{

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class ZoneController {
 
 
     @GetMapping
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get() {
             try {
                 List<Zone> result = zoneService.getAllZones();
@@ -45,6 +47,7 @@ public class ZoneController {
         }
 
         @GetMapping(value="/{id}")
+        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
         public ResponseEntity<Object> Get(@PathVariable int id) {
             try {
                 Zone result = zoneService.getZone(id);
@@ -56,6 +59,7 @@ public class ZoneController {
 
 
     @PostMapping(value = "/addZone")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody Zone zone) {
         try {
 
@@ -79,6 +83,7 @@ public class ZoneController {
  
     
     @PutMapping(value = "/updateZone/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Zone zone, @PathVariable Integer id) {
         
         try{
@@ -91,6 +96,7 @@ public class ZoneController {
     }
 
     @DeleteMapping(value = "/deleteZone/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zone zone) {
        
         try{

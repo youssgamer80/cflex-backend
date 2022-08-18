@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import org.apache.http.client.ResponseHandler;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,7 +33,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.Position;
 public class PostPosition{
 
     @PostMapping(value = "/position") // Map ONLY POST Requests
-
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> postPosition() {
 
 

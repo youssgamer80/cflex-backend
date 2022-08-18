@@ -6,7 +6,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Document(collection = "TrackerCouloir")
 public class TrackerCouloir {
 
     @Id
@@ -30,8 +29,10 @@ public class TrackerCouloir {
     private String typetransport;
     @JsonProperty("nbVehiculeApproche")
     private Integer nbVehiculeApproche;
-    public TrackerCouloir(String idcouloir, Integer nb_person , String idtracker,
-            String immatriculation, Double latitude, Double longitude, String typetransport,Integer nbVehiculeApproche) {
+
+    public TrackerCouloir(String idcouloir, Integer nb_person, String idtracker,
+            String immatriculation, Double latitude, Double longitude, String typetransport,
+            Integer nbVehiculeApproche) {
 
         this.idcouloir = idcouloir;
         this.nb_person = nb_person;
@@ -45,8 +46,9 @@ public class TrackerCouloir {
     }
 
     @JsonCreator
-    public TrackerCouloir(String id, String idcouloir, Integer nb_person , String idtracker,
-            String immatriculation, Double latitude, Double longitude, String typetransport,Integer nbVehiculeApproche) {
+    public TrackerCouloir(String id, String idcouloir, Integer nb_person, String idtracker,
+            String immatriculation, Double latitude, Double longitude, String typetransport,
+            Integer nbVehiculeApproche) {
 
         this.id = id;
         this.idcouloir = idcouloir;
@@ -142,7 +144,9 @@ public class TrackerCouloir {
 
     @Override
     public String toString() {
-        return "TrackerCouloir [id=" + id + ", idcouloir=" + idcouloir + ",nb_person=" + nb_person + ", idtracker=" + idtracker + ", immatriculation=" + immatriculation + ", latitude="
-                + latitude + ", longitude=" + longitude + ", TypeTransport=" + typetransport + ", nb_vehicule_approche="+nbVehiculeApproche+"]";
+        return "TrackerCouloir [id=" + id + ", idcouloir=" + idcouloir + ",nb_person=" + nb_person + ", idtracker="
+                + idtracker + ", immatriculation=" + immatriculation + ", latitude="
+                + latitude + ", longitude=" + longitude + ", TypeTransport=" + typetransport + ", nb_vehicule_approche="
+                + nbVehiculeApproche + "]";
     }
 }
