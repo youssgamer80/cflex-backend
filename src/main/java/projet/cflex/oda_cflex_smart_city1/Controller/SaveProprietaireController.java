@@ -74,7 +74,7 @@ public class SaveProprietaireController {
     // Create new user's account
     User user = new User(proprietaire.getTelephone(),
         proprietaire.getEmail(),
-        encoder.encode(proprietaire.getPassword()));
+        encoder.encode(proprietaire.getPassword()),proprietaire.getPrenom(),proprietaire.getNom(),proprietaire.getTelephone());
     Set<String> strRoles = proprietaire.getRole();
     Set<Role> roles = new HashSet<>();
     if (strRoles == null) {

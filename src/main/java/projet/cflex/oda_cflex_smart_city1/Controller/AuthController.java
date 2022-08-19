@@ -10,6 +10,7 @@ import projet.cflex.oda_cflex_smart_city1.payload.request.SignupRequest;
 import projet.cflex.oda_cflex_smart_city1.payload.request.TokenRefreshRequest;
 import projet.cflex.oda_cflex_smart_city1.payload.response.MessageResponse;
 import projet.cflex.oda_cflex_smart_city1.payload.response.TokenRefreshResponse;
+import projet.cflex.oda_cflex_smart_city1.payload.response.UserInfoResponse;
 import projet.cflex.oda_cflex_smart_city1.Repository.RoleRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.UserRepository;
 import projet.cflex.oda_cflex_smart_city1.Security.jwt.JwtResponse;
@@ -62,7 +63,7 @@ public class AuthController {
   public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
     Authentication authentication = authenticationManager
-        .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
+        .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
 
     SecurityContextHolder.getContext().setAuthentication(authentication);
 
@@ -76,7 +77,7 @@ public class AuthController {
     RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
 
     return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
-        userDetails.getUsername(), userDetails.getEmail(), roles));
+        userDetails.getUsername(), userDetails.getEmail(), userDetails.getNom(),userDetails.getPrenom(),userDetails.getTelephone(),roles));
   }
 
   @PostMapping("/signup")
@@ -88,12 +89,14 @@ public class AuthController {
     if (userRepository.existsByEmail(signUpRequest.getEmail())) {
       return ResponseEntity.badRequest().body(new MessageResponse("Error: Email is already in use!"));
     }
+    
 
     // Create new user's account
     User user = new User(signUpRequest.getUsername(), signUpRequest.getEmail(),
-        encoder.encode(signUpRequest.getPassword()));
+        encoder.encode(signUpRequest.getPassword()),signUpRequest.getPrenom(),signUpRequest.getNom(),signUpRequest.getTelephone());
 
     Set<String> strRoles = signUpRequest.getRole();
+    System.out.println(signUpRequest.getRole());
     Set<Role> roles = new HashSet<>();
 
     if (strRoles == null) {
@@ -123,10 +126,26 @@ public class AuthController {
       });
     }
 
+    System.out.println(roles);
     user.setRoles(roles);
     userRepository.save(user);
 
-    return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    Authentication authentication = authenticationManager
+        .authenticate(new UsernamePasswordAuthenticationToken(signUpRequest.getEmail(), signUpRequest.getPassword()));
+
+    SecurityContextHolder.getContext().setAuthentication(authentication);
+
+    UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+
+    String jwt = jwtUtils.generateJwtToken(userDetails);
+
+    List<String> role = userDetails.getAuthorities().stream().map(item -> item.getAuthority())
+        .collect(Collectors.toList());
+
+    RefreshToken refreshToken = refreshTokenService.createRefreshToken(userDetails.getId());
+
+    return ResponseEntity.ok(new JwtResponse(jwt, refreshToken.getToken(), userDetails.getId(),
+        userDetails.getUsername(), userDetails.getEmail(),userDetails.getNom(),userDetails.getPrenom(),userDetails.getTelephone(), role));
   }
 
   @PostMapping("/refreshtoken")

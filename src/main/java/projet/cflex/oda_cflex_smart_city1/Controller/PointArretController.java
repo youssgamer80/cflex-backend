@@ -37,7 +37,7 @@ public class PointArretController {
     public static PointArretRepository pointarretRepository;
 
     @GetMapping
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get() {
         try {
             List<PointArret> result = pointArretService.getAllPointArret();
@@ -48,7 +48,7 @@ public class PointArretController {
     }
 
     @GetMapping(value = "/search/{nom}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable String nom) {
         try {
             Iterable<PointArret> result = pointArretService.getPointArretByNom(nom);
@@ -59,7 +59,7 @@ public class PointArretController {
     }
 
     @GetMapping(value = "/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Get(@PathVariable int id) {
         try {
             PointArret result = pointArretService.getPointArret(id);
@@ -70,7 +70,7 @@ public class PointArretController {
     }
 
     @GetMapping("/getPointArretByZone/{idzonefk}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> GetPointArretByZone(Integer idzone) {
         try {
 
@@ -82,7 +82,7 @@ public class PointArretController {
     }
 
     @GetMapping("/getPointArretByType/{idtypepointarretfk}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> GetPointArretByType(Integer idtypePA) {
         try {
 
@@ -94,7 +94,7 @@ public class PointArretController {
     }
 
     @PostMapping(value = "/addPointArret")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Post(@RequestBody PointArret pointarret) {
         try {
             PointArret result = pointArretService.addPointArret(pointarret);
@@ -105,7 +105,7 @@ public class PointArretController {
     }
 
     @PutMapping(value = "/updatePointArret/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody PointArret pointarret, @PathVariable Integer id) {
 
         try {
@@ -118,7 +118,7 @@ public class PointArretController {
     }
 
     @DeleteMapping("/deletePointArret/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@PathVariable Integer id) {
 
         try {
@@ -130,7 +130,7 @@ public class PointArretController {
     }
 
     @GetMapping("/pointArretByCordonnees")
-    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Getter(@RequestParam Map<String, String> requestParams) {
         try {
             List<PointArret> result = pointArretService.getPointArretByCord(requestParams);
