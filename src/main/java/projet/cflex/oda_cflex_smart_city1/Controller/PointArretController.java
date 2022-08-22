@@ -26,7 +26,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.PointArretService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/pointarrets")
 @Tag(name = "API Point Arret", description = "Api des services des point arrets")
 public class PointArretController {
