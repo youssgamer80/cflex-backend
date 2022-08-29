@@ -25,7 +25,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.ModeDeplacementService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/ModeDeplacement")
 
 @Tag(name = "L'API de Mode de déplacement", description = "L'Api de la gestion des modes de déplacement")

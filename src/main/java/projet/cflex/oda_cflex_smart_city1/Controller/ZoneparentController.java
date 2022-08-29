@@ -22,35 +22,35 @@ import projet.cflex.oda_cflex_smart_city1.Service.ZoneparentService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/zoneparents")
 @Tag(name = "API Zone parent", description = "Api des services des parent des zones")
 public class ZoneparentController {
 
     @Autowired
     private ZoneparentService zoneparentService;
+
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
-        public ResponseEntity<Object> Get() {
-            try {
-                List<Zoneparent> result = zoneparentService.getAllZoneparents();
-                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-            } catch (Exception e) {
-                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-            }
+    public ResponseEntity<Object> Get() {
+        try {
+            List<Zoneparent> result = zoneparentService.getAllZoneparents();
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
+    }
 
-        @GetMapping(value="/{id}")
-        @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
-        public ResponseEntity<Object> Get(@PathVariable int id) {
-            try {
-                Zoneparent result = zoneparentService.getZoneparent(id);
-                return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-            } catch (Exception e) {
-                return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-            }
+    @GetMapping(value = "/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
+    public ResponseEntity<Object> Get(@PathVariable int id) {
+        try {
+            Zoneparent result = zoneparentService.getZoneparent(id);
+            return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
+        } catch (Exception e) {
+            return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
-
+    }
 
     @PostMapping(value = "/addZoneparent")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
@@ -62,32 +62,30 @@ public class ZoneparentController {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
         }
     }
- 
-    
+
     @PutMapping(value = "/updateZoneparent/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody Zoneparent zoneparent, @PathVariable Integer id) {
-        
-        try{
+
+        try {
             Zoneparent result = zoneparentService.updateZoneparent(id, zoneparent);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
-        }catch(Exception e){
+        } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, e);
         }
-    
+
     }
 
     @DeleteMapping(value = "/deleteZoneparent/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zoneparent zoneparent) {
-       
-        try{
-            Zoneparent result = zoneparentService.deleteZoneparent(id,zoneparent);
+    public ResponseEntity<Object> Put(@PathVariable Integer id) {
+
+        try {
+            Zoneparent result = zoneparentService.deleteZoneparent(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
-        } catch(Exception e){
+        } catch (Exception e) {
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
         }
     }
-
 
 }

@@ -27,7 +27,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.Position;
 import projet.cflex.oda_cflex_smart_city1.Model.Position;
 
 @RestController // This means that this class is a Controller
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api")
 @Tag(name = "API Envoie de position utilisateurs", description = "Api service d'envoie de positions")
 public class PostPosition{

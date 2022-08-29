@@ -24,7 +24,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.TypePointArretService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/v1/TypePointArret")
 
 @Tag(name = "L'API de Type de point d'arret", description = "L'Api de la gestion des Types de point d'arrêt")

@@ -24,7 +24,7 @@ import projet.cflex.oda_cflex_smart_city1.Model.MyPhone;
 import projet.cflex.oda_cflex_smart_city1.Model.Myres;
 
 @RestController // This means that this class is a Controller
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api")
 @Tag(name = "API Envoie SmsOtp", description = "Api service d'envoie otp")
 public class SmsOtpController {

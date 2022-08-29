@@ -33,6 +33,7 @@ public class ZoneService {
 
         return zoneRepository.save(zone);
     }
+    
 
     public Zone getZone(int id) {
 
@@ -64,11 +65,11 @@ public class ZoneService {
 		return zoneRepository.save(existingZone);
       }
 
-    public Zone deleteZone(Integer id, Zone zone) {
+    public Zone deleteZone(Integer id) {
 
         Zone existingZone = this.zoneRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Zone not found with id :" + id));
-            existingZone.setStatut(zone.getStatut());
+            existingZone.setStatut(false);
 		 return zoneRepository.save(existingZone);
     }
     

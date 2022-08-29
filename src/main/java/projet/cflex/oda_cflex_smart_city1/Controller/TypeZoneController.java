@@ -6,21 +6,22 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import projet.cflex.oda_cflex_smart_city1.Model.TypeZone;
+import projet.cflex.oda_cflex_smart_city1.Model.Zone;
+import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 import projet.cflex.oda_cflex_smart_city1.Service.TypeZoneService;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 import java.util.List;
 
-
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/typezone")
 public class TypeZoneController {
 
-
-   
     @Autowired
     private TypeZoneService typeZoneService;
+    @Autowired
+    private ZoneRepository zoneRepository;
 
     @GetMapping
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
@@ -47,12 +48,14 @@ public class TypeZoneController {
 
     // @GetMapping(value = "/{libelleTypeZone}")
     // public ResponseEntity<Object> Get(@PathVariable String libelleTypeZone) {
-    //     try {
-    //         TypeZone result = typeZoneService.getlibelleTypeZone(libelleTypeZone);
-    //         return ResponseHandler.generateResponse("Successfully retrieved data!", HttpStatus.OK, result);
-    //     } catch (Exception e) {
-    //         return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS, null);
-    //     }
+    // try {
+    // TypeZone result = typeZoneService.getlibelleTypeZone(libelleTypeZone);
+    // return ResponseHandler.generateResponse("Successfully retrieved data!",
+    // HttpStatus.OK, result);
+    // } catch (Exception e) {
+    // return ResponseHandler.generateResponse(e.getMessage(),
+    // HttpStatus.MULTI_STATUS, null);
+    // }
     // }
 
     @PostMapping(value = "/addTypeZone")
@@ -69,9 +72,9 @@ public class TypeZoneController {
     @PutMapping(value = "/updateTypeZone/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Object> Put(@RequestBody TypeZone TypeZone, @PathVariable Integer id) {
-        
+
         try {
-           
+
             TypeZone result = typeZoneService.updateTypeZone(id, TypeZone);
             return ResponseHandler.generateResponse("Successfully updated data!", HttpStatus.OK, result);
         } catch (Exception e) {
@@ -82,8 +85,7 @@ public class TypeZoneController {
 
     @DeleteMapping(value = "/deleteTypeZone/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
-    public ResponseEntity<Object> Put(@PathVariable Integer id) {
-
+    public ResponseEntity<Object> Put(@PathVariable Integer id){
         try {
             TypeZone result = typeZoneService.deleteTypeZone(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);

@@ -26,7 +26,7 @@ import projet.cflex.oda_cflex_smart_city1.Repository.TrackergpsRepository;
 import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RequestMapping("/api/Trackergpss")
 public class TrackergpsController {
 

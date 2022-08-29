@@ -55,11 +55,11 @@ public class ZoneparentService {
 		return zoneparentRepository.save(existingZoneparent);
     }
 
-    public Zoneparent deleteZoneparent(Integer id, Zoneparent zoneparent) {
+    public Zoneparent deleteZoneparent(Integer id) {
 
         Zoneparent existingZoneparent = this.zoneparentRepository.findById(id)
 			.orElseThrow(() -> new ResourceNotFoundException("Zone parent not found with id :" + id));
-            existingZoneparent.setStatut(zoneparent.getStatut());
+            existingZoneparent.setStatut(false);
 		 return zoneparentRepository.save(existingZoneparent);
     }
     

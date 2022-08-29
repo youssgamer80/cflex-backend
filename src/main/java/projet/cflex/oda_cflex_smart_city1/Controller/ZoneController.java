@@ -97,10 +97,10 @@ public class ZoneController {
 
     @DeleteMapping(value = "/deleteZone/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
-    public ResponseEntity<Object> Put( @PathVariable Integer id, @RequestBody Zone zone) {
+    public ResponseEntity<Object> Put( @PathVariable Integer id) {
        
         try{
-            Zone result = zoneService.deleteZone(id,zone);
+            Zone result = zoneService.deleteZone(id);
             return ResponseHandler.generateResponse("Successfully deleted data!", HttpStatus.OK, result);
         } catch(Exception e){
             return ResponseHandler.generateResponse(e.getMessage(), HttpStatus.MULTI_STATUS);
