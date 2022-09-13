@@ -20,7 +20,7 @@ import static org.springframework.http.HttpStatus.OK;
 @Data
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("stationnement")
+@RequestMapping("/api/v1/stationnement")
 @RequiredArgsConstructor
 public class StationnerController {
     StationnerServiceImpl stationnerService;

@@ -16,7 +16,7 @@ public interface ZoneRepository extends JpaRepository<Zone, Integer> {
     public Iterable<Zone> findByStatutJPQL(Boolean statut);
 
     @Query("FROM Zone WHERE id = ?1")
-    public Zone findZone(Integer id);
+    public Zone findZone(Integer idZoneFk);
 
     boolean existsZoneByLibelle(String libelle);
 

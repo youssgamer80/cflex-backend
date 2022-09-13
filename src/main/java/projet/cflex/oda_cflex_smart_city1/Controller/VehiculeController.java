@@ -23,7 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("api/vehicule")
+@RequestMapping("api/v1/vehicule")
 @RequiredArgsConstructor
 public class VehiculeController {
     @Autowired

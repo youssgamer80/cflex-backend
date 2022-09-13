@@ -23,7 +23,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController   
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/typetransport")
+@RequestMapping("/api/v1/typetransport")
 public class TypeTransportController {
 
     @Autowired

@@ -30,7 +30,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/rechercher-itineraire")
+@RequestMapping("/api/v1/rechercher-itineraire")
 public class RechercherItineraireController {
    @Autowired
    private TronconService tronconServ;

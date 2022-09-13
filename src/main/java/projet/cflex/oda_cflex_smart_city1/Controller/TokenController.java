@@ -28,7 +28,7 @@ public class TokenController {
     @Autowired
     ProprietaireRepository proprietaireRepository;
 
-    @PostMapping("/generatebyproprio")
+    @PostMapping("/api/v1//generatebyproprio")
     @PreAuthorize("hasRole('USER') or hasRole('PROPRIETAIRE') or hasRole('ADMIN')")
     public ResponseEntity<Token> generateToken(@RequestBody Integer vehicule, @RequestBody Integer proprio) {
         System.out.println(vehicule);

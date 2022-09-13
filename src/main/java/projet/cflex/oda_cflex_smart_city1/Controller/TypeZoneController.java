@@ -15,7 +15,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@RequestMapping("/api/typezone")
+@RequestMapping("/api/v1/typezone")
 public class TypeZoneController {
 
     @Autowired

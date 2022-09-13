@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 
 import projet.cflex.oda_cflex_smart_city1.Controller.LigneObject;
 import projet.cflex.oda_cflex_smart_city1.Model.Ligne;
+import projet.cflex.oda_cflex_smart_city1.Model.PointArret;
 // import projet.cflex.oda_cflex_smart_city1.Model.TypeTransport;
 import projet.cflex.oda_cflex_smart_city1.Model.Zone;
 import projet.cflex.oda_cflex_smart_city1.Repository.LigneRepository;
+import projet.cflex.oda_cflex_smart_city1.Repository.PointArretRepository;
 // import projet.cflex.oda_cflex_smart_city1.Repository.TypeTransportRepository;
 import projet.cflex.oda_cflex_smart_city1.Repository.ZoneRepository;
 
@@ -26,6 +28,9 @@ public class LigneService {
     // private TypeTransportRepository typeTransportRepository;
     @Autowired
     private ZoneRepository zoneRepository;
+
+    @Autowired
+    public PointArretRepository pointArretRepository;
 
     private static Boolean statut = true;
 
@@ -44,19 +49,15 @@ public class LigneService {
     
         // TypeTransport typeTransport = typeTransportRepository.findTypeTransport(ligneObject.idTypeTransportFk);
         Zone zone = zoneRepository.findZone(ligneObject.idZoneFk);
+        PointArret depart = pointArretRepository.findPointArret(ligneObject.idDepartFk);
+        PointArret arrivee = pointArretRepository.findPointArret(ligneObject.idArriveeFk);
 
         
         Ligne ligne = new Ligne();
 
         ligne.setNom(ligneObject.nom);
-        ligne.setDepart(ligneObject.depart);
-        ligne.setArrivee(ligneObject.arrivee);
-
-        ligne.setDepart_longitude(ligneObject.depart_longitude);
-        ligne.setDepart_latitude(ligneObject.depart_latitude);
-        
-        ligne.setArrivee_longitude(ligneObject.arrivee_longitude);
-        ligne.setArrivee_latitude(ligneObject.arrivee_latitude);
+        ligne.setIdDepartFk(depart);
+        ligne.setIdArriveeFk(arrivee);
         ligne.setTarif(ligneObject.tarif);
 
         
@@ -86,12 +87,15 @@ public class LigneService {
             existingLigne.setNom(ligneObject.nom);
         }
 
-        if (ligneObject.depart != null) {
-            existingLigne.setDepart(ligneObject.depart);
-        }
+        if (ligneObject.idDepartFk != null) {
+            PointArret depart = pointArretRepository.findPointArret(ligneObject.idDepartFk);
 
-        if (ligneObject.arrivee != null) {
-            existingLigne.setArrivee(ligneObject.arrivee);
+            existingLigne.setIdDepartFk(depart);
+        }
+        if (ligneObject.idArriveeFk != null) {
+            PointArret arrivee = pointArretRepository.findPointArret(ligneObject.idArriveeFk);
+
+            existingLigne.setIdArriveeFk(arrivee);
         }
 
         // if (ligneObject.idTypeTransportFk != null) {
@@ -105,27 +109,6 @@ public class LigneService {
 
             existingLigne.setIdZoneFk(zone);
         }
-
-        if (ligneObject.depart_longitude != 0L) {
-           
-            existingLigne.setDepart_longitude(ligneObject.depart_longitude);
-        }
-
-        if (ligneObject.depart_latitude != 0L) {
-           
-            existingLigne.setDepart_latitude(ligneObject.depart_latitude);
-        }
-
-        if (ligneObject.arrivee_longitude != 0L) {
-           
-            existingLigne.setArrivee_longitude(ligneObject.arrivee_longitude);
-        }
-
-        if (ligneObject.arrivee_latitude != 0L) {
-           
-            existingLigne.setArrivee_latitude(ligneObject.arrivee_latitude);
-        }
-
 
         existingLigne.setStatut(true);
 

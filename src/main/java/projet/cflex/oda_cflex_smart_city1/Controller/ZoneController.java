@@ -24,7 +24,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController // This means that this class is a Controller
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/zones")
+@RequestMapping("/api/v1/zones")
 @Tag(name = "API Zone", description = "Api des services des zones")
 public class ZoneController {
 

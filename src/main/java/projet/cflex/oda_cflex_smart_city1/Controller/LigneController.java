@@ -25,7 +25,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/lignes")
+@RequestMapping("/api/v1/lignes")
 public class LigneController {
 
     @Autowired

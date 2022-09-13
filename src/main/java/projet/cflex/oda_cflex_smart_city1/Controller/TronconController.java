@@ -28,7 +28,7 @@ import projet.cflex.oda_cflex_smart_city1.Service.TronconService;
 
 
 @RestController // This means that this class is a Controller
-@RequestMapping("/api/Troncon")
+@RequestMapping("/api/v1/Troncon")
 @CrossOrigin(origins = "*", maxAge = 3600)
 @Tag(name = "API Troncon", description = "Api des services troncon")
 public class TronconController {

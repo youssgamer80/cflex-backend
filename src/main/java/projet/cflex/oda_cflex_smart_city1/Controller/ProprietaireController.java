@@ -23,7 +23,7 @@ import static org.springframework.http.HttpStatus.OK;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("api/proprietaire")
+@RequestMapping("api/v1/proprietaire")
 @RequiredArgsConstructor
 public class ProprietaireController {
     protected static SecureRandom random = new SecureRandom();

@@ -27,7 +27,7 @@ import projet.cflex.oda_cflex_smart_city1.exception.ResponseHandler;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RequestMapping("/api/Trackergpss")
+@RequestMapping("/api/v1/Trackergpss")
 public class TrackergpsController {
 
     @Autowired
